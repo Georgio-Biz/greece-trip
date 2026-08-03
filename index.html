@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<title>Greece 2026 — Batsinilas Family</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<style>
+  :root{
+    --bg:#ffffff; --bg2:#f5f5f7; --text:#1d1d1f; --text2:#6e6e73; --text3:#86868b;
+    --hair:#d2d2d7; --hair2:#e8e8ed; --blue:#0071e3; --flight:#0071e3; --ground:#ff9500;
+    --athens:#2E6FD6; --kythera:#0E9AA7; --mani:#7A8B32; --gold:#C08A2D;
+    --shadow:0 4px 24px rgba(0,0,0,.10); --shadow-sm:0 1px 3px rgba(0,0,0,.10);
+    --line:#e8e8ed; --line2:#d2d2d7; --card:#fff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{display:flex;flex-direction:column;height:100vh;background:var(--bg);color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+
+  header{padding:13px 22px 11px;background:rgba(255,255,255,.8);backdrop-filter:saturate(180%) blur(20px);
+    border-bottom:1px solid var(--hair);}
+  .h-title{font-size:19px;font-weight:600;letter-spacing:-.012em;color:var(--text)}
+  .h-sub{font-size:12.5px;color:var(--text2);margin-top:2px;letter-spacing:-.005em}
+
+  nav{display:flex;justify-content:center;padding:9px 12px;background:var(--bg);border-bottom:1px solid var(--hair2);position:relative}
+  .seg{display:inline-flex;flex-wrap:wrap;justify-content:center;background:var(--hair2);border-radius:10px;padding:3px;gap:2px;
+    -webkit-overflow-scrolling:touch}
+  .seg button{appearance:none;border:0;background:transparent;color:var(--text);
+    padding:6px 15px;font-size:13px;font-weight:500;cursor:pointer;border-radius:8px;letter-spacing:-.01em;transition:all .15s}
+  .seg button:hover{color:#000}
+  .seg button.active{background:#fff;box-shadow:var(--shadow-sm);font-weight:600}
+
+  #content{flex:1;min-height:0;position:relative}
+  .view{position:absolute;inset:0;overflow:auto;display:none;-webkit-overflow-scrolling:touch}
+  .view.active{display:block}
+
+  /* MAP */
+  #map{position:absolute;inset:0;background:#eef1f4}
+  .leaflet-container{background:#eef1f4;font-family:inherit}
+  .panel{position:absolute;z-index:500;background:rgba(255,255,255,.82);backdrop-filter:saturate(180%) blur(18px);
+    border:1px solid rgba(0,0,0,.06);border-radius:14px;box-shadow:var(--shadow)}
+  #legend{left:14px;bottom:18px;padding:13px 15px;font-size:12px;max-width:230px}
+  #legend h4{margin:0 0 9px;font-size:11px;letter-spacing:.04em;color:var(--text3);text-transform:uppercase;font-weight:600}
+  .lg{display:flex;align-items:center;gap:9px;margin:6px 0;color:var(--text)}
+  .dot{width:12px;height:12px;border-radius:50%;flex:0 0 auto;border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.12)}
+  .swatch{width:20px;height:0;border-top-width:3px;border-top-style:solid;flex:0 0 auto}
+  #stops{right:14px;top:14px;width:264px;max-height:calc(100% - 28px);overflow:auto;padding:6px}
+  #stops h4{margin:9px 11px 4px;font-size:11px;letter-spacing:.04em;color:var(--text3);text-transform:uppercase;font-weight:600}
+  .stop{display:flex;gap:11px;padding:9px 11px;border-radius:11px;cursor:pointer;align-items:flex-start;transition:background .12s}
+  .stop:hover{background:rgba(0,0,0,.045)}
+  .daybadge{flex:0 0 auto;width:34px;height:34px;border-radius:9px;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;font-weight:700;font-size:15px;color:#fff;line-height:1}
+  .stop .nm{font-weight:600;font-size:13.5px;letter-spacing:-.01em}
+  .stop .mt{font-size:11.5px;color:var(--text2);margin-top:2px}
+  .leaflet-popup-content-wrapper{background:#fff;color:var(--text);border-radius:14px;box-shadow:var(--shadow)}
+  .leaflet-popup-tip{background:#fff}
+  .leaflet-popup-content{margin:13px 15px;font-size:13px;line-height:1.5}
+  .pp-nm{font-weight:600;font-size:15px;margin-bottom:1px;letter-spacing:-.01em}
+  .pp-city{color:var(--text2);font-size:12px;margin-bottom:8px}
+  .pp-row{margin:3px 0}.pp-row b{color:var(--text3);font-weight:600}
+  .pp-tag{display:inline-block;font-size:10.5px;font-weight:600;color:#fff;padding:2px 8px;border-radius:6px;margin-bottom:7px}
+  .pin{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    color:#fff;font-weight:700;font-size:14px;border:2.5px solid #fff;box-shadow:0 1px 5px rgba(0,0,0,.35);cursor:pointer;transition:transform .1s}
+  .pin:hover{transform:scale(1.18)}
+  #mapfallback{display:none;position:absolute;inset:0;overflow:auto}
+
+  /* CONTENT PAGES */
+  .wrap{max-width:920px;margin:0 auto;padding:34px 22px 70px}
+  h2{font-weight:700;letter-spacing:-.02em;margin:0 0 5px;font-size:30px}
+  .lead{color:var(--text2);margin:0 0 26px;font-size:15px;line-height:1.5}
+  .h3{font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--text3);font-weight:600;margin:26px 0 12px}
+  .h3:first-of-type{margin-top:6px}
+  .tsum{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin:0 0 8px}
+  .tsum .box{background:var(--bg2);border-radius:16px;padding:16px 18px}
+  .tsum .lab{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--text3);font-weight:600}
+  .tsum .val{font-size:20px;font-weight:600;letter-spacing:-.01em;margin-top:5px}
+  .tsum .val small{font-size:13px;color:var(--text2);font-weight:400}
+  .jgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:0 0 10px}
+  .jcard{background:var(--bg2);border-radius:16px;padding:16px 18px}
+  .jcard h4{margin:0 0 8px;font-size:14px;font-weight:600}
+  .jcard ul{margin:0;padding-left:17px}.jcard li{font-size:12.5px;margin:6px 0;line-height:1.5}
+  .jcard .big{font-weight:600;font-size:14.5px;margin-top:3px}
+  .jtbl{width:100%;border-collapse:collapse;font-size:13px;margin:0 0 8px}
+  .jtbl th{text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--text3);font-weight:600;padding:0 10px 8px;border-bottom:1px solid var(--hair)}
+  .jtbl td{padding:10px;border-bottom:1px solid var(--hair2);vertical-align:top}
+  .jtbl tr:last-child td{border-bottom:0}
+  .jtbl td:first-child{font-weight:600}
+  .cav{background:var(--bg2);border-radius:16px;padding:6px 20px 8px;margin:0 0 12px}
+  .cav li{font-size:13px;color:var(--text);line-height:1.55;margin:11px 0}
+  .cav li b{font-weight:600}
+  .rec{background:#eff6ee;border:1px solid #cfe6cf;border-radius:12px;padding:11px 15px;font-size:13px;line-height:1.5;margin:0 0 10px}
+  .tbc{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.04em;color:#8a5a1a;background:#fff6ec;border:1px solid #f2e2cf;border-radius:6px;padding:2px 7px;vertical-align:middle}
+  .chip{font-size:10.5px;font-weight:600;color:#fff;padding:3px 9px;border-radius:7px;white-space:nowrap}
+
+  /* itinerary accordion */
+  .acc{border:1px solid var(--hair);border-radius:16px;margin:0 0 12px;background:#fff;box-shadow:var(--shadow-sm);overflow:hidden}
+  .acc-hd{display:flex;align-items:center;gap:13px;padding:14px 16px;cursor:pointer;user-select:none}
+  .acc-hd:hover{background:rgba(0,0,0,.025)}
+  .acc-hd .chev{margin-left:auto;color:var(--text3);transition:transform .2s;font-size:12px}
+  .acc.open .acc-hd .chev{transform:rotate(90deg)}
+  .acc-bd{display:none;padding:4px 16px 16px}
+  .acc.open .acc-bd{display:block}
+  .acc-nm{font-weight:600;font-size:15.5px;letter-spacing:-.01em}
+  .acc-sub{font-size:12px;color:var(--text2);margin-top:1px}
+  .ddate{flex:0 0 auto;width:54px;height:48px;border-radius:11px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:700;font-size:17px;color:#fff;line-height:1}
+  .ddate small{font-size:8px;font-weight:600;opacity:.9;text-transform:uppercase;letter-spacing:.02em;margin-top:2px;white-space:nowrap}
+  .kv{font-size:12.5px;margin:6px 0;line-height:1.5}.kv b{color:var(--text3);font-weight:600}
+  .kv a{color:var(--blue)}
+
+  /* wedding hero cards */
+  .wed{border:1px solid var(--hair);border-radius:20px;overflow:hidden;background:#fff;box-shadow:var(--shadow-sm);margin:0 0 18px}
+  .wed-hd{padding:22px 22px 18px;color:#fff}
+  .wed-hd .wk{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;opacity:.85}
+  .wed-hd .wn{font-size:24px;font-weight:700;letter-spacing:-.015em;margin-top:4px}
+  .wed-hd .wd{font-size:14px;font-weight:500;margin-top:5px;opacity:.95}
+  .wed-bd{padding:16px 22px 20px}
+  .wgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+  .wcell{background:var(--bg2);border-radius:12px;padding:11px 13px}
+  .wcell small{display:block;font-size:9.5px;color:var(--text3);text-transform:uppercase;letter-spacing:.04em;font-weight:600;margin-bottom:3px}
+  .wcell span{font-size:13.5px;font-weight:600;line-height:1.4}
+
+  /* budget table */
+  .ptbl{width:100%;border-collapse:collapse;font-size:12.5px}
+  .ptbl th{text-align:right;font-weight:600;color:var(--text3);font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;padding:0 8px 6px;border-bottom:1px solid var(--line)}
+  .ptbl th:first-child{text-align:left}
+  .ptbl td{padding:8px;border-bottom:1px solid var(--line);text-align:right;vertical-align:middle;font-variant-numeric:tabular-nums}
+  .ptbl td.pi{text-align:left}
+  .ptbl td.pi b{display:block;font-weight:600;font-size:12.5px}
+  .ptbl td.pi small{display:block;color:var(--text3);font-size:10.5px;margin-top:1px}
+  .ptbl tfoot td{border-bottom:none;border-top:2px solid var(--line);font-weight:700;padding-top:9px}
+  .st{font-size:10px;font-weight:700;border-radius:6px;padding:2px 7px;white-space:nowrap}
+  .st.paid{color:#0a8a3c;background:rgba(10,138,60,.1)}
+  .st.dep{color:#c77700;background:rgba(199,119,0,.1)}
+  .st.due{color:#c0392b;background:rgba(192,57,43,.09)}
+  .st.tbc{color:var(--text3);background:var(--hair2)}
+
+  .countrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:0 0 26px}
+  .count{border-radius:18px;padding:18px;color:#fff;box-shadow:var(--shadow-sm)}
+  .count .cl{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;opacity:.85}
+  .count .cd{font-size:34px;font-weight:700;letter-spacing:-.02em;margin-top:6px;line-height:1}
+  .count .cd small{font-size:13px;font-weight:500;opacity:.9}
+  .count .cs{font-size:12px;margin-top:6px;opacity:.92}
+
+  @media(max-width:640px){
+    #stops{display:none}#legend{max-width:170px;font-size:11px}
+    h2{font-size:24px}.h-sub{font-size:11.5px}
+    .seg button{padding:6px 11px;font-size:12px}
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="h-title">Greece 2026 🇬🇷</div>
+  <div class="h-sub">Family holiday · Diana’s wedding, Kythera 23 Aug · Evangelo &amp; Christina’s wedding, Mani 8 Sep</div>
+</header>
+<nav><div class="seg">
+  <button class="active" data-view="home">Home</button>
+  <button data-view="itinerary">Itinerary</button>
+  <button data-view="map">Map</button>
+  <button data-view="weddings">Weddings</button>
+  <button data-view="bookings">Bookings</button>
+  <button data-view="eatdo">Eat &amp; Do</button>
+  <button data-view="info">Info</button>
+</div></nav>
+
+<div id="content">
+  <section id="view-home" class="view active"><div class="wrap" id="home"></div></section>
+  <section id="view-itinerary" class="view"><div class="wrap" id="itin"></div></section>
+  <section id="view-map" class="view">
+    <div id="map"></div>
+    <div id="stops" class="panel"></div>
+    <div id="legend" class="panel"></div>
+    <div id="mapfallback"><div class="wrap" id="mapfb"></div></div>
+  </section>
+  <section id="view-weddings" class="view"><div class="wrap" id="weddings"></div></section>
+  <section id="view-bookings" class="view"><div class="wrap" id="bookings"></div></section>
+  <section id="view-eatdo" class="view"><div class="wrap" id="eatdo"></div></section>
+  <section id="view-info" class="view"><div class="wrap" id="info"></div></section>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+/* ================= DATA — edit these objects, everything renders from them ================= */
+
+const RATE = 0.60; // AUD → EUR, indicative
+const fmtA = n => 'A$' + n.toLocaleString('en-AU', {maximumFractionDigits:0});
+const fmtE = n => '€' + Math.round(n*RATE).toLocaleString('en-AU');
+
+const PLACES = {
+  athens :{name:'Athens',  color:'#2E6FD6'},
+  kythera:{name:'Kythera', color:'#0E9AA7'},
+  mani   :{name:'Mani',    color:'#7A8B32'},
+};
+
+const FAMILY = [
+  {who:'Georgio', note:''},
+  {who:'Wife', note:'Pregnant — trip planned around comfort: no long ferry crossings if avoidable, easy days, good medical info per stop'},
+  {who:'Kid 1', note:'Details to confirm'},
+  {who:'Kid 2', note:'Details to confirm'},
+];
+
+const WEDDINGS = [
+  {key:'diana', name:'Diana’s Wedding', color:'linear-gradient(135deg,#0E9AA7,#15b3c2)',
+   date:'Sunday 23 August 2026', dateISO:'2026-08-23', place:'Kythera', tbc:true,
+   cells:[
+     ['Ceremony','TBC'], ['Reception','TBC'], ['Venue','TBC'], ['Dress code','TBC'],
+     ['Getting there','Flying Kythera → Athens after — flight details coming'], ['Gift','TBC'],
+   ],
+   events:[], contacts:[]},
+  {key:'evangelo', name:'Evangelo & Christina', color:'linear-gradient(135deg,#7A8B32,#94a63e)',
+   date:'Tuesday 8 September 2026', dateISO:'2026-09-08', place:'Mani', tbc:true, hero:true,
+   sub:'Georgio’s brother — the big one',
+   cells:[
+     ['Ceremony','TBC'], ['Reception','TBC'], ['Venue','TBC — Mani'], ['Dress code','TBC'],
+     ['Transport','Hire car — Athens vs Kythera pickup comparison to come'], ['Gift','TBC'],
+   ],
+   events:[], contacts:[]},
+];
+
+/* Day-by-day. status: 'set' | 'tbc'. Add days as the route firms up. */
+const ITIN = [
+  {d:'TBC Aug', place:'athens', title:'Arrive Greece', sub:'Flights from Australia — details coming',
+   legs:[['Arrival','Land in Athens (assumed) — flight details to be added']], tbc:true},
+  {d:'~20–23 Aug', place:'kythera', title:'Kythera — wedding week', sub:'Diana’s wedding Sunday 23 Aug',
+   legs:[['Getting in','How we arrive on Kythera — TBC (flight or ferry via Neapoli)'],
+         ['Sun 23 Aug','💍 Diana’s wedding'],
+         ['After','Flight Kythera → Athens — confirmation coming']], tbc:true},
+  {d:'24 Aug – 5 Sep', place:'athens', title:'Middle stretch', sub:'Athens + wherever we point the car — to be mapped',
+   legs:[['Open','~12 days between the two weddings — Athens base, Peloponnese road trip, or an island. To plan.']], tbc:true},
+  {d:'~5–9 Sep', place:'mani', title:'Mani — wedding week', sub:'Evangelo & Christina, Tuesday 8 Sep',
+   legs:[['Drive down','Athens → Mani is ~3.5–4 h via Kalamata or Sparta — easy with stops'],
+         ['Tue 8 Sep','💍 Evangelo & Christina’s wedding'],
+         ['After','Recovery day, then back to Athens']], tbc:true},
+  {d:'TBC Sep', place:'athens', title:'Fly home', sub:'Return flights — details coming', legs:[], tbc:true},
+];
+
+/* Map pins */
+const STOPS = [
+  {city:'Athens', region:'athens', ll:[37.9838,23.7275], n:'1', kind:'Arrival hub · base between weddings',
+   rows:[['Airport','ATH Eleftherios Venizelos'],['Role','Fly in/out · car hire option A']]},
+  {city:'Kythera (Chora)', region:'kythera', ll:[36.1489,22.9888], n:'2', kind:'Diana’s wedding · 23 Aug',
+   rows:[['Airport','KIT (Alexandros Onassis) — 35 min hop to Athens'],['Ferry','Diakofti ↔ Neapoli ~1h15'],['Role','Wedding No. 1 · car hire option B']]},
+  {city:'Diakofti', region:'kythera', ll:[36.2735,23.0790], n:'·', kind:'Kythera ferry port + airport side',
+   rows:[['Note','Port and airport are both on the NE side of the island']]},
+  {city:'Areopoli', region:'mani', ll:[36.6642,22.3830], n:'3', kind:'Mani — wedding base',
+   rows:[['Drive','~4 h from Athens · ~1 h from Kalamata airport'],['Role','Wedding No. 2 · 8 Sep']]},
+  {city:'Limeni', region:'mani', ll:[36.6829,22.3821], n:'·', kind:'Postcard fishing village next to Areopoli',
+   rows:[['Note','Turquoise water, waterfront tavernas — likely dinner spot']]},
+  {city:'Gythio', region:'mani', ll:[36.7580,22.5657], n:'·', kind:'Gateway town to the Mani',
+   rows:[['Note','Seafront town on the way in — good lunch stop']]},
+];
+
+const LEGS = [
+  {from:[37.9838,23.7275], to:[36.1489,22.9888], mode:'flight', label:'Athens ↔ Kythera · 35 min flight (or ferry via Neapoli)'},
+  {from:[37.9838,23.7275], to:[36.6642,22.3830], mode:'ground', label:'Athens → Mani · ~3.5–4 h drive'},
+];
+
+/* Bookings — add each as confirmed. cur amounts in AUD. status: paid | dep | due | tbc */
+const BOOKINGS = {
+  flights:[
+    {name:'Australia ↔ Athens', detail:'International flights — details to be added', aud:null, status:'tbc'},
+    {name:'Kythera → Athens', detail:'Post-wedding hop — Georgio attaching confirmation', aud:null, status:'tbc'},
+  ],
+  hotels:[
+    {name:'Kythera stay', detail:'Around Diana’s wedding — to book', aud:null, status:'tbc'},
+    {name:'Athens / middle stretch', detail:'To plan', aud:null, status:'tbc'},
+    {name:'Mani stay', detail:'Around Evangelo & Christina’s wedding — to book', aud:null, status:'tbc'},
+  ],
+  transport:[
+    {name:'Hire car', detail:'Athens pickup vs Kythera pickup — comparison to come', aud:null, status:'tbc'},
+  ],
+};
+
+/* Eat & Do — starter picks, all suggestions until we vet them */
+const EATDO = {
+  kythera:[
+    ['Avlemonas','Tiny white-and-blue fishing village, swimming coves between the rocks — the postcard stop'],
+    ['Kaladi Beach','The famous one — pebbles, arch rock, steps down. Go early with the kids'],
+    ['Chora & the Venetian castle','Sunset from the kastro over the harbour'],
+    ['Mylopotamos & waterfall','Shaded village walk to the Neraida waterfall — easy with kids'],
+    ['Local honey & rusks','Kythera’s thyme honey (fatourada liqueur for the non-pregnant)'],
+  ],
+  mani:[
+    ['Limeni','Turquoise bay, tavernas on the water — eat grilled octopus where it was caught'],
+    ['Diros Caves','Boat ride through a sea cave — genuinely great with kids, cool on a hot day'],
+    ['Vathia','Ghost village of stone tower houses near the tip of the peninsula'],
+    ['Cape Tainaron','Southernmost point of mainland Greece — lighthouse walk'],
+    ['Gerolimenas','Sleepy harbour village for a long slow lunch'],
+  ],
+  athens:[
+    ['Acropolis — early','Book the 8 am slot, beat the heat, done by 10'],
+    ['Plaka & Anafiotika','Wander the island-style lanes below the Acropolis'],
+    ['National Garden','Shade, turtles, playground — pram-friendly reset for the kids'],
+    ['Varvakios / central market','Fruit + souvlaki lunch culture'],
+  ],
+};
+
+/* ================= RENDER ================= */
+const $ = id => document.getElementById(id);
+
+/* ---- HOME ---- */
+function days(iso){ return Math.ceil((new Date(iso+'T00:00:00') - new Date())/86400000); }
+$('home').innerHTML =
+ '<h2>The trip at a glance</h2>'+
+ '<p class="lead">One family holiday, two weddings. Kythera for Diana on 23 August, then the Mani for Evangelo &amp; Christina on 8 September — with a big open stretch in between to enjoy Greece properly.</p>'+
+ '<div class="countrow">'+
+   `<div class="count" style="background:linear-gradient(135deg,#0E9AA7,#15b3c2)"><div class="cl">Diana · Kythera</div><div class="cd">${days('2026-08-23')}<small> days</small></div><div class="cs">Sunday 23 August</div></div>`+
+   `<div class="count" style="background:linear-gradient(135deg,#7A8B32,#94a63e)"><div class="cl">Evangelo &amp; Christina · Mani</div><div class="cd">${days('2026-09-08')}<small> days</small></div><div class="cs">Tuesday 8 September</div></div>`+
+ '</div>'+
+ '<div class="h3">Who’s going</div><div class="jgrid">'+
+   FAMILY.map(f=>`<div class="jcard"><h4>${f.who}</h4>${f.note?`<ul><li>${f.note}</li></ul>`:''}</div>`).join('')+
+ '</div>'+
+ '<div class="h3">The shape of it</div>'+
+ '<div class="cav"><ul>'+
+   '<li><b>Wedding No. 1 — Diana, Kythera, Sun 23 Aug.</b> We fly Kythera → Athens afterwards (flight being confirmed).</li>'+
+   '<li><b>Wedding No. 2 — Evangelo &amp; Christina, the Mani, Tue 8 Sep.</b> Georgio’s brother. ~4 h drive from Athens.</li>'+
+   '<li><b>In between:</b> roughly 12 open days — still being mapped.</li>'+
+   '<li><b>Wheels:</b> hiring a car; comparing Athens vs Kythera pickup once the route is locked.</li>'+
+   '<li><b>Budget:</b> hotels, cars and the big items are tracked on the Bookings tab.</li>'+
+ '</ul></div>';
+
+/* ---- ITINERARY ---- */
+$('itin').innerHTML =
+ '<h2>Itinerary</h2><p class="lead">The backbone — anchored on the two weddings. Grey badges are still to lock in. Tap a block to expand.</p>'+
+ ITIN.map(d=>{const col=PLACES[d.place].color;return `<div class="acc"><div class="acc-hd">`+
+   `<div class="ddate" style="background:${col}">${d.d.replace(/ .*/,'').replace('~','')}<small>${(d.d.match(/ (.*)/)||['',''])[1]}</small></div>`+
+   `<div><div class="acc-nm">${d.title} ${d.tbc?'<span class="tbc">TBC</span>':''}</div><div class="acc-sub">${d.sub}</div></div>`+
+   `<div class="chev">▶</div></div><div class="acc-bd">`+
+   (d.legs.length?d.legs.map(l=>`<div class="kv"><b>${l[0]}:</b> ${l[1]}</div>`).join(''):'<div class="kv">Nothing locked yet.</div>')+
+ `</div></div>`;}).join('');
+
+/* ---- WEDDINGS ---- */
+$('weddings').innerHTML =
+ '<h2>The weddings</h2><p class="lead">Two celebrations, two coasts. Details fill in here as they’re confirmed — dress codes, venues, timings, related events.</p>'+
+ WEDDINGS.map(w=>`<div class="wed"><div class="wed-hd" style="background:${w.color}">`+
+   `<div class="wk">${w.place} · ${w.date}</div><div class="wn">💍 ${w.name}</div>${w.sub?`<div class="wd">${w.sub}</div>`:''}`+
+ `</div><div class="wed-bd"><div class="wgrid">`+
+   w.cells.map(c=>`<div class="wcell"><small>${c[0]}</small><span>${c[1]==='TBC'?'<span class="tbc">TBC</span>':c[1]}</span></div>`).join('')+
+ `</div></div></div>`).join('')+
+ '<div class="rec">Know a detail that’s missing (venue, times, dress code, welcome drinks)? Send it to Georgio and it goes up same day.</div>';
+
+/* ---- BOOKINGS + BUDGET ---- */
+const stBadge = s => ({paid:'<span class="st paid">PAID</span>',dep:'<span class="st dep">DEPOSIT</span>',due:'<span class="st due">TO PAY</span>',tbc:'<span class="st tbc">TBC</span>'})[s];
+function bkTable(rows){
+  return '<table class="ptbl"><thead><tr><th>Item</th><th>AUD</th><th>EUR</th><th>Status</th></tr></thead><tbody>'+
+    rows.map(r=>`<tr><td class="pi"><b>${r.name}</b><small>${r.detail}${r.conf?` · Conf #${r.conf}`:''}</small></td>`+
+      `<td>${r.aud!=null?fmtA(r.aud):'—'}</td><td>${r.aud!=null?fmtE(r.aud):'—'}</td><td>${stBadge(r.status)}</td></tr>`).join('')+
+    '</tbody></table>';
+}
+const allB=[...BOOKINGS.flights,...BOOKINGS.hotels,...BOOKINGS.transport];
+const spent=allB.filter(b=>b.aud!=null&&b.status==='paid').reduce((a,b)=>a+b.aud,0);
+const committed=allB.filter(b=>b.aud!=null).reduce((a,b)=>a+b.aud,0);
+$('bookings').innerHTML =
+ '<h2>Bookings &amp; budget</h2><p class="lead">Everything confirmed lives here with cost and payment status. Sensitive details (PINs, passport numbers, card digits) stay off this page — ask Georgio.</p>'+
+ '<div class="tsum">'+
+   `<div class="box"><div class="lab">Paid so far</div><div class="val">${fmtA(spent)} <small>${fmtE(spent)}</small></div></div>`+
+   `<div class="box"><div class="lab">Committed total</div><div class="val">${fmtA(committed)} <small>${fmtE(committed)}</small></div></div>`+
+   `<div class="box"><div class="lab">FX guide</div><div class="val">A$1 ≈ €${RATE.toFixed(2)}</div></div>`+
+ '</div>'+
+ '<div class="h3">Flights</div>'+bkTable(BOOKINGS.flights)+
+ '<div class="h3">Hotels</div>'+bkTable(BOOKINGS.hotels)+
+ '<div class="h3">Car hire &amp; transport</div>'+bkTable(BOOKINGS.transport)+
+ '<div class="rec">A shared budget sheet (Google Sheets) will link here once the first bookings land — that’s where running costs get split and tracked.</div>';
+
+/* ---- EAT & DO ---- */
+$('eatdo').innerHTML =
+ '<h2>Eat &amp; do</h2><p class="lead">Starter list per stop — suggestions until we’ve vetted them. Send your must-dos and they get added.</p>'+
+ Object.entries(EATDO).map(([k,items])=>
+   `<div class="h3" style="color:${PLACES[k].color}">${PLACES[k].name}</div><div class="jgrid">`+
+   items.map(i=>`<div class="jcard"><h4>${i[0]}</h4><ul><li>${i[1]}</li></ul></div>`).join('')+'</div>').join('');
+
+/* ---- INFO ---- */
+$('info').innerHTML =
+ '<h2>Info &amp; essentials</h2><p class="lead">The on-the-ground basics for Greece — save this to your phone before flying.</p>'+
+ '<div class="h3">Emergency</div><div class="jgrid">'+
+   '<div class="jcard"><h4>Greece</h4><ul><li>Everything: <b>112</b> (EU-wide, English spoken)</li><li>Police <b>100</b> · Ambulance <b>166</b> · Fire <b>199</b></li><li>Tourist police <b>1571</b></li></ul></div>'+
+   '<div class="jcard"><h4>Pregnancy &amp; medical</h4><ul><li>Kythera has a small general hospital in Potamos; serious cases transfer to Athens</li><li>Mani: nearest hospitals are Sparta &amp; Kalamata (~1 h from Areopoli)</li><li>Pharmacies (φαρμακείο, green cross) are excellent and everywhere — pharmacists can prescribe for minor things</li><li>Carry the maternity record; EU standard of care is good in Athens</li></ul></div>'+
+   '<div class="jcard"><h4>Australian help</h4><ul><li>Embassy Athens: <b>+30 210 870 4000</b>, 5 Hatziyianni Mexi St</li><li>DFAT 24 h consular line: <b>+61 2 6261 3305</b></li><li>Register at smartraveller.gov.au</li></ul></div>'+
+ '</div>'+
+ '<div class="h3">Money · power · time</div><div class="jgrid">'+
+   '<div class="jcard"><h4>Currency</h4><ul><li>Euro € — A$1 ≈ €0.60</li><li>Cards accepted everywhere by law, but carry ~€100 cash for island tavernas, kiosks and church candles</li><li>Tipping: round up or ~5–10% at tavernas — appreciated, never expected</li></ul></div>'+
+   '<div class="jcard"><h4>Power</h4><ul><li>230 V, plug type C/F (two round pins — standard Europe)</li><li>One universal adapter per couple + a powerboard trick: one adapter, Aussie powerboard, everything charges</li></ul></div>'+
+   '<div class="jcard"><h4>Time &amp; season</h4><ul><li>Greece = UTC+3 in summer — <b>7 h behind Brisbane</b></li><li>Late Aug/early Sep: 28–33°C days, warm sea, cooler Mani evenings — the sweet spot</li></ul></div>'+
+ '</div>'+
+ '<div class="h3">Phones &amp; apps</div><div class="jgrid">'+
+   '<div class="jcard"><h4>SIM / eSIM</h4><ul><li>eSIM before you fly (Airalo/Holafly) or a Cosmote/Vodafone tourist SIM at ATH arrivals</li><li>Cosmote has the best island coverage incl. Kythera + Mani</li></ul></div>'+
+   '<div class="jcard"><h4>Useful apps</h4><ul><li>Google Maps works great (unlike China!)</li><li>FerryHopper — every Greek ferry in one app</li><li>Beat / Uber (taxis, Athens only)</li></ul></div>'+
+   '<div class="jcard"><h4>Driving</h4><ul><li>Aussie licence + IDP recommended</li><li>Right-hand side! Mountain roads in Mani are narrow but sealed and quiet</li><li>Kids need proper child seats by law — book them with the hire car</li></ul></div>'+
+ '</div>'+
+ '<div class="h3">Handy Greek</div><table class="jtbl"><thead><tr><th>English</th><th>Ελληνικά · say it</th></tr></thead><tbody>'+
+   [['Hello / bye','Γεια σου · YAH-soo'],['Good morning','Καλημέρα · kah-lee-MEH-rah'],['Thank you','Ευχαριστώ · ef-hah-ree-STOH'],['Please / you’re welcome','Παρακαλώ · pah-rah-kah-LOH'],['Yes / No','Ναι / Όχι · neh / OH-hee'],['Cheers!','Γεια μας! · YAH-mas'],['Congratulations! (weddings)','Να ζήσετε! · nah ZEE-seh-teh'],['How much?','Πόσο κάνει; · POH-soh KAH-nee'],['Delicious','Πολύ νόστιμο · poh-LEE NOH-stee-moh'],['Water','Νερό · neh-ROH'],['The bill, please','Τον λογαριασμό · ton loh-gah-ryahs-MOH'],['Where is…?','Πού είναι…; · poo EE-neh'],['We’re from Australia','Είμαστε από την Αυστραλία · EE-mah-steh ah-POH teen af-strah-LEE-ah']].map(r=>`<tr><td>${r[0]}</td><td style="color:var(--text2)">${r[1]}</td></tr>`).join('')+
+ '</tbody></table>'+
+ '<div class="h3">The places</div><div class="jgrid">'+
+   '<div class="jcard"><h4>Kythera Κύθηρα</h4><ul><li>The “island where Aphrodite was born” — hangs off the bottom of the Peloponnese</li><li>Big Greek-Australian connection: so many locals emigrated to Australia it’s nicknamed “Kangaroo Island”</li><li>Quiet, unspoiled, no mass tourism — villages, gorges, waterfalls and serious beaches</li><li>Flight to Athens is ~35 min; ferry to Neapoli ~1h15</li></ul></div>'+
+   '<div class="jcard"><h4>The Mani Μάνη</h4><ul><li>Wild middle finger of the Peloponnese — stone tower houses, cypress, deep-blue coves</li><li>Maniots claim descent from the Spartans and never fully submitted to the Ottomans</li><li>Limeni + Areopoli are the postcard duo; Diros Caves the family hit</li><li>~4 h drive from Athens via Kalamata or Sparta</li></ul></div>'+
+   '<div class="jcard"><h4>Athens Αθήνα</h4><ul><li>Arrival hub and likely base for chunks of the middle stretch</li><li>Acropolis early morning with kids, National Garden for the afternoon</li><li>ATH airport is 35–45 min from the centre (metro or taxi ~€40 flat)</li></ul></div>'+
+ '</div>';
+
+/* ---- MAP ---- */
+try{
+  const map=L.map('map',{zoomControl:true,minZoom:5}).setView([37.2,23.0],7);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
+    {attribution:'© OpenStreetMap · © CARTO',subdomains:'abcd',maxZoom:19}).addTo(map);
+  const allPts=[],markerByCity={};
+  LEGS.forEach(s=>{const g=s.mode==='ground';L.polyline([s.from,s.to],{color:g?'#ff9500':'#0071e3',weight:g?3:2.6,opacity:.92,dashArray:g?null:'3,7'}).addTo(map).bindTooltip(s.label,{sticky:true});});
+  STOPS.forEach(s=>{
+    const col=PLACES[s.region].color, small=s.n==='·';
+    const icon=L.divIcon({className:'',iconSize:small?[16,16]:[28,28],iconAnchor:small?[8,8]:[14,14],
+      html:small?`<div style="width:14px;height:14px;border-radius:50%;background:${col};border:2.5px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.3)"></div>`
+                :`<div class="pin" style="background:${col}">${s.n}</div>`});
+    const m=L.marker(s.ll,{icon}).addTo(map);
+    const html=`<span class="pp-tag" style="background:${col}">${PLACES[s.region].name}</span><div class="pp-nm">${s.city}</div><div class="pp-city">${s.kind}</div>`+
+      s.rows.map(r=>`<div class="pp-row"><b>${r[0]}:</b> ${r[1]}</div>`).join('');
+    m.bindPopup(html); markerByCity[s.city]=m; allPts.push(s.ll);
+  });
+  const bounds=L.latLngBounds(allPts).pad(.18);
+  map.fitBounds(bounds,{animate:false}); window._bounds=bounds;
+  let h='<h4>Stops</h4>';
+  STOPS.filter(s=>s.n!=='·').forEach(s=>{const col=PLACES[s.region].color;
+    h+=`<div class="stop" data-c="${s.city}"><div class="daybadge" style="background:${col}">${s.n}</div><div><div class="nm">${s.city}</div><div class="mt">${s.kind}</div></div></div>`;});
+  $('stops').innerHTML=h;
+  document.querySelectorAll('#stops .stop').forEach(el=>el.onclick=()=>{const m=markerByCity[el.dataset.c];map.flyTo(m.getLatLng(),10,{duration:.6});m.openPopup();});
+  $('legend').innerHTML='<h4>Legend</h4>'+
+    Object.values(PLACES).map(p=>`<div class="lg"><span class="dot" style="background:${p.color}"></span>${p.name}</div>`).join('')+
+    '<div class="lg"><span class="swatch" style="border-top-color:#0071e3;border-top-style:dashed"></span>Flight</div>'+
+    '<div class="lg"><span class="swatch" style="border-top-color:#ff9500"></span>Drive</div>';
+  window._map=map;
+}catch(e){
+  $('mapfallback').style.display='block';
+  $('mapfb').innerHTML='<h2>The route</h2><p class="lead">Map couldn’t load — here are the stops.</p>'+
+    STOPS.map(s=>`<div class="jcard" style="margin-bottom:10px"><h4>${s.city} — ${PLACES[s.region].name}</h4><ul><li>${s.kind}</li>${s.rows.map(r=>`<li><b>${r[0]}:</b> ${r[1]}</li>`).join('')}</ul></div>`).join('');
+}
+
+/* accordions */
+document.querySelectorAll('.acc-hd').forEach(hd=>hd.addEventListener('click',()=>hd.parentElement.classList.toggle('open')));
+document.querySelector('.acc')?.classList.add('open');
+
+/* tab nav */
+document.querySelectorAll('.seg button').forEach(b=>{
+  b.onclick=()=>{
+    document.querySelectorAll('.seg button').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    $('view-'+b.dataset.view).classList.add('active');
+    if(b.dataset.view==='map'&&window._map){
+      const fit=()=>{window._map.invalidateSize();
+        if(window._bounds)window._map.fitBounds(window._bounds,{animate:false});};
+      setTimeout(fit,60);
+      setTimeout(()=>{fit();window._bounds=null;},450);
+    }
+  };
+});
+</script>
+</body>
+</html>
