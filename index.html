@@ -156,7 +156,7 @@
 <body>
 <header>
   <div class="h-title">Greece 2026 🇬🇷</div>
-  <div class="h-sub">Family holiday · Diana’s wedding, Kythera 23 Aug · Evangelo &amp; Christina’s wedding, Mani 8 Sep</div>
+  <div class="h-sub">Family holiday · Diana’s wedding, Athens 23 Aug · Evangelo &amp; Christina’s wedding, Mani 8 Sep</div>
 </header>
 <nav><div class="seg">
   <button class="active" data-view="home">Home</button>
@@ -206,10 +206,13 @@ const FAMILY = [
 
 const WEDDINGS = [
   {key:'diana', name:'Diana’s Wedding', color:'linear-gradient(135deg,#0E9AA7,#15b3c2)',
-   date:'Sunday 23 August 2026', dateISO:'2026-08-23', place:'Kythera', tbc:true,
+   date:'Sunday 23 August 2026', dateISO:'2026-08-23', place:'Athens', tbc:true,
    cells:[
-     ['Ceremony','TBC'], ['Reception','TBC'], ['Venue','TBC'], ['Dress code','TBC'],
-     ['Getting there','Flying Kythera → Athens after — flight details coming'], ['Gift','TBC'],
+     ['Ceremony','TBC'], ['Reception','TBC'], ['Venue','TBC — Athens'], ['Dress code','TBC'],
+     ['Who’s going','Georgio + Diana — quick hop from Kythera; the family stays on the island'],
+     ['Flight there','Sat 22 Aug · Sky Express GQ441 · Kythera 22:40 → Athens 23:30 · ref IH3MJ6'],
+     ['Flight back','Mon 24 Aug · Olympic Air OA042 · Athens 07:35 → Kythera 08:35 · ref EZOECT'],
+     ['Gift','TBC'],
    ],
    events:[], contacts:[]},
   {key:'evangelo', name:'Evangelo & Christina', color:'linear-gradient(135deg,#7A8B32,#94a63e)',
@@ -226,12 +229,15 @@ const WEDDINGS = [
 const ITIN = [
   {d:'TBC Aug', place:'athens', title:'Arrive Greece', sub:'Flights from Australia — details coming',
    legs:[['Arrival','Land in Athens (assumed) — flight details to be added']], tbc:true},
-  {d:'~20–23 Aug', place:'kythera', title:'Kythera — wedding week', sub:'Diana’s wedding Sunday 23 Aug',
-   legs:[['Getting in','How we arrive on Kythera — TBC (flight or ferry via Neapoli)'],
-         ['Sun 23 Aug','💍 Diana’s wedding'],
-         ['After','Flight Kythera → Athens — confirmation coming']], tbc:true},
-  {d:'24 Aug – 5 Sep', place:'athens', title:'Middle stretch', sub:'Athens + wherever we point the car — to be mapped',
-   legs:[['Open','~12 days between the two weddings — Athens base, Peloponnese road trip, or an island. To plan.']], tbc:true},
+  {d:'~by 22 Aug', place:'kythera', title:'Kythera — island base', sub:'Family settled in before the wedding weekend',
+   legs:[['Getting in','How and when we arrive on Kythera — TBC (fly via Athens, or ferry from Neapoli ~1h15)']], tbc:true},
+  {d:'22–24 Aug', place:'athens', title:'Athens wedding hop — Georgio & Diana', sub:'💍 Diana’s wedding Sunday 23 Aug · family stays on Kythera',
+   legs:[['Sat 22 · 22:40','✈ Sky Express GQ441 · Kythera → Athens, lands 23:30 (ref IH3MJ6)'],
+         ['Sun 23 Aug','💍 Diana’s wedding — venue & times TBC'],
+         ['Mon 24 · 07:35','✈ Olympic Air OA042 · Athens → Kythera, lands 08:35 (ref EZOECT) — back with the family for breakfast'],
+         ['Packing note','⚠ Return flight has no checked bag — 8 kg carry-on only, so pack the wedding outfit light']]},
+  {d:'24 Aug – 5 Sep', place:'kythera', title:'Middle stretch', sub:'Kythera + the road to Mani — to be mapped',
+   legs:[['Open','~12 days between the weddings. Natural route to Mani: ferry Diakofti → Neapoli (~1h15), then ~2.5 h drive to Areopoli. To plan.']], tbc:true},
   {d:'~5–9 Sep', place:'mani', title:'Mani — wedding week', sub:'Evangelo & Christina, Tuesday 8 Sep',
    legs:[['Drive down','Athens → Mani is ~3.5–4 h via Kalamata or Sparta — easy with stops'],
          ['Tue 8 Sep','💍 Evangelo & Christina’s wedding'],
@@ -241,10 +247,10 @@ const ITIN = [
 
 /* Map pins */
 const STOPS = [
-  {city:'Athens', region:'athens', ll:[37.9838,23.7275], n:'1', kind:'Arrival hub · base between weddings',
-   rows:[['Airport','ATH Eleftherios Venizelos'],['Role','Fly in/out · car hire option A']]},
-  {city:'Kythera (Chora)', region:'kythera', ll:[36.1489,22.9888], n:'2', kind:'Diana’s wedding · 23 Aug',
-   rows:[['Airport','KIT (Alexandros Onassis) — 35 min hop to Athens'],['Ferry','Diakofti ↔ Neapoli ~1h15'],['Role','Wedding No. 1 · car hire option B']]},
+  {city:'Athens', region:'athens', ll:[37.9838,23.7275], n:'1', kind:'Arrival hub · Diana’s wedding 23 Aug',
+   rows:[['Airport','ATH Eleftherios Venizelos'],['Wedding hop','In Sat 22 Aug 23:30 (GQ441) · out Mon 24 Aug 07:35 (OA042)'],['Role','Fly in/out · car hire option A']]},
+  {city:'Kythera (Chora)', region:'kythera', ll:[36.1489,22.9888], n:'2', kind:'Island base · wedding hop departs here',
+   rows:[['Airport','KIT (Alexandros Onassis) — 50 min hop to Athens'],['Ferry','Diakofti ↔ Neapoli ~1h15'],['Role','Family base late Aug · car hire option B']]},
   {city:'Diakofti', region:'kythera', ll:[36.2735,23.0790], n:'·', kind:'Kythera ferry port + airport side',
    rows:[['Note','Port and airport are both on the NE side of the island']]},
   {city:'Areopoli', region:'mani', ll:[36.6642,22.3830], n:'3', kind:'Mani — wedding base',
@@ -256,7 +262,7 @@ const STOPS = [
 ];
 
 const LEGS = [
-  {from:[37.9838,23.7275], to:[36.1489,22.9888], mode:'flight', label:'Athens ↔ Kythera · 35 min flight (or ferry via Neapoli)'},
+  {from:[37.9838,23.7275], to:[36.1489,22.9888], mode:'flight', label:'Athens ↔ Kythera · ~50 min flight (or ferry via Neapoli)'},
   {from:[37.9838,23.7275], to:[36.6642,22.3830], mode:'ground', label:'Athens → Mani · ~3.5–4 h drive'},
 ];
 
@@ -264,7 +270,7 @@ const LEGS = [
 const BOOKINGS = {
   flights:[
     {name:'Australia ↔ Athens', detail:'International flights — details to be added', aud:null, status:'tbc'},
-    {name:'Kythera → Athens', detail:'Post-wedding hop — Georgio attaching confirmation', aud:null, status:'tbc'},
+    {name:'Kythera ↔ Athens — wedding hop', detail:'Georgio + Diana · Out Sat 22 Aug: Sky Express GQ441, 22:40 → 23:30 · Back Mon 24 Aug: Olympic Air OA042, 07:35 → 08:35 · Refs IH3MJ6 / EZOECT · Trip.com 1167732286563747 · ⚠ No checked bag on the return (8 kg carry-on only)', aud:718.60, status:'paid'},
   ],
   hotels:[
     {name:'Kythera stay', detail:'Around Diana’s wedding — to book', aud:null, status:'tbc'},
@@ -307,7 +313,7 @@ const $ = id => document.getElementById(id);
 function days(iso){ return Math.ceil((new Date(iso+'T00:00:00') - new Date())/86400000); }
 $('home').innerHTML =
  '<h2>The trip at a glance</h2>'+
- '<p class="lead">One family holiday, two weddings. Kythera for Diana on 23 August, then the Mani for Evangelo &amp; Christina on 8 September — with a big open stretch in between to enjoy Greece properly.</p>'+
+ '<p class="lead">One family holiday, two weddings. Athens for Diana on 23 August (a quick hop from our Kythera base), then the Mani for Evangelo &amp; Christina on 8 September — with a big open stretch in between to enjoy Greece properly.</p>'+
  '<div class="countrow">'+
    `<div class="count" style="background:linear-gradient(135deg,#0E9AA7,#15b3c2)"><div class="cl">Diana · Kythera</div><div class="cd">${days('2026-08-23')}<small> days</small></div><div class="cs">Sunday 23 August</div></div>`+
    `<div class="count" style="background:linear-gradient(135deg,#7A8B32,#94a63e)"><div class="cl">Evangelo &amp; Christina · Mani</div><div class="cd">${days('2026-09-08')}<small> days</small></div><div class="cs">Tuesday 8 September</div></div>`+
@@ -317,7 +323,7 @@ $('home').innerHTML =
  '</div>'+
  '<div class="h3">The shape of it</div>'+
  '<div class="cav"><ul>'+
-   '<li><b>Wedding No. 1 — Diana, Kythera, Sun 23 Aug.</b> We fly Kythera → Athens afterwards (flight being confirmed).</li>'+
+   '<li><b>Wedding No. 1 — Diana, Athens, Sun 23 Aug.</b> Georgio + Diana fly over from Kythera on the Saturday night and are back Monday by 08:35. Flights booked &amp; paid.</li>'+
    '<li><b>Wedding No. 2 — Evangelo &amp; Christina, the Mani, Tue 8 Sep.</b> Georgio’s brother. ~4 h drive from Athens.</li>'+
    '<li><b>In between:</b> roughly 12 open days — still being mapped.</li>'+
    '<li><b>Wheels:</b> hiring a car; comparing Athens vs Kythera pickup once the route is locked.</li>'+
