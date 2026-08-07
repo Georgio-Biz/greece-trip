@@ -209,7 +209,9 @@ const WEDDINGS = [
    date:'Sunday 23 August 2026', dateISO:'2026-08-23', place:'Athens', tbc:true,
    sub:'Georgio’s cousin — not to be confused with our Diana!',
    cells:[
-     ['Ceremony','TBC'], ['Reception','TBC'], ['Venue','TBC — Athens'], ['Dress code','TBC'],
+     ['Ceremony','TBC'], ['Reception','TBC'],
+     ['Venue','<b>Ble Azure</b> — 70 Poseidonos Ave, Alimos, Athens 17455 · seafront on the Athens Riviera · <a style="color:var(--blue)" href="https://www.google.com/maps/search/?api=1&query=Ble%20Azure%2070%20Poseidonos%20Avenue%20Alimos%20Athens" target="_blank" rel="noopener">Maps ↗</a>'],
+     ['Dress code','TBC'],
      ['Who’s going','Georgio &amp; Diana (wife) — quick hop from Kythera; the kids stay on the island'],
      ['Flight there','Sat 22 Aug · Sky Express GQ441 · Kythera 22:40 → Athens 23:30 · ref IH3MJ6'],
      ['Flight back','Mon 24 Aug · Olympic Air OA042 · Athens 07:35 → Kythera 08:35 · ref EZOECT'],
@@ -248,8 +250,10 @@ const ITIN = [
 
 /* Map pins */
 const STOPS = [
-  {city:'Athens', region:'athens', ll:[37.9838,23.7275], n:'1', kind:'Arrival hub · Diana’s wedding 23 Aug',
-   rows:[['Airport','ATH Eleftherios Venizelos'],['Wedding hop','In Sat 22 Aug 23:30 (GQ441) · out Mon 24 Aug 07:35 (OA042)'],['Role','Fly in/out · car hire option A']]},
+  {city:'Athens', region:'athens', ll:[37.9838,23.7275], n:'1', kind:'Arrival hub · car hire option A',
+   rows:[['Airport','ATH Eleftherios Venizelos'],['Wedding hop','In Sat 22 Aug 23:30 (GQ441) · out Mon 24 Aug 07:35 (OA042)']]},
+  {city:'Ble Azure, Alimos', region:'athens', ll:[37.9105,23.7042], n:'💍', kind:'Cousin Diana’s wedding · Sun 23 Aug',
+   rows:[['Address','70 Poseidonos Ave, Alimos 17455'],['Setting','Seafront peninsula on the Athens Riviera'],['From ATH airport','~35–45 min by car'],['Stay','Alimos / Paleo Faliro — walkable options on Poseidonos Ave']]},
   {city:'Kythera (Chora)', region:'kythera', ll:[36.1489,22.9888], n:'2', kind:'Island base · wedding hop departs here',
    rows:[['Airport','KIT (Alexandros Onassis) — 50 min hop to Athens'],['Ferry','Diakofti ↔ Neapoli ~1h15'],['Role','Family base late Aug · car hire option B']]},
   {city:'Diakofti', region:'kythera', ll:[36.2735,23.0790], n:'·', kind:'Kythera ferry port + airport side',
