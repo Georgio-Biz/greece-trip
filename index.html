@@ -182,6 +182,8 @@
   .tbc{display:inline-block;font-size:9.5px;font-weight:700;letter-spacing:.07em;color:var(--gold);
     background:rgba(168,132,47,.12);border:1px solid rgba(168,132,47,.3);border-radius:5px;
     padding:2px 6px;vertical-align:middle;text-transform:uppercase}
+  .tbc.ok{color:var(--green);background:rgba(47,125,79,.1);border-color:rgba(47,125,79,.28)}
+  .tbc.warn{color:var(--sun);background:rgba(196,112,60,.11);border-color:rgba(196,112,60,.3)}
 
   /* ================= ITINERARY ================= */
   .tl{position:relative;padding-left:2px}
@@ -326,10 +328,10 @@ const PLACES = {
 };
 
 const FAMILY = [
-  {who:'Georgio',  note:'Trip lead — flights, cars and the two weddings'},
-  {who:'Thessy',   note:'Pregnant — the whole trip is paced around her: no long ferry crossings if avoidable, unhurried days, and medical info noted for every stop'},
-  {who:'Kid 1',    note:'Details to confirm', tbc:true},
-  {who:'Kid 2',    note:'Details to confirm', tbc:true},
+  {who:'Georgio',    note:'Trip lead — flights, cars and the two weddings'},
+  {who:'Thessy',     note:'Pregnant — the whole trip is paced around her: no long ferry crossings if avoidable, unhurried days, and medical info noted for every stop'},
+  {who:'Zani',       note:'Travelling on a child fare — 40 kg checked baggage included, same as the adults'},
+  {who:'Dimitrios',  note:'Travelling on a child fare — 40 kg checked baggage included, same as the adults'},
 ];
 
 const WEDDINGS = [
@@ -365,14 +367,25 @@ const WEDDINGS = [
 ];
 
 const ITIN = [
-  {d:'12–14', m:'Aug', place:'athens', title:'Fly Brisbane → Athens', tbc:true,
-   sub:'Qatar business, one stop in Doha — date being finalised',
-   legs:[['Out','<b>QR899</b> Brisbane 22:10 → Doha (1h50) → <b>QR203</b> → Athens 12:25 next day · <b>21h 15m</b>'],
-         ['Status','Three date options shortlisted — see the Bookings tab. Not booked yet.']]},
-  {d:'~14', m:'Aug →', place:'kythera', title:'Kythera — the island base', tbc:true,
-   sub:'Where the family settles in for the first stretch',
-   legs:[['Getting there','Athens → Kythera is a ~50 min flight (KIT), or ferry Neapoli → Diakofti ~1h15. <b>Not booked yet.</b>'],
-         ['Family','Georgio, Thessy and the kids']]},
+  {d:'13–14', m:'Aug', place:'athens', title:'Fly Brisbane → Athens', done:true,
+   sub:'Qatar business, all four of us · booked &amp; paid',
+   legs:[['Thu 13 · 22:10','✈ <b>QR899</b> Brisbane → Doha, lands 05:40 Fri · 14h 30m · Boeing 777-300ER'],
+         ['Doha','1h 50m connection at Hamad International'],
+         ['Fri 14 · 07:30','✈ <b>QR203</b> Doha → Athens, lands <b>12:25</b> · 4h 55m · Airbus A350-900'],
+         ['Baggage','40 kg checked per person — including both kids'],
+         ['Reference','Airline booking <b>D24YCD</b> · Amex booking #31508115']]},
+  {d:'14–16', m:'Aug', place:'athens', title:'Two nights in Athens', alert:true,
+   sub:'Not by choice — there is no way onward to Kythera until Sunday',
+   legs:[['Why','The single Kythera flight on the 14th departs 09:25, three hours <b>before</b> we land. The 15th is Dekapentavgoustos and nothing flies at all.'],
+         ['Fri 14','Land 12:25, straight to a hotel. Everyone sleeps off 21 hours of flying.'],
+         ['Sat 15','Dekapentavgoustos — the biggest summer holiday in Greece. Athens is empty and the churches are worth seeing. Acropolis early if anyone is up for it.'],
+         ['To book','Two nights of Athens accommodation, and the Sunday morning flight.']]},
+  {d:'16', m:'Aug', place:'kythera', title:'Fly Athens → Kythera',
+   sub:'Sunday morning · ~50 min · then the island stretch begins',
+   legs:[['Sun 16 · 08:00','✈ Athens → Kythera, lands 08:50 · about A$626 for the four of us'],
+         ['Alternative','08:30 → 09:30, about A$816 — the fallback if the earlier one sells out'],
+         ['Car','Hire <b>on Kythera</b>, not on the mainland — Panayotis (+30 2736031600) and Drakakis (+30 2736031160) both deliver to the airport and include child seats'],
+         ['Status','<span class="tbc">Not booked</span> — this is the one to lock in first']]},
   {d:'22–24', m:'Aug', place:'athens', title:'Athens hop — Diana &amp; Manolis',
    sub:'Georgio and Thessy overnight in Athens; the kids stay on Kythera',
    legs:[['Sat 22 · 22:40','✈ Sky Express <b>GQ441</b> Kythera → Athens, lands 23:30 · ref IH3MJ6'],
@@ -388,10 +401,12 @@ const ITIN = [
    legs:[['Getting there','Athens → Mani is ~3.5–4 h by car via Kalamata or Sparta; Kalamata airport is ~1 h from Areopoli'],
          ['Tue 8 Sep','💍 <b>Evangelo &amp; Christina</b> — venue and times TBC'],
          ['After','A recovery day, then back north']]},
-  {d:'23–27', m:'Sep', place:'athens', title:'Fly Athens → Brisbane', tbc:true,
-   sub:'Return date depends on which option we take',
-   legs:[['Home','<b>QR204</b> Athens 13:55 → Doha (2h10) → <b>QR898</b> → Brisbane 17:30 next day · <b>20h 35m</b>'],
-         ['Note','Whichever date we pick, we land in Brisbane at 17:30 the following day.']]},
+  {d:'27–28', m:'Sep', place:'athens', title:'Fly Athens → Brisbane', done:true,
+   sub:'Booked &amp; paid — home Monday evening',
+   legs:[['Sun 27 · 13:55','✈ <b>QR204</b> Athens → Doha, lands 18:15 · 4h 20m · Airbus A350-900'],
+         ['Doha','2h 10m connection'],
+         ['Sun 27 · 20:25','✈ <b>QR898</b> Doha → Brisbane, lands <b>17:30 Mon 28 Sep</b> · 14h 05m · Boeing 777-300ER'],
+         ['Reference','Airline booking <b>D24YCD</b>']]},
 ];
 
 const STOPS = [
@@ -424,33 +439,49 @@ const LEGS = [
   {a:[37.9838,23.7275], b:[36.6642,22.3830], mode:'ground', label:'Athens → Mani · ~3.5–4 h drive'},
 ];
 
-/* Shortlisted international flights — not booked */
-const FLIGHT_OPTS = [
-  {n:'Option A', out:'Wed 12 Aug', back:'Sun 27 Sep', land:'Mon 28 Sep', aud:57707, best:true,
-   pts:'11,541,344', notes:['Cheapest of the lot — same flights as the others','Mixed fare; full Business Comfort both ways is A$58,581','45 days in Greece']},
-  {n:'Option B', out:'Thu 13 Aug', back:'Sun 27 Sep', land:'Mon 28 Sep', aud:63311,
-   pts:'12,662,144', notes:['Identical flights, one day later','A$5,604 more than Option A for nothing extra','Mon 17 Aug matches this price exactly']},
-  {n:'Option C', out:'Wed 12 Aug', back:'Wed 23 Sep', land:'Thu 24 Sep', aud:62641,
-   pts:'12,528,144', notes:['Home and unpacked before the weekend','Costs four days in Greece','Still cheaper than Option B']},
+/* Confirmed Qatar itinerary — Amex booking #31508115 · airline ref D24YCD */
+const QR = [
+  {d:'Thu 13 Aug', n:'QR899', from:'Brisbane', ft:'22:10', to:'Doha', tt:'05:40 <small>+1</small>',
+   dur:'14h 30m', ac:'Boeing 777-300ER'},
+  {d:'Fri 14 Aug', n:'QR203', from:'Doha', ft:'07:30', to:'Athens', tt:'12:25',
+   dur:'4h 55m', ac:'Airbus A350-900', note:'1h 50m connection in Doha'},
+  {d:'Sun 27 Sep', n:'QR204', from:'Athens', ft:'13:55', to:'Doha', tt:'18:15',
+   dur:'4h 20m', ac:'Airbus A350-900'},
+  {d:'Sun 27 Sep', n:'QR898', from:'Doha', ft:'20:25', to:'Brisbane', tt:'17:30 <small>+1</small>',
+   dur:'14h 05m', ac:'Boeing 777-300ER', note:'2h 10m connection · lands Mon 28 Sep'},
+];
+
+/* Getting to Kythera after landing 14 Aug — the options, checked */
+const KYTHERA = [
+  {when:'Fri 14 Aug', verdict:'no', head:'The only flight leaves before we land',
+   body:'One service that day, Athens 09:25 → Kythera 10:10. We touch down at 12:25 — three hours too late. A same-day ferry from Piraeus is theoretically possible but would mean clearing a peak-August airport and crossing the city inside 90 minutes with two kids after 21 hours of flying.'},
+  {when:'Sat 15 Aug', verdict:'no', head:'Dekapentavgoustos — nothing flies',
+   body:'The Assumption of the Virgin Mary is the biggest summer holiday in the Greek calendar and 10–17 August is the busiest travel week of the year. No Athens–Kythera flight operates at all, and this is exactly why every car space on the Neapoli and Gythio ferries is gone.'},
+  {when:'Sun 16 Aug', verdict:'yes', head:'Two morning flights, seats available',
+   body:'Athens 08:00 → Kythera 08:50, about <b>A$626</b> for the four of us. A second at 08:30 → 09:30 for about A$816 as backup. Roughly 50 minutes, no ferry, no car queue. This is the answer.'},
 ];
 
 const BOOKINGS = {
   flights:[
+    {n:'Brisbane ↔ Athens — Qatar business', aud:63222.32, st:'paid',
+     d:'All four of us · Out Thu 13 Aug QR899/QR203, lands Athens 12:25 Fri 14th · Home Sun 27 Sep QR204/QR898, lands Brisbane 17:30 Mon 28th · airline ref <b>D24YCD</b> · Amex booking #31508115 · fare A$57,390 + A$5,832.32 taxes · 40 kg checked each, kids included'},
     {n:'Kythera ↔ Athens — wedding hop', aud:718.60, st:'paid',
      d:'Georgio &amp; Thessy · Out Sat 22 Aug: Sky Express GQ441, 22:40 → 23:30 · Back Mon 24 Aug: Olympic Air OA042, 07:35 → 08:35 · refs IH3MJ6 / EZOECT · Trip.com 1167732286563747 · ⚠ no checked bag on the return'},
-    {n:'Brisbane ↔ Athens', aud:null, st:'tbc',
-     d:'Qatar business, 2 adults + 2 children. Three options shortlisted below — decision pending.'},
-    {n:'Athens ↔ Kythera — getting to the island', aud:null, st:'tbc',
-     d:'Needed around 14 Aug, and again before the return home. Flight (~50 min) or ferry via Neapoli.'},
+    {n:'Athens → Kythera — Sun 16 Aug', aud:626, st:'due',
+     d:'08:00 → 08:50, about A$626 for four. The 08:30 → 09:30 at ~A$816 is the backup. <b>Book this first</b> — it is the only way onto the island before Sunday.'},
+    {n:'Kythera → mainland, before the Mani', aud:null, st:'tbc',
+     d:'Needed around 5 Sep. Either fly back to Athens and drive down, or ferry Diakofti → Neapoli (1h15) and drive ~2.5 h to Areopoli.'},
   ],
   hotels:[
+    {n:'Athens — 14 &amp; 15 Aug', aud:null, st:'tbc', d:'<b>Two nights, newly needed.</b> Peak Dekapentavgoustos weekend, so book immediately. Near the airport or in the centre; we only need to be at ATH by ~06:30 Sunday.'},
+    {n:'Kythera', aud:null, st:'tbc', d:'16 Aug through early Sep — the long stretch.'},
     {n:'Athens — wedding night', aud:null, st:'tbc', d:'22–24 Aug, near Ble Azure in Alimos. Shortlist in the Eat &amp; Do tab.'},
-    {n:'Kythera', aud:null, st:'tbc', d:'The long stretch — mid-Aug through early Sep.'},
     {n:'The Mani', aud:null, st:'tbc', d:'Around Evangelo &amp; Christina’s wedding, ~5–9 Sep.'},
   ],
   transport:[
-    {n:'Hire car', aud:null, st:'tbc', d:'Athens pickup vs Kythera pickup — comparison still to run. Child seats must be booked with the car.'},
-    {n:'Ferry — Diakofti → Neapoli', aud:null, st:'tbc', d:'If we drive to the Mani rather than fly via Athens.'},
+    {n:'Hire car — on Kythera', aud:null, st:'tbc', d:'Panayotis +30 2736031600 or Drakakis +30 2736031160. Both deliver to Kythera airport and Diakofti port, both include child seats. Hiring on the island avoids the full car ferries entirely.'},
+    {n:'Hire car — mainland, for the Mani', aud:null, st:'tbc', d:'From early Sep. Athens vs Kalamata pickup still to compare.'},
+    {n:'Ferry — Diakofti → Neapoli', aud:null, st:'tbc', d:'1h 15m. Only needed if we drive to the Mani rather than fly via Athens.'},
   ],
 };
 
@@ -537,7 +568,8 @@ $('home').innerHTML =
    '<li><b>Wedding one — Diana &amp; Manolis, Athens, Sunday 23 August.</b> Georgio’s cousin. We fly over from Kythera on the Saturday night and are back on the island by 08:35 Monday; the kids stay put. Flights booked and paid.</li>'+
    '<li><b>Wedding two — Evangelo &amp; Christina, the Mani, Tuesday 8 September.</b> Georgio’s brother, and the reason the trip is shaped the way it is. Roughly four hours by car from Athens.</li>'+
    '<li><b>In between:</b> about twelve open days. The natural line is Kythera, ferry across to Neapoli, then the drive down into the Mani.</li>'+
-   '<li><b>Getting there:</b> Qatar business via Doha, 21h 15m each way. Three date options are costed on the Bookings tab and one needs picking soon.</li>'+
+   '<li><b>Getting there:</b> booked and paid — Qatar business, out Thu 13 Aug on QR899, landing Athens 12:25 on the Friday. Home Sun 27 Sep, back in Brisbane 17:30 Monday the 28th. Ref D24YCD.</li>'+
+   '<li><b>One wrinkle:</b> there is no way onto Kythera until <b>Sunday 16 August</b> — the Friday flight leaves before we land and the 15th is Dekapentavgoustos, when nothing flies. So we have two nights in Athens first, then the 08:00 flight across. Details on the Bookings tab.</li>'+
    '<li><b>Pace:</b> Thessy is pregnant, so the plan avoids long crossings and early starts wherever it can. Medical notes for each stop are in the Info tab.</li>'+
  '</ul></div>'+
  '<footer>Kept up to date by Georgio · sensitive details stay off this page</footer>';
@@ -549,9 +581,12 @@ $('itin').innerHTML =
  '<div class="tl">'+
  ITIN.map((d,i)=>{
    const c = PLACES[d.place].color;
-   return `<div class="acc${i===2?' open':''}"><div class="acc-hd">`+
+   const badge = d.done  ? ' <span class="tbc ok">Booked</span>'
+               : d.alert ? ' <span class="tbc warn">Heads up</span>'
+               : d.tbc   ? ' <span class="tbc">TBC</span>' : '';
+   return `<div class="acc${i===1?' open':''}"><div class="acc-hd">`+
      `<div class="ddate" style="--c:${c}">${d.d}<small>${d.m}</small></div>`+
-     `<div><div class="acc-nm">${d.title}${d.tbc?' <span class="tbc">TBC</span>':''}</div>`+
+     `<div><div class="acc-nm">${d.title}${badge}</div>`+
      `<div class="acc-sub">${d.sub}</div></div>`+
      `<div class="chev">▶</div></div>`+
      `<div class="acc-bd">`+
@@ -597,18 +632,25 @@ $('bookings').innerHTML =
    `<div class="stat"><div class="l">Committed</div><div class="v">${A(committed)} <small>${E(committed)}</small></div></div>`+
    `<div class="stat"><div class="l">Exchange guide</div><div class="v">€${RATE.toFixed(2)} <small>per A$1</small></div></div>`+
  '</div>'+
- '<div class="h3">Decision needed — Brisbane ↔ Athens</div>'+
- '<p class="lead" style="margin:-4px 0 14px">All three fly the identical Qatar pair: <b>QR899/QR203</b> out, Brisbane 22:10 → Athens 12:25 next day (21h 15m), and <b>QR204/QR898</b> home, Athens 13:55 → Brisbane 17:30 next day (20h 35m). One stop in Doha each way — nobody flies Brisbane to Athens non-stop. Prices are for all four of us in business.</p>'+
+ '<div class="h3">Confirmed — Brisbane ↔ Athens</div>'+
+ '<p class="lead" style="margin:-4px 0 14px">Qatar Airways business for all four of us. Airline booking reference <b>D24YCD</b> — that is what you need for online check-in and seat selection. Amex booking #31508115.</p>'+
+ '<div class="scroller"><table class="tbl"><thead><tr><th>Date</th><th>Flight</th><th>From</th><th>To</th><th>Duration</th><th>Aircraft</th></tr></thead><tbody>'+
+   QR.map(f=>`<tr><td>${f.d}</td><td><b>${f.n}</b></td><td>${f.from} ${f.ft}</td><td>${f.to} ${f.tt}</td>`+
+     `<td>${f.dur}</td><td>${f.ac}${f.note?`<br><small style="color:var(--ink-3)">${f.note}</small>`:''}</td></tr>`).join('')+
+ '</tbody></table></div>'+
+ '<div class="good"><b>Baggage is generous:</b> 40 kg checked for every passenger, children included. That is unusually good and worth remembering when packing for two weddings.</div>'+
+ '<div class="h3">Getting to Kythera after we land</div>'+
+ '<p class="lead" style="margin:-4px 0 14px">We land in Athens at 12:25 on Friday 14 August. Here is what is actually possible from that moment.</p>'+
  '<div class="grid">'+
-   FLIGHT_OPTS.map(o=>`<div class="opt${o.best?' best':''}">${o.best?'<div class="tag">Best value</div>':''}`+
-     `<div class="on">${o.n}</div>`+
-     `<div class="op">${A(o.aud)}</div>`+
-     `<div class="oq">or ${o.pts} points</div>`+
-     `<ul><li><b>Out</b> ${o.out} · <b>back</b> ${o.back}</li><li>Lands Brisbane ${o.land}, 17:30</li>`+
-     o.notes.map(n=>`<li>${n}</li>`).join('')+`</ul></div>`).join('')+
+   KYTHERA.map(k=>`<div class="opt${k.verdict==='yes'?' best':''}">`+
+     (k.verdict==='yes'?'<div class="tag">Do this</div>':'')+
+     `<div class="on" style="color:${k.verdict==='yes'?'var(--sea)':'var(--rose)'}">`+
+     `${k.verdict==='yes'?'✓':'✕'} ${k.when}</div>`+
+     `<div style="font-weight:650;font-size:14px;margin:7px 0 6px;letter-spacing:-.01em">${k.head}</div>`+
+     `<div style="font-size:12.6px;color:var(--ink-2);line-height:1.55">${k.body}</div></div>`).join('')+
  '</div>'+
- '<div class="flag"><div class="ic">⚠</div><div><b>Friday 25 September doesn’t work.</b> It is bookable, but the good routing doesn’t fly that day — the only options are 2-stop, 32 to 35 hours, including a nine-hour layover in Doha, landing Sunday morning. Not with two kids.</div></div>'+
- '<div class="flag"><div class="ic">◆</div><div><b>Paying with points is poor value here.</b> Amex Travel redeems at 200 points per dollar — half a cent each. Transferring to Qatar Privilege Club Avios instead is worth checking before committing 11.5 million points, though award seats for four at this notice are a long shot.</div></div>'+
+ '<div class="flag"><div class="ic">🚂</div><div><b>The train idea does not work, unfortunately.</b> The Peloponnese railway south of Corinth has been closed since 2011 — there is no rail service to Sparta, Gythio or Kalamata, and the line is currently subject to tenders to convert it into a cycle path. A symbolic run to Kalamata took place in June 2026 but no scheduled service exists. The only rail from the airport is the suburban line west to Kiato, which is the wrong direction entirely.</div></div>'+
+ '<div class="good"><b>The car problem solves itself.</b> The ferries are full of cars because 10–17 August is the busiest travel week in Greece. But we do not need to take a car across — hire one <b>on Kythera</b> instead. Panayotis and Drakakis both deliver to the airport and the port, both include child seats, and neither depends on a ferry space.</div>'+
  '<div class="h3">Flights</div>'+ bkRows(BOOKINGS.flights)+
  '<div class="h3">Hotels</div>'+ bkRows(BOOKINGS.hotels)+
  '<div class="h3">Cars &amp; ferries</div>'+ bkRows(BOOKINGS.transport)+
