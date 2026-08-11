@@ -210,29 +210,67 @@
   .leg .txt b{color:var(--ink);font-weight:650}
   @media(max-width:560px){.leg{flex-direction:column;gap:3px}.leg .slot{flex:none}}
 
-  /* ================= WEDDINGS ================= */
-  .wed{border-radius:22px;overflow:hidden;background:var(--card);border:1px solid var(--line);
-    box-shadow:var(--shadow-m);margin:0 0 20px}
-  .wed-hd{position:relative;overflow:hidden;padding:26px 24px 22px;color:#fff;background:var(--g)}
-  .wed-hd::before{content:'';position:absolute;inset:0;
-    background:radial-gradient(110% 90% at 90% 0%,rgba(255,255,255,.28),transparent 60%)}
-  .wed-hd>*{position:relative}
-  .wed-hd .wk{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;opacity:.86}
-  .wed-hd .wn{font-family:var(--serif);font-size:clamp(24px,5.2vw,34px);font-weight:600;
-    letter-spacing:-.024em;margin-top:7px;line-height:1.08}
-  .wed-hd .wd{font-size:13.5px;margin-top:7px;opacity:.94}
-  .wed-hd .wcount{display:inline-flex;align-items:baseline;gap:6px;margin-top:14px;
-    background:rgba(255,255,255,.17);border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:6px 14px}
-  .wed-hd .wcount b{font-size:17px;font-weight:700}
-  .wed-hd .wcount span{font-size:11.5px;opacity:.92;font-weight:600}
-  .wed-bd{padding:18px 24px 22px}
-  .wgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(214px,1fr));gap:11px}
-  .wcell{background:var(--paper);border:1px solid var(--line);border-radius:13px;padding:12px 14px}
-  .wcell small{display:block;font-size:9.5px;color:var(--ink-3);text-transform:uppercase;
-    letter-spacing:.09em;font-weight:700;margin-bottom:5px}
-  .wcell .v{font-size:13.2px;font-weight:600;line-height:1.5;color:var(--ink)}
-  .wcell .v a{font-weight:650}
-  .wcell.wide{grid-column:1/-1}
+  /* ================= WEDDINGS — invitation cards ================= */
+  .inv{border-radius:24px;overflow:hidden;background:var(--card);border:1px solid var(--line);
+    box-shadow:var(--shadow-l);margin:0 0 26px}
+  .inv-hd{position:relative;overflow:hidden;padding:34px 26px 30px;color:#fff;background:var(--g);text-align:center}
+  .inv-hd::before{content:'';position:absolute;inset:0;
+    background:radial-gradient(100% 80% at 50% -10%,rgba(255,255,255,.3),transparent 62%)}
+  .inv-hd::after{content:'';position:absolute;inset:10px;border:1px solid rgba(255,255,255,.22);
+    border-radius:16px;pointer-events:none}
+  .inv-hd>*{position:relative}
+  .mono{font-family:var(--serif);font-size:12.5px;letter-spacing:.3em;opacity:.8;font-weight:500}
+  .orn{display:flex;align-items:center;justify-content:center;gap:12px;margin:12px 0 14px;
+    font-size:10px;opacity:.75}
+  .orn i{display:block;width:34px;height:1px;background:rgba(255,255,255,.55)}
+  .inv-kick{font-size:9.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;opacity:.85}
+  .inv-nm{font-family:var(--serif);font-size:clamp(30px,7vw,46px);font-weight:500;
+    letter-spacing:-.02em;margin:10px 0 0;line-height:1.06}
+  .inv-dt{font-size:12.5px;margin-top:12px;opacity:.95;letter-spacing:.04em}
+  .inv-count{display:inline-flex;align-items:baseline;gap:6px;margin-top:18px;
+    background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:7px 16px;
+    backdrop-filter:blur(6px)}
+  .inv-count b{font-size:16px;font-weight:700}
+  .inv-count span{font-size:11px;opacity:.92;font-weight:600;letter-spacing:.03em}
+  .inv-bd{padding:24px 26px 26px}
+  .inv-sub{margin:0 0 20px;font-size:14px;line-height:1.65;color:var(--ink-2);max-width:62ch}
+
+  .facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0;
+    border:1px solid var(--line);border-radius:14px;overflow:hidden;margin:0 0 18px;background:var(--paper)}
+  .fact{padding:13px 15px;border-right:1px solid var(--line)}
+  .fact:last-child{border-right:0}
+  .fact small{display:block;font-size:9px;color:var(--ink-3);text-transform:uppercase;
+    letter-spacing:.11em;font-weight:700;margin-bottom:6px}
+  .fact b{font-size:13.5px;font-weight:600;line-height:1.4;letter-spacing:-.008em}
+  @media(max-width:620px){.fact{border-right:0;border-bottom:1px solid var(--line)}
+    .fact:last-child{border-bottom:0}}
+
+  .venue{border-left:3px solid var(--sea);padding:2px 0 2px 16px;margin:0 0 18px}
+  .venue .vn{font-family:var(--serif);font-size:20px;font-weight:600;letter-spacing:-.015em}
+  .venue .vl{font-size:12.5px;color:var(--ink-3);margin-top:3px;letter-spacing:.01em}
+  .venue .vb{margin:9px 0 0;font-size:13px;line-height:1.6;color:var(--ink-2)}
+
+  .btns{display:flex;flex-wrap:wrap;gap:9px;margin:0 0 20px}
+  .btn{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:650;
+    text-decoration:none;color:var(--ink);background:var(--paper);border:1px solid var(--line-2);
+    border-radius:11px;padding:9px 15px;transition:all .16s}
+  .btn span{color:var(--sea);font-size:10px}
+  .btn:hover{background:var(--sea);border-color:var(--sea);color:#fff;transform:translateY(-1px);
+    box-shadow:var(--shadow-m)}
+  .btn:hover span{color:rgba(255,255,255,.85)}
+
+  .sub-h{font-size:9.5px;text-transform:uppercase;letter-spacing:.13em;color:var(--ink-3);
+    font-weight:700;margin:22px 0 10px;padding-bottom:7px;border-bottom:1px solid var(--line)}
+  .line{display:flex;gap:16px;padding:10px 0;border-bottom:1px solid var(--line)}
+  .line:last-child{border-bottom:0}
+  .line small{flex:0 0 132px;font-size:11px;font-weight:700;color:var(--ink-3);
+    text-transform:uppercase;letter-spacing:.05em;padding-top:2px}
+  .line div{flex:1;font-size:13px;line-height:1.6;color:var(--ink-2)}
+  .line div b{color:var(--ink);font-weight:650}
+  @media(max-width:560px){.line{flex-direction:column;gap:4px}.line small{flex:none}}
+
+  .gift{margin:20px 0 0;padding:15px 18px;background:var(--sea-wash);border-radius:14px;
+    font-size:13px;line-height:1.6;color:var(--ink-2);border:1px solid var(--line)}
 
   /* ================= BOOKINGS ================= */
   .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:0 0 8px}
@@ -336,34 +374,56 @@ const FAMILY = [
 
 const WEDDINGS = [
   {key:'diana',
+   mono:'D &amp; M',
    name:'Diana &amp; Manolis',
-   sub:'Georgio’s cousin Diana — a quick overnight hop from Kythera',
-   g:'linear-gradient(140deg,#1D6FA5 0%,#12809E 55%,#0E8A8B 100%)',
-   date:'Sunday 23 August 2026', iso:'2026-08-23', place:'Athens',
-   cells:[
-     ['Venue','<b>Ble Azure</b> — seafront peninsula on the Athens Riviera<br>70 Poseidonos Ave, Alimos, Athens 17455<br><a href="https://www.google.com/maps/search/?api=1&query=Ble%20Azure%2070%20Poseidonos%20Avenue%20Alimos%20Athens" target="_blank" rel="noopener">Open in Maps ↗</a>', 1],
-     ['Ceremony','<span class="tbc">TBC</span>'],
-     ['Reception','<span class="tbc">TBC</span>'],
-     ['Dress code','<span class="tbc">TBC</span>'],
-     ['Who’s going','Georgio &amp; Thessy — the kids stay on Kythera'],
-     ['Gift','<span class="tbc">TBC</span>'],
-     ['Flight there','Sat 22 Aug · Sky Express <b>GQ441</b><br>Kythera 22:40 → Athens 23:30 · ref IH3MJ6'],
-     ['Flight back','Mon 24 Aug · Olympic Air <b>OA042</b><br>Athens 07:35 → Kythera 08:35 · ref EZOECT'],
+   kick:'At the peninsula · Athens',
+   sub:'Georgio’s cousin Diana. An overnight hop across from Kythera — the kids stay on the island, which suits a wedding the couple have planned for adults.',
+   g:'linear-gradient(150deg,#0B4C66 0%,#12809E 52%,#0E8A8B 100%)',
+   date:'Sunday 23 August 2026', iso:'2026-08-23', time:'7:00 pm', place:'Athens',
+   site:'https://www.diana-manolis.com',
+   map:'https://www.google.com/maps/search/?api=1&query=Ble%20Azure%2070%20Poseidonos%20Avenue%20Alimos%20Athens',
+   facts:[
+     ['Begins','7:00 pm, Sunday'],
+     ['Dress code','Summer Formal / Black Tie'],
+     ['Setting','Entirely outdoors, by the sea'],
+     ['Weekend','Sunday only — nothing organised after'],
+   ],
+   venue:{name:'Ble Azure', line:'70 Poseidonos Avenue, Alimos, Athens 17455',
+     blurb:'A private peninsula on the Athenian Riviera. The whole celebration — ceremony, dinner, music and dancing — happens outdoors on the water.'},
+   notes:[
+     ['Dress code, precisely','The homepage says <b>Summer Formal</b>; the FAQ says <b>Summer Formal / Black Tie</b>. Pack for the stricter reading — “elegant evening attire in light fabrics suited to a summer celebration by the sea.”'],
+     ['Children','Planned primarily with adults in mind, and the couple warmly encourage arranging childcare. Ours are staying on Kythera, so nothing to do here — but anyone bringing children must tell them in advance, as the venue opens onto the beach and the night runs late.'],
+     ['One small ask','Keep the dance floor clear until the dancing part of the evening begins.'],
+     ['Getting there','Uber is the couple’s suggestion for Athens. Allow for traffic — it is roughly 35–45 minutes from the airport and 20–30 from the historic centre.'],
+   ],
+   links:[['RSVP','https://www.diana-manolis.com/rsvp','●'],
+          ['Wedding site','https://www.diana-manolis.com','◈'],
+          ['Registry','https://www.diana-manolis.com/registry','◆'],
+          ['Venue map','https://www.google.com/maps/search/?api=1&query=Ble%20Azure%2070%20Poseidonos%20Avenue%20Alimos%20Athens','◉']],
+   gift:'The couple say plainly that they don’t expect gifts — “making the journey to Athens is already so generous, and having you there is truly the best gift we could ask for.” There is a ΔΩΡΑ registry, and bank details for anyone who wants to contribute, on their site.',
+   flights:[
+     ['Over','Sat 22 Aug · Sky Express <b>GQ441</b> · Kythera 22:40 → Athens 23:30 · ref IH3MJ6'],
+     ['Back','Mon 24 Aug · Olympic Air <b>OA042</b> · Athens 07:35 → Kythera 08:35 · ref EZOECT'],
    ]},
   {key:'evangelo',
+   mono:'E &amp; C',
    name:'Evangelo &amp; Christina',
-   sub:'Georgio’s brother — the centrepiece of the trip',
-   g:'linear-gradient(140deg,#5F6F2A 0%,#7C8A3C 52%,#A38B3C 100%)',
-   date:'Tuesday 8 September 2026', iso:'2026-09-08', place:'The Mani',
-   cells:[
-     ['Venue','<span class="tbc">TBC</span> — somewhere in the Mani',1],
-     ['Ceremony','<span class="tbc">TBC</span>'],
-     ['Reception','<span class="tbc">TBC</span>'],
+   kick:'The Mani · Peloponnese',
+   sub:'Georgio’s brother, and the reason the whole trip is shaped the way it is. All four of us together for this one.',
+   g:'linear-gradient(150deg,#55642A 0%,#7C8A3C 50%,#A38B3C 100%)',
+   date:'Tuesday 8 September 2026', iso:'2026-09-08', time:'Time TBC', place:'The Mani',
+   facts:[
+     ['Begins','<span class="tbc">TBC</span>'],
      ['Dress code','<span class="tbc">TBC</span>'],
-     ['Who’s going','All four of us'],
-     ['Getting there','Hire car — Athens vs Kythera pickup still being compared'],
-     ['Gift','<span class="tbc">TBC</span>'],
-   ]},
+     ['Setting','<span class="tbc">TBC</span>'],
+     ['Who','All four of us'],
+   ],
+   venue:{name:'To be confirmed', line:'Somewhere in the Mani',
+     blurb:'Details will land here as Evangelo and Christina share them. Areopoli is the working assumption for where we base ourselves.'},
+   notes:[
+     ['Getting there','About four hours by car from Athens via Kalamata or Sparta; Kalamata airport is roughly an hour from Areopoli. Car hire still to be sorted.'],
+   ],
+   links:[], gift:'', flights:[]},
 ];
 
 const ITIN = [
@@ -389,10 +449,12 @@ const ITIN = [
   {d:'22–24', m:'Aug', place:'athens', title:'Athens hop — Diana &amp; Manolis',
    sub:'Georgio and Thessy overnight in Athens; the kids stay on Kythera',
    legs:[['Sat 22 · 22:40','✈ Sky Express <b>GQ441</b> Kythera → Athens, lands 23:30 · ref IH3MJ6'],
-         ['Sun 23','💍 <b>Diana &amp; Manolis</b> at Ble Azure, Alimos — times TBC'],
+         ['Sun 23 · daytime','Free. Recover, swim, or head into the centre — nothing is on until the evening.'],
+         ['Sun 23 · 19:00','💍 <b>Diana &amp; Manolis</b> at Ble Azure, Alimos. Outdoors on the peninsula, then dinner, music and dancing.'],
+         ['Dress','<b>Summer Formal / Black Tie</b> — elegant evening attire in light fabrics'],
          ['Mon 24 · 07:35','✈ Olympic Air <b>OA042</b> Athens → Kythera, lands 08:35 · ref EZOECT'],
-         ['Watch out','⚠ The return leg has <b>no checked bag</b> — 8 kg carry-on only, so the wedding outfits need to travel light'],
-         ['Watch out','⚠ A 07:35 flight means leaving Alimos ~05:15 after a late Greek wedding. Worth asking about a later Monday service.']]},
+         ['Watch out','⚠ The return leg has <b>no checked bag</b> — 8 kg carry-on only, so black tie has to travel light'],
+         ['Watch out','⚠ A 7 pm start means a very late night, and the 07:35 flight needs a car at ~05:15. Ask about a later Monday service, or plan to sleep on the plane.']]},
   {d:'24 Aug', m:'– 5 Sep', place:'kythera', title:'The middle stretch', tbc:true,
    sub:'Roughly twelve open days between the two weddings',
    legs:[['To plan','Kythera, then the crossing to the Peloponnese. Natural route: ferry Diakofti → Neapoli (~1h15), then ~2.5 h drive to Areopoli.']]},
@@ -565,7 +627,7 @@ $('home').innerHTML =
  '</div>'+
  '<div class="h3">The shape of it</div>'+
  '<div class="note"><ul>'+
-   '<li><b>Wedding one — Diana &amp; Manolis, Athens, Sunday 23 August.</b> Georgio’s cousin. We fly over from Kythera on the Saturday night and are back on the island by 08:35 Monday; the kids stay put. Flights booked and paid.</li>'+
+   '<li><b>Wedding one — Diana &amp; Manolis, Athens, Sunday 23 August, 7:00 pm.</b> Georgio’s cousin, at Ble Azure on the Athenian Riviera — outdoors on a private peninsula. Summer Formal / Black Tie. We fly over from Kythera on the Saturday night and are back on the island by 08:35 Monday; the kids stay put.</li>'+
    '<li><b>Wedding two — Evangelo &amp; Christina, the Mani, Tuesday 8 September.</b> Georgio’s brother, and the reason the trip is shaped the way it is. Roughly four hours by car from Athens.</li>'+
    '<li><b>In between:</b> about twelve open days. The natural line is Kythera, ferry across to Neapoli, then the drive down into the Mani.</li>'+
    '<li><b>Getting there:</b> booked and paid — Qatar business, out Thu 13 Aug on QR899, landing Athens 12:25 on the Friday. Home Sun 27 Sep, back in Brisbane 17:30 Monday the 28th. Ref D24YCD.</li>'+
@@ -596,21 +658,62 @@ $('itin').innerHTML =
  }).join('')+'</div>';
 
 /* ---------------- WEDDINGS ---------------- */
+const STAY_D = {
+  riviera:[
+    ['Four Seasons Astir Palace','Apollonos 40, Vouliagmeni'],
+    ['One&amp;Only Aesthesis','Poseidonos 110, Glyfada'],
+    ['Azur Hotel','Dekelias 10 &amp; Danais, Vouliagmeni'],
+    ['Athenian Riviera Hotel &amp; Suites','Danaes 7, Vouliagmeni'],
+    ['Somewhere Boutique Hotel','Ag. Panteleimonos 1, Vouliagmeni'],
+    ['Blazer Suites','K. Karamanli 1, Voula'],
+  ],
+  historic:[
+    ['The Dolli at Acropolis','Mitropoleos 49 · 15 min walk to the Acropolis'],
+    ['COCO-MAT Athens BC','Falirou 5, Koukaki · 8–10 min walk'],
+    ['Mona Athens','Kakourgodikiou 4, Psirri · 15–18 min walk'],
+    ['Shila Athens','Mantzarou 10, Kolonaki'],
+    ['COCO-MAT Athens','Patriarchou Ioakim 36, Kolonaki'],
+    ['COCO-MAT Jumelle','Irodotou 2, Kolonaki'],
+  ],
+};
+
 $('weddings').innerHTML =
  '<h2>The weddings</h2>'+
- '<p class="lead">Two celebrations, two coasts, sixteen days apart. Details fill in here as they’re confirmed.</p>'+
+ '<p class="lead">Two celebrations, two coasts, sixteen days apart. Everything below for Diana &amp; Manolis comes straight from their own site.</p>'+
  WEDDINGS.map(w=>{
    const [big,lbl] = countText(daysTo(w.iso));
-   return `<div class="wed"><div class="wed-hd" style="--g:${w.g}">`+
-     `<div class="wk">${w.place} · ${w.date}</div>`+
-     `<div class="wn">${w.name}</div>`+
-     `<div class="wd">${w.sub}</div>`+
-     `<div class="wcount">${big}<span>${lbl}</span></div>`+
-   `</div><div class="wed-bd"><div class="wgrid">`+
-     w.cells.map(c=>`<div class="wcell${c[2]?' wide':''}"><small>${c[0]}</small><div class="v">${c[1]}</div></div>`).join('')+
-   `</div></div></div>`;
+   return `<article class="inv"><header class="inv-hd" style="--g:${w.g}">`+
+     `<div class="mono">${w.mono}</div>`+
+     `<div class="orn"><i></i>✦<i></i></div>`+
+     `<div class="inv-kick">${w.kick}</div>`+
+     `<h3 class="inv-nm">${w.name}</h3>`+
+     `<div class="inv-dt">${w.date}${w.time?` &nbsp;·&nbsp; ${w.time}`:''}</div>`+
+     `<div class="inv-count">${big}<span>${lbl}</span></div>`+
+   `</header><div class="inv-bd">`+
+     `<p class="inv-sub">${w.sub}</p>`+
+     `<div class="facts">`+ w.facts.map(f=>
+       `<div class="fact"><small>${f[0]}</small><b>${f[1]}</b></div>`).join('') +`</div>`+
+     `<div class="venue"><div class="vn">${w.venue.name}</div>`+
+       `<div class="vl">${w.venue.line}</div>`+
+       `<p class="vb">${w.venue.blurb}</p></div>`+
+     (w.links.length?`<div class="btns">`+w.links.map(l=>
+       `<a class="btn" href="${l[1]}" target="_blank" rel="noopener"><span>${l[2]}</span>${l[0]}</a>`).join('')+`</div>`:'')+
+     (w.flights.length?`<div class="sub-h">Our flights</div>`+
+       w.flights.map(f=>`<div class="line"><small>${f[0]}</small><div>${f[1]}</div></div>`).join(''):'')+
+     (w.notes.length?`<div class="sub-h">Worth knowing</div>`+
+       w.notes.map(n=>`<div class="line"><small>${n[0]}</small><div>${n[1]}</div></div>`).join(''):'')+
+     (w.gift?`<div class="gift">${w.gift}</div>`:'')+
+   `</div></article>`;
  }).join('')+
- '<div class="good">Know something that’s missing — a venue, a start time, the dress code, welcome drinks? Send it to Georgio and it goes up the same day.</div>';
+ '<div class="h3">Where the couple suggest staying</div>'+
+ '<p class="lead" style="margin:-4px 0 14px">Diana and Manolis list these on their site. We only need one night in Athens — Saturday the 22nd — since we fly back at 07:35 Monday.</p>'+
+ '<div class="grid">'+
+   `<div class="card"><h4>On the Riviera · 5–15 min to the venue</h4><ul>`+
+     STAY_D.riviera.map(s=>`<li><b>${s[0]}</b><br>${s[1]}</li>`).join('')+`</ul></div>`+
+   `<div class="card"><h4>Historic Athens · 30–35 min to the venue</h4><ul>`+
+     STAY_D.historic.map(s=>`<li><b>${s[0]}</b><br>${s[1]}</li>`).join('')+`</ul></div>`+
+ '</div>'+
+ '<div class="flag"><div class="ic">◷</div><div><b>The Monday morning problem, now confirmed.</b> A black-tie wedding starting at 7:00 pm outdoors will run very late, and our flight back to Kythera leaves at 07:35 — meaning a car at roughly 05:15. Worth asking Sky Express or Olympic about a later Monday service, or planning to sleep on the plane. Staying on the Riviera rather than in the centre buys back around 25 minutes.</div></div>';
 
 /* ---------------- BOOKINGS ---------------- */
 const stBadge = s => ({paid:'<span class="st paid">Paid</span>',dep:'<span class="st dep">Deposit</span>',
