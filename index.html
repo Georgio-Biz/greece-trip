@@ -9,53 +9,62 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <style>
   :root{
-    /* ---- "Marble & Dusk" — Greek marble, the Aegean at golden hour,
-           verdigris on old bronze, olive groves, antique brass ---- */
-    --paper:#F7F3EA;        /* aged marble */
-    --paper-2:#EFE8DB;      /* recessed stone */
-    --card:#FFFDF8;         /* warm white, never pure white */
-    --ink:#11262C;          /* deep petrol, almost black */
-    --ink-2:#48626B;
-    --ink-3:#8A9BA0;
-    --line:#E5DCCB;
-    --line-2:#D3C6AF;
+    /* ================================================================
+       ELANZO colourway (brand guidelines v1.3) on Apple's type system.
+       60% Bone/Stone · 20% Travertino · 12% Nero/Graphite · 5% Nickel.
+       Hard rule: Travertino and Nero never touch — separated by Bone,
+       Stone, or a Nickel hairline (the Reveal).
+       ================================================================ */
+    --bone:#F4F1EC;  --stone:#DCD6CC;  --travertino:#AEA490; --nickel:#ABA498;
+    --graphite:#6E6A67; --graphite-deep:#4F4C49; --nero:#1E1D19;
+    --clay:#775D50;  --terracotta:#7D3D2F; --terracotta-deep:#5A241D;
 
-    --sea:#0A4E5C;          /* deep Aegean petrol — primary */
-    --sea-2:#12707F;
-    --sea-wash:#E7EFEF;
-    --athens:#1F5F80;       /* dusk blue */
-    --kythera:#2E8779;      /* verdigris */
-    --mani:#7E8552;         /* olive grove */
-    --sun:#B5643F;          /* burnt clay */
-    --gold:#A8823F;         /* antique brass */
-    --green:#4A7C59;
-    --rose:#A34A42;
+    --paper:var(--bone);        /* never pure white — #FFF is off-brand */
+    --paper-2:#E7E2D9;          /* recessed, between Bone and Stone */
+    --card:var(--bone);         /* cards separate by hairline + shadow, not tone */
+    --ink:var(--nero);          /* never pure black */
+    --ink-2:var(--graphite-deep);
+    --ink-3:var(--graphite);
+    --line:var(--stone);
+    --line-2:#CBC3B6;
 
-    /* warm-tinted shadows read richer than neutral grey */
-    --shadow-s:0 1px 2px rgba(38,28,16,.05), 0 1px 3px rgba(38,28,16,.05);
-    --shadow-m:0 2px 4px rgba(38,28,16,.04), 0 10px 28px rgba(38,28,16,.08);
-    --shadow-l:0 4px 10px rgba(38,28,16,.05), 0 24px 56px rgba(38,28,16,.12);
+    --sea:var(--terracotta);        /* the single accent — CTAs, links, active */
+    --sea-2:var(--terracotta-deep);
+    --sea-wash:#F0EAE3;
+    --athens:var(--graphite);       /* place coding, drawn from the palette */
+    --kythera:var(--travertino);
+    --mani:var(--clay);
+    --sun:var(--terracotta);        /* birthday */
+    --gold:var(--nero);             /* the two weddings — strongest note */
+    --green:#5A6B4E;
+    --rose:var(--terracotta-deep);
+
+    --shadow-s:0 1px 2px rgba(30,29,25,.05), 0 1px 3px rgba(30,29,25,.05);
+    --shadow-m:0 2px 4px rgba(30,29,25,.04), 0 10px 28px rgba(30,29,25,.08);
+    --shadow-l:0 4px 10px rgba(30,29,25,.05), 0 24px 56px rgba(30,29,25,.12);
     --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
 
-    --serif:ui-serif,"New York",Iowan Old Style,Georgia,"Times New Roman",serif;
-    --sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    /* Apple type system — SF Pro throughout, no serif */
+    --sans:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue",
+           "Segoe UI",Roboto,Arial,sans-serif;
+    --serif:var(--sans);
     --r:18px;
     --scheme:"light";   /* read by JS so the map basemap always matches the CSS */
   }
   @media (prefers-color-scheme: dark){
     :root{
       --scheme:"dark";
-      /* dusk after sunset — petrol black, warm cream type, brass */
-      --paper:#0B1A1E; --paper-2:#122B31; --card:#122B31;
-      --ink:#F0EBE0;          /* warm cream, not cold white */
-      --ink-2:#A6BCC0; --ink-3:#778F95;
-      --line:#1E3A41; --line-2:#2B4F58;
-      --sea:#54B6C2; --sea-2:#74CFD8; --sea-wash:#14333A;
-      --athens:#5BA6C9; --kythera:#4FC2A9; --mani:#B4BC79;
-      --sun:#D68B62; --gold:#D3B269; --green:#63BE86; --rose:#DD8078;
-      --shadow-s:0 1px 3px rgba(0,0,0,.45);
-      --shadow-m:0 10px 28px rgba(0,0,0,.5);
-      --shadow-l:0 24px 56px rgba(0,0,0,.6);
+      /* Nero field, Bone type, Nickel detail — the reversed lockup */
+      --paper:#161512; --paper-2:#221F1B; --card:#221F1B;
+      --ink:var(--bone);
+      --ink-2:#B8B1A5; --ink-3:#8B857B;
+      --line:#332F29; --line-2:#45403A;
+      --sea:#C4644B; --sea-2:#D87B60; --sea-wash:#2A211C;
+      --athens:#9A948C; --kythera:var(--travertino); --mani:#A07E6C;
+      --sun:#C4644B; --gold:var(--nickel); --green:#8A9B78; --rose:#C4644B;
+      --shadow-s:0 1px 3px rgba(0,0,0,.5);
+      --shadow-m:0 10px 28px rgba(0,0,0,.55);
+      --shadow-l:0 24px 56px rgba(0,0,0,.65);
     }
   }
   *{box-sizing:border-box}
@@ -69,9 +78,9 @@
   header{position:relative;padding:14px 20px 12px;background:var(--card);
     border-bottom:1px solid var(--line);z-index:10}
   header::after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:2px;
-    background:linear-gradient(90deg,var(--sea),var(--athens) 22%,var(--kythera) 46%,var(--mani) 70%,var(--gold) 86%,var(--sun))}
+    background:linear-gradient(90deg,var(--nero),var(--graphite) 20%,var(--travertino) 48%,var(--nickel) 62%,var(--clay) 82%,var(--terracotta))}
   .brand{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
-  .h-title{font-family:var(--serif);font-size:23px;font-weight:600;letter-spacing:-.015em;line-height:1.1}
+  .h-title{font-family:var(--serif);font-size:23px;font-weight:700;letter-spacing:-.026em;line-height:1.1}
   .h-kick{font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sea);
     padding:3px 8px;border:1px solid var(--line-2);border-radius:6px}
   .h-sub{font-size:12.5px;color:var(--ink-2);margin-top:4px;letter-spacing:-.003em}
@@ -95,7 +104,7 @@
   @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
   .wrap{max-width:1040px;margin:0 auto;padding:26px 20px 80px}
 
-  h2{font-family:var(--serif);font-weight:600;letter-spacing:-.02em;margin:0 0 6px;font-size:32px;line-height:1.12}
+  h2{font-family:var(--serif);font-weight:700;letter-spacing:-.028em;margin:0 0 6px;font-size:33px;line-height:1.08}
   .lead{color:var(--ink-2);margin:0 0 22px;font-size:14.5px;line-height:1.6;max-width:64ch}
   .h3{display:flex;align-items:center;gap:10px;font-size:11px;text-transform:uppercase;letter-spacing:.11em;
     color:var(--ink-3);font-weight:700;margin:30px 0 13px}
@@ -103,19 +112,20 @@
   .h3:first-child{margin-top:0}
 
   /* ================= HERO ================= */
+  /* Nero field with a Nickel Reveal along the top — the brand's ownable detail */
   .hero{position:relative;overflow:hidden;border-radius:24px;padding:32px 28px 30px;margin:0 0 18px;
-    background:linear-gradient(155deg,#08323E 0%,#0A4E5C 38%,#146F76 72%,#2E8779 100%);color:#F4EFE4;
-    box-shadow:var(--shadow-l)}
-  /* golden-hour light from the upper right, warm clay bounce from below left */
+    background:linear-gradient(160deg,#14130F 0%,#1E1D19 42%,#332F2A 100%);color:var(--bone);
+    box-shadow:var(--shadow-l);border-top:1px solid var(--nickel)}
+  /* a single Travertino wash, kept off the Nero by the gradient's own falloff */
   .hero::before{content:'';position:absolute;inset:0;
-    background:radial-gradient(115% 85% at 86% 2%,rgba(232,196,132,.34),transparent 56%),
-               radial-gradient(95% 75% at 0% 104%,rgba(181,100,63,.34),transparent 60%)}
+    background:radial-gradient(110% 80% at 88% 0%,rgba(174,164,144,.30),transparent 58%),
+               radial-gradient(90% 70% at 0% 104%,rgba(125,61,47,.26),transparent 62%)}
   /* film grain — the single cheapest way to stop a gradient looking synthetic */
   .hero::after{content:'';position:absolute;inset:0;opacity:.05;mix-blend-mode:overlay;
     background-image:var(--grain);pointer-events:none}
   .hero>*{position:relative;z-index:1}
   .hero .kick{font-size:10.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;opacity:.82}
-  .hero h1{font-family:var(--serif);font-size:clamp(30px,6.4vw,46px);font-weight:600;letter-spacing:-.028em;
+  .hero h1{font-family:var(--serif);font-size:clamp(32px,6.8vw,50px);font-weight:700;letter-spacing:-.038em;
     margin:8px 0 10px;line-height:1.05}
   .hero p{margin:0;font-size:14.5px;line-height:1.6;opacity:.94;max-width:52ch}
   .hero .rule{width:52px;height:3px;border-radius:2px;background:rgba(255,255,255,.6);margin:16px 0 0}
@@ -126,9 +136,9 @@
     border:1px solid var(--line);box-shadow:var(--shadow-m)}
   .count::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--c)}
   .count .cl{font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--c)}
-  .count .cn{font-family:var(--serif);font-size:19px;font-weight:600;letter-spacing:-.015em;margin-top:5px}
+  .count .cn{font-family:var(--serif);font-size:19px;font-weight:650;letter-spacing:-.022em;margin-top:5px}
   .count .cd{display:flex;align-items:baseline;gap:7px;margin-top:9px}
-  .count .cd b{font-family:var(--serif);font-size:40px;font-weight:600;line-height:1;letter-spacing:-.03em;color:var(--c)}
+  .count .cd b{font-family:var(--serif);font-size:42px;font-weight:700;line-height:1;letter-spacing:-.04em;color:var(--c)}
   .count .cd span{font-size:12.5px;color:var(--ink-3);font-weight:600}
   .count .cs{font-size:12.5px;color:var(--ink-2);margin-top:7px}
 
@@ -194,28 +204,38 @@
   .calgrid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line)}
   @media(max-width:660px){.calgrid{grid-template-columns:1fr}}
   .calm{background:var(--card);padding:16px 16px 18px}
-  .calmh{font-family:var(--serif);font-size:17px;font-weight:600;letter-spacing:-.012em;
+  .calmh{font-family:var(--serif);font-size:16px;font-weight:650;letter-spacing:-.02em;
     margin:0 0 12px;text-align:center}
   .caldays{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
   .caldow{font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
     color:var(--ink-3);text-align:center;padding:0 0 6px}
   .calcell{position:relative;appearance:none;border:0;background:transparent;font:inherit;
-    aspect-ratio:1;border-radius:9px;display:flex;flex-direction:column;align-items:center;
-    justify-content:center;gap:3px;padding:0;color:var(--ink-3);cursor:default;transition:all .15s}
+    min-height:62px;border-radius:9px;display:flex;flex-direction:column;align-items:center;
+    justify-content:center;gap:3px;padding:6px 2px;color:var(--ink-3);cursor:default;
+    transition:all .15s;overflow:hidden}
   .calcell.empty{visibility:hidden}
-  .calcell .n{font-size:12.5px;font-weight:600;line-height:1}
-  .calcell.inband{color:var(--ink);background:color-mix(in srgb,var(--b) 9%,transparent)}
-  .calcell.has{cursor:pointer;color:var(--ink);font-weight:700}
-  .calcell.has:hover{background:color-mix(in srgb,var(--b,var(--sea)) 20%,transparent)}
-  .calcell.key .n{color:var(--gold)}
-  .calcell.sel{background:var(--ink);color:var(--card);box-shadow:var(--shadow-m)}
-  .calcell.sel .n{color:var(--card)}
-  .dots{display:flex;gap:2.5px;height:5px;align-items:center}
-  .dots i{width:4.5px;height:4.5px;border-radius:50%;display:block}
+  .calcell .n{font-size:13px;font-weight:600;line-height:1;letter-spacing:-.02em}
+  .calcell .lb{font-size:8px;font-weight:600;letter-spacing:.01em;line-height:1.2;
+    text-align:center;color:var(--ink-3);opacity:.8;max-width:100%;padding:0 1px;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+    overflow-wrap:anywhere}
+  .calcell .lb.ev{color:var(--b,var(--ink-2));opacity:1;font-weight:700}
+  .calcell.inband{color:var(--ink);background:color-mix(in srgb,var(--b) 20%,transparent)}
+  /* band label tinted toward its place colour, mixed with ink so it stays legible
+     — Travertino alone on Bone fails contrast (brand guidelines 4.6) */
+  .calcell.inband .lb{color:color-mix(in srgb,var(--b) 45%,var(--ink-2));opacity:1}
+  .calcell.has{cursor:pointer;color:var(--ink)}
+  .calcell.has .n{font-weight:700}
+  .calcell.has:hover{background:color-mix(in srgb,var(--b,var(--sea)) 26%,transparent)}
+  .calcell.key{background:color-mix(in srgb,var(--nero) 12%,transparent)}
+  .calcell.key .n,.calcell.key .lb{color:var(--nero)}
+  .calcell.sel{background:var(--nero);box-shadow:var(--shadow-m)}
+  .calcell.sel .n,.calcell.sel .lb{color:var(--bone);opacity:1}
+  @media(max-width:400px){.calcell{min-height:50px}.calcell .lb{font-size:7px}}
   .calcell.sel .dots i{box-shadow:0 0 0 1px rgba(255,255,255,.5)}
   .caldetail{display:none;padding:15px 18px;border-top:1px solid var(--line);background:var(--paper)}
   .caldetail.on{display:block}
-  .cd-h{font-family:var(--serif);font-size:16px;font-weight:600;letter-spacing:-.012em;margin:0 0 9px}
+  .cd-h{font-family:var(--serif);font-size:17px;font-weight:650;letter-spacing:-.022em;margin:0 0 9px}
   .cd-r{display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.55;
     color:var(--ink-2);margin:5px 0}
   .cd-r i{font-style:normal;font-size:11px;line-height:1.5;flex:0 0 auto}
@@ -283,26 +303,26 @@
   /* ================= WEDDINGS — invitation cards ================= */
   .inv{border-radius:24px;overflow:hidden;background:var(--card);border:1px solid var(--line);
     box-shadow:var(--shadow-l);margin:0 0 26px}
-  .inv-hd{position:relative;overflow:hidden;padding:36px 26px 32px;color:#F5F0E5;background:var(--g);text-align:center}
+  .inv-hd{position:relative;overflow:hidden;padding:36px 26px 32px;color:var(--bone);background:var(--g);
+    text-align:center;border-top:1px solid var(--nickel)}
   .inv-hd::before{content:'';position:absolute;inset:0;
-    background:radial-gradient(105% 80% at 50% -12%,rgba(236,205,146,.3),transparent 60%),
-               radial-gradient(80% 60% at 100% 100%,rgba(0,0,0,.22),transparent 65%)}
+    background:radial-gradient(105% 78% at 50% -12%,rgba(174,164,144,.30),transparent 60%),
+               radial-gradient(80% 60% at 100% 100%,rgba(0,0,0,.26),transparent 65%)}
   /* grain kept to a whisper, and a brass keyline the way an invitation is bordered */
-  .inv-hd::after{content:'';position:absolute;inset:11px;border:1px solid rgba(212,180,120,.42);
-    border-radius:15px;pointer-events:none;
-    box-shadow:0 0 0 100vmax rgba(0,0,0,0)}
+  .inv-hd::after{content:'';position:absolute;inset:11px;border:1px solid rgba(171,164,152,.45);
+    border-radius:15px;pointer-events:none}
   .inv-grain{position:absolute;inset:0;opacity:.045;mix-blend-mode:overlay;
     background-image:var(--grain);pointer-events:none;z-index:0}
   .inv-hd>*{position:relative;z-index:1}
   .mono{font-family:var(--serif);font-size:13px;letter-spacing:.34em;font-weight:500;
-    color:rgba(226,196,142,.92)}
+    color:var(--nickel)}
   .orn{display:flex;align-items:center;justify-content:center;gap:13px;margin:13px 0 15px;
-    font-size:10px;color:rgba(226,196,142,.85)}
+    font-size:10px;color:var(--nickel)}
   .orn i{display:block;width:36px;height:1px;
-    background:linear-gradient(90deg,transparent,rgba(226,196,142,.75),transparent)}
+    background:linear-gradient(90deg,transparent,rgba(171,164,152,.85),transparent)}
   .inv-kick{font-size:9.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;opacity:.85}
-  .inv-nm{font-family:var(--serif);font-size:clamp(30px,7vw,46px);font-weight:500;
-    letter-spacing:-.02em;margin:10px 0 0;line-height:1.06}
+  .inv-nm{font-family:var(--serif);font-size:clamp(29px,6.6vw,44px);font-weight:600;
+    letter-spacing:-.032em;margin:10px 0 0;line-height:1.05}
   .inv-dt{font-size:12.5px;margin-top:12px;opacity:.95;letter-spacing:.04em}
   .inv-count{display:inline-flex;align-items:baseline;gap:6px;margin-top:18px;
     background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:7px 16px;
@@ -323,7 +343,7 @@
   @media(max-width:420px){.facts{grid-template-columns:1fr}}
 
   .venue{border-left:3px solid var(--sea);padding:2px 0 2px 16px;margin:0 0 18px}
-  .venue .vn{font-family:var(--serif);font-size:20px;font-weight:600;letter-spacing:-.015em}
+  .venue .vn{font-family:var(--serif);font-size:20px;font-weight:650;letter-spacing:-.022em}
   .venue .vl{font-size:12.5px;color:var(--ink-3);margin-top:3px;letter-spacing:.01em}
   .venue .vb{margin:9px 0 0;font-size:13px;line-height:1.6;color:var(--ink-2)}
 
@@ -353,7 +373,7 @@
   .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:0 0 8px}
   .stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;box-shadow:var(--shadow-s)}
   .stat .l{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-3);font-weight:700}
-  .stat .v{font-family:var(--serif);font-size:24px;font-weight:600;letter-spacing:-.02em;margin-top:5px}
+  .stat .v{font-family:var(--serif);font-size:24px;font-weight:700;letter-spacing:-.028em;margin-top:5px}
   .stat .v small{font-size:13px;color:var(--ink-3);font-weight:400;font-family:var(--sans)}
   .bk{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:14px 16px;
     margin:0 0 10px;box-shadow:var(--shadow-s);display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap}
@@ -361,7 +381,7 @@
   .bk .bn{font-weight:650;font-size:14px;letter-spacing:-.01em}
   .bk .bd{font-size:12.4px;color:var(--ink-2);margin-top:4px;line-height:1.55}
   .bk .bp{text-align:right;flex:0 0 auto}
-  .bk .bp .a{font-family:var(--serif);font-size:19px;font-weight:600;letter-spacing:-.015em}
+  .bk .bp .a{font-family:var(--serif);font-size:19px;font-weight:650;letter-spacing:-.022em}
   .bk .bp .e{font-size:11.5px;color:var(--ink-3);margin-top:1px}
   .st{display:inline-block;font-size:9.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
     border-radius:5px;padding:3px 8px;margin-top:7px}
@@ -375,7 +395,7 @@
   .opt .tag{position:absolute;top:0;right:0;font-size:9.5px;font-weight:700;letter-spacing:.08em;
     text-transform:uppercase;color:#fff;background:var(--sea);padding:4px 11px;border-radius:0 0 0 10px}
   .opt .on{font-weight:700;font-size:13px;letter-spacing:.02em;color:var(--sea)}
-  .opt .op{font-family:var(--serif);font-size:26px;font-weight:600;letter-spacing:-.022em;margin:6px 0 2px}
+  .opt .op{font-family:var(--serif);font-size:27px;font-weight:700;letter-spacing:-.03em;margin:6px 0 2px}
   .opt .oq{font-size:11.5px;color:var(--ink-3)}
   .opt ul{margin:10px 0 0;padding-left:16px}
   .opt li{font-size:12.4px;margin:5px 0;color:var(--ink-2);line-height:1.5}
@@ -455,29 +475,29 @@ const MOMENTS = [
 
 /* Calendar — every dated thing, keyed by ISO date */
 const CAL = {
-  '2026-08-13':[{t:'Fly Brisbane → Doha, 22:10',        c:'athens',  i:'✈'}],
-  '2026-08-14':[{t:'Land Athens 12:25',                  c:'athens',  i:'✈'},
+  '2026-08-13':[{t:'Fly Brisbane → Doha, 22:10',        c:'athens',  i:'✈', l:'Fly out'}],
+  '2026-08-14':[{t:'Land Athens 12:25',                  c:'athens',  i:'✈', l:'Land ATH'},
                 {t:'Athens, night one',                  c:'athens',  i:'●'}],
-  '2026-08-15':[{t:'Dekapentavgoustos — nothing flies',  c:'sun',     i:'✦'},
+  '2026-08-15':[{t:'Dekapentavgoustos — nothing flies',  c:'sun',     i:'✦', l:'Panagia'},
                 {t:'Athens, night two',                  c:'athens',  i:'●'}],
-  '2026-08-16':[{t:'Fly Athens → Kythera, 08:00',        c:'kythera', i:'✈'}],
-  '2026-08-20':[{t:'Mum &amp; Dad arrive Kythera',       c:'kythera', i:'●'}],
-  '2026-08-22':[{t:'🎂 Zani’s birthday',                 c:'sun',     i:'✦'},
+  '2026-08-16':[{t:'Fly Athens → Kythera, 08:00',        c:'kythera', i:'✈', l:'To Kythera'}],
+  '2026-08-20':[{t:'Mum &amp; Dad arrive Kythera',       c:'kythera', i:'●', l:'Mum &amp; Dad'}],
+  '2026-08-22':[{t:'🎂 Zani’s birthday',                 c:'sun',     i:'✦', l:'Zani’s day'},
                 {t:'Fly Kythera → Athens, 22:40',        c:'athens',  i:'✈'}],
-  '2026-08-23':[{t:'💍 Diana &amp; Manolis, 7:00 pm',    c:'gold',    i:'♦', key:1}],
-  '2026-08-24':[{t:'Fly Athens → Kythera, 07:35',        c:'kythera', i:'✈'}],
-  '2026-09-07':[{t:'Peter &amp; Erin join us in the Mani', c:'mani',  i:'●'}],
-  '2026-09-08':[{t:'💍 Evangelo &amp; Christina',        c:'gold',    i:'♦', key:1}],
-  '2026-09-27':[{t:'Fly Athens → Doha, 13:55',           c:'athens',  i:'✈'}],
-  '2026-09-28':[{t:'Land Brisbane 17:30',                c:'athens',  i:'✈'}],
+  '2026-08-23':[{t:'💍 Diana &amp; Manolis, 7:00 pm',    c:'gold',    i:'♦', l:'Wedding', key:1}],
+  '2026-08-24':[{t:'Fly Athens → Kythera, 07:35',        c:'kythera', i:'✈', l:'Back to KIT'}],
+  '2026-09-07':[{t:'Peter &amp; Erin join us in the Mani', c:'mani',  i:'●', l:'Peter &amp; Erin'}],
+  '2026-09-08':[{t:'💍 Evangelo &amp; Christina',        c:'gold',    i:'♦', l:'Wedding', key:1}],
+  '2026-09-27':[{t:'Fly Athens → Doha, 13:55',           c:'athens',  i:'✈', l:'Fly home'}],
+  '2026-09-28':[{t:'Land Brisbane 17:30',                c:'athens',  i:'✈', l:'Brisbane'}],
 };
 /* rough colouring of where we are, so the trip reads as a shape */
 const STAY_BANDS = [
-  {from:'2026-08-14', to:'2026-08-16', c:'athens'},
-  {from:'2026-08-16', to:'2026-08-22', c:'kythera'},
-  {from:'2026-08-22', to:'2026-08-24', c:'athens'},
-  {from:'2026-08-24', to:'2026-09-05', c:'kythera'},
-  {from:'2026-09-05', to:'2026-09-27', c:'mani'},
+  {from:'2026-08-14', to:'2026-08-16', c:'athens',  l:'Athens'},
+  {from:'2026-08-16', to:'2026-08-22', c:'kythera', l:'Kythera'},
+  {from:'2026-08-22', to:'2026-08-24', c:'athens',  l:'Athens'},
+  {from:'2026-08-24', to:'2026-09-05', c:'kythera', l:'Kythera'},
+  {from:'2026-09-05', to:'2026-09-27', c:'mani',    l:'Mani'},
 ];
 
 /* Who else joins us, and where */
@@ -499,7 +519,7 @@ const WEDDINGS = [
    name:'Diana &amp; Manolis',
    kick:'At the peninsula · Athens',
    sub:'Georgio’s cousin Diana. An overnight hop across from Kythera — the kids stay on the island, which suits a wedding the couple have planned for adults.',
-   g:'linear-gradient(155deg,#062E3C 0%,#0A4E5C 40%,#146F76 74%,#2E8779 100%)',
+   g:'linear-gradient(160deg,#141310 0%,#1E1D19 40%,#3A352E 100%)',
    date:'Sunday 23 August 2026', iso:'2026-08-23', time:'7:00 pm', place:'Athens',
    site:'https://www.diana-manolis.com',
    map:'https://www.google.com/maps/search/?api=1&query=Ble%20Azure%2070%20Poseidonos%20Avenue%20Alimos%20Athens',
@@ -531,7 +551,7 @@ const WEDDINGS = [
    name:'Evangelo &amp; Christina',
    kick:'The Mani · Peloponnese',
    sub:'Georgio’s brother, and the reason the whole trip is shaped the way it is. All four of us together for this one.',
-   g:'linear-gradient(155deg,#3A4520 0%,#5F6B33 38%,#7E8552 70%,#A8823F 100%)',
+   g:'linear-gradient(160deg,#2A211C 0%,#4A392F 42%,#775D50 100%)',
    date:'Tuesday 8 September 2026', iso:'2026-09-08', time:'Time TBC', place:'The Mani',
    facts:[
      ['Begins','<span class="tbc">TBC</span>'],
@@ -801,10 +821,7 @@ $('home').innerHTML =
   const DOW = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
   const iso = d => d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+
                    '-'+String(d.getDate()).padStart(2,'0');
-  const bandFor = k => {
-    const b = STAY_BANDS.find(s => k >= s.from && k < s.to);
-    return b ? b.c : null;
-  };
+  const bandFor = k => STAY_BANDS.find(s => k >= s.from && k < s.to) || null;
   let html = '';
   [[2026,7],[2026,8]].forEach(([y,m])=>{
     const first = new Date(y,m,1), last = new Date(y,m+1,0);
@@ -818,12 +835,14 @@ $('home').innerHTML =
       const ev = CAL[k] || [];
       const band = bandFor(k);
       const isKey = ev.some(e=>e.key);
+      /* the point of the day: the event's own label, else where we are */
+      const evL = (ev.find(e=>e.l)||{}).l;
+      const lbl = evL || (band ? band.l : '');
       html += `<button class="calcell${band?' inband':''}${ev.length?' has':''}${isKey?' key':''}"`+
-        (band?` style="--b:var(--${band})"`:'')+
+        (band?` style="--b:var(--${band.c})"`:'')+
         ` data-k="${k}"${ev.length?'':' disabled'}>`+
         `<span class="n">${day}</span>`+
-        (ev.length?`<span class="dots">`+ev.map(e=>
-          `<i style="background:var(--${e.c})"></i>`).join('')+`</span>`:'')+
+        (lbl?`<span class="lb${evL?' ev':''}">${lbl}</span>`:'')+
       `</button>`;
     }
     html += `</div></div>`;
