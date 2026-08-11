@@ -188,6 +188,22 @@
   .card li b{color:var(--ink);font-weight:650}
   .card p{margin:0;font-size:12.8px;color:var(--ink-2);line-height:1.55}
 
+  /* ---- arrivals ---- */
+  .arrivals{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);
+    border-radius:var(--r);overflow:hidden}
+  .arr{display:flex;gap:15px;align-items:flex-start;padding:15px 17px;background:var(--card);
+    transition:background .16s}
+  .arr:hover{background:var(--paper)}
+  .arr-d{flex:0 0 auto;min-width:52px;padding:8px 7px;border-radius:11px;display:flex;
+    flex-direction:column;align-items:center;justify-content:center;font-weight:700;font-size:16px;
+    color:#fff;line-height:1.1;background:var(--c);box-shadow:var(--shadow-s)}
+  .arr-d small{font-size:8.5px;font-weight:700;opacity:.9;text-transform:uppercase;
+    letter-spacing:.06em;margin-top:3px}
+  .arr-b{flex:1;min-width:0}
+  .arr-n{font-weight:650;font-size:15px;letter-spacing:-.012em}
+  .arr-w{font-size:12.5px;color:var(--sea);font-weight:600;margin-top:3px}
+  .arr-x{font-size:12.7px;color:var(--ink-2);margin-top:5px;line-height:1.55}
+
   .note{background:var(--paper-2);border:1px solid var(--line);border-radius:var(--r);padding:4px 20px 6px;margin:0 0 12px}
   .note li{font-size:13.2px;line-height:1.6;margin:11px 0;color:var(--ink)}
   .note li b{font-weight:650}
@@ -402,6 +418,19 @@ const MOMENTS = [
    date:'Saturday 22 August 2026', c:'var(--sun)'},
 ];
 
+/* Who else joins us, and where */
+const ARRIVALS = [
+  {who:'Mum &amp; Dad', d:'20', m:'Aug', place:'kythera', when:'Thursday 20 August, evening',
+   where:'Kythera',
+   note:'On the island two days before Zani’s birthday — and there when we fly to Athens on the 22nd.'},
+  {who:'Chloe &amp; Mati', d:'?', m:'', place:'kythera', when:'Dates to confirm', where:'To confirm',
+   tbc:true, note:'Nothing locked in yet.'},
+  {who:'Evangelo &amp; Christina', d:'?', m:'', place:'mani', when:'Dates to confirm', where:'To confirm',
+   tbc:true, note:'The Mani couple — their own movements before the 8th still to come.'},
+  {who:'Peter &amp; Erin', d:'7', m:'Sep', place:'mani', when:'Monday 7 September', where:'The Mani',
+   note:'Meeting us the day before Evangelo &amp; Christina’s wedding.'},
+];
+
 const WEDDINGS = [
   {key:'diana',
    mono:'D &amp; M',
@@ -478,7 +507,8 @@ const ITIN = [
          ['Status','<span class="tbc">Not booked</span> — this is the one to lock in first']]},
   {d:'22–24', m:'Aug', place:'athens', title:'Zani’s birthday, then the Athens hop',
    sub:'🎂 Zani’s birthday on Kythera · 💍 Diana &amp; Manolis the following evening',
-   legs:[['Sat 22 · all day','🎂 <b>Zani’s birthday</b>, on Kythera. The whole day is free — we don’t leave for the airport until about 21:30, so nothing cuts the celebration short.'],
+   legs:[['Thu 20 · evening','👵🏻 <b>Mum and Dad land on Kythera</b> — two days ahead of us leaving, so the kids are covered while we’re in Athens.'],
+         ['Sat 22 · all day','🎂 <b>Zani’s birthday</b>, on Kythera. The whole day is free — we don’t leave for the airport until about 21:30, so nothing cuts the celebration short.'],
          ['Sat 22 · 22:40','✈ Sky Express <b>GQ441</b> Kythera → Athens, lands 23:30 · ref IH3MJ6'],
          ['Sun 23 · daytime','Free. Recover, swim, or head into the centre — nothing is on until the evening.'],
          ['Sun 23 · 19:00','💍 <b>Diana &amp; Manolis</b> at Ble Azure, Alimos. Outdoors on the peninsula, then dinner, music and dancing.'],
@@ -492,6 +522,7 @@ const ITIN = [
   {d:'~5–9', m:'Sep', place:'mani', title:'The Mani — Evangelo &amp; Christina', tbc:true,
    sub:'The big one, Tuesday 8 September',
    legs:[['Getting there','Athens → Mani is ~3.5–4 h by car via Kalamata or Sparta; Kalamata airport is ~1 h from Areopoli'],
+         ['Mon 7 Sep','👋 <b>Peter and Erin meet us in the Mani</b>, the day before the wedding'],
          ['Tue 8 Sep','💍 <b>Evangelo &amp; Christina</b> — venue and times TBC'],
          ['After','A recovery day, then back north']]},
   {d:'27–28', m:'Sep', place:'athens', title:'Fly Athens → Brisbane', done:true,
@@ -664,6 +695,18 @@ $('home').innerHTML =
  '<div class="h3">Who’s going</div>'+
  '<div class="grid">'+
    FAMILY.map(f=>`<div class="card"><h4>${f.who}${f.tbc?' <span class="tbc">TBC</span>':''}</h4><p>${f.note}</p></div>`).join('')+
+ '</div>'+
+ '<div class="h3">Who joins us, and when</div>'+
+ '<div class="arrivals">'+
+   ARRIVALS.map(a=>{
+     const c = PLACES[a.place].color;
+     return `<div class="arr">`+
+       `<div class="arr-d" style="--c:${c}">${a.d}<small>${a.m||'TBC'}</small></div>`+
+       `<div class="arr-b"><div class="arr-n">${a.who}${a.tbc?' <span class="tbc">TBC</span>':''}</div>`+
+       `<div class="arr-w">${a.when} &nbsp;·&nbsp; ${a.where}</div>`+
+       `<div class="arr-x">${a.note}</div></div>`+
+     `</div>`;
+   }).join('')+
  '</div>'+
  '<div class="h3">The shape of it</div>'+
  '<div class="note"><ul>'+
