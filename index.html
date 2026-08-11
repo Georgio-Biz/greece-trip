@@ -392,8 +392,14 @@ const PLACES = {
 const FAMILY = [
   {who:'Georgio',    note:'Trip lead — flights, cars and the two weddings'},
   {who:'Thessy',     note:'Pregnant — the whole trip is paced around her: no long ferry crossings if avoidable, unhurried days, and medical info noted for every stop'},
-  {who:'Zani',       note:'Travelling on a child fare — 40 kg checked baggage included, same as the adults'},
+  {who:'Zani',       note:'🎂 <b>Birthday on Saturday 22 August</b>, spent on Kythera. 40 kg checked baggage on the child fare, same as the adults.'},
   {who:'Dimitrios',  note:'Travelling on a child fare — 40 kg checked baggage included, same as the adults'},
+];
+
+/* Dates that matter, beyond the two weddings */
+const MOMENTS = [
+  {kick:'Kythera', name:'Zani’s birthday', iso:'2026-08-22',
+   date:'Saturday 22 August 2026', c:'var(--sun)'},
 ];
 
 const WEDDINGS = [
@@ -470,9 +476,10 @@ const ITIN = [
          ['Alternative','08:30 → 09:30, about A$816 — the fallback if the earlier one sells out'],
          ['Car','Hire <b>on Kythera</b>, not on the mainland — Panayotis (+30 2736031600) and Drakakis (+30 2736031160) both deliver to the airport and include child seats'],
          ['Status','<span class="tbc">Not booked</span> — this is the one to lock in first']]},
-  {d:'22–24', m:'Aug', place:'athens', title:'Athens hop — Diana &amp; Manolis',
-   sub:'Georgio and Thessy overnight in Athens; the kids stay on Kythera',
-   legs:[['Sat 22 · 22:40','✈ Sky Express <b>GQ441</b> Kythera → Athens, lands 23:30 · ref IH3MJ6'],
+  {d:'22–24', m:'Aug', place:'athens', title:'Zani’s birthday, then the Athens hop',
+   sub:'🎂 Zani’s birthday on Kythera · 💍 Diana &amp; Manolis the following evening',
+   legs:[['Sat 22 · all day','🎂 <b>Zani’s birthday</b>, on Kythera. The whole day is free — we don’t leave for the airport until about 21:30, so nothing cuts the celebration short.'],
+         ['Sat 22 · 22:40','✈ Sky Express <b>GQ441</b> Kythera → Athens, lands 23:30 · ref IH3MJ6'],
          ['Sun 23 · daytime','Free. Recover, swim, or head into the centre — nothing is on until the evening.'],
          ['Sun 23 · 19:00','💍 <b>Diana &amp; Manolis</b> at Ble Azure, Alimos. Outdoors on the peninsula, then dinner, music and dancing.'],
          ['Dress','<b>Summer Formal / Black Tie</b> — elegant evening attire in light fabrics'],
@@ -626,6 +633,15 @@ $('home').innerHTML =
    '<div class="rule"></div>'+
  '</div>'+
  '<div class="counts">'+
+   MOMENTS.map(m=>{
+     const [big,lbl] = countText(daysTo(m.iso));
+     return `<div class="count" style="--c:${m.c}">`+
+       `<div class="cl">${m.kick}</div>`+
+       `<div class="cn">${m.name}</div>`+
+       `<div class="cd">${big}<span>${lbl}</span></div>`+
+       `<div class="cs">${m.date}</div>`+
+     `</div>`;
+   }).join('')+
    WEDDINGS.map(w=>{
      const [big,lbl] = countText(daysTo(w.iso));
      const c = w.key==='diana' ? 'var(--athens)' : 'var(--mani)';
@@ -656,6 +672,7 @@ $('home').innerHTML =
    '<li><b>In between:</b> about twelve open days. The natural line is Kythera, ferry across to Neapoli, then the drive down into the Mani.</li>'+
    '<li><b>Getting there:</b> booked and paid — Qatar business, out Thu 13 Aug on QR899, landing Athens 12:25 on the Friday. Home Sun 27 Sep, back in Brisbane 17:30 Monday the 28th. Ref D24YCD.</li>'+
    '<li><b>One wrinkle:</b> there is no way onto Kythera until <b>Sunday 16 August</b> — the Friday flight leaves before we land and the 15th is Dekapentavgoustos, when nothing flies. So we have two nights in Athens first, then the 08:00 flight across. Details on the Bookings tab.</li>'+
+   '<li><b>🎂 Zani’s birthday falls on Saturday 22 August</b>, on Kythera — the same day we fly over for the wedding. The flight isn’t until 22:40, so the day itself stays entirely his.</li>'+
    '<li><b>Pace:</b> Thessy is pregnant, so the plan avoids long crossings and early starts wherever it can. Medical notes for each stop are in the Info tab.</li>'+
  '</ul></div>'+
  '<footer>Kept up to date by Georgio · sensitive details stay off this page</footer>';
