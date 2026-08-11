@@ -188,6 +188,43 @@
   .card li b{color:var(--ink);font-weight:650}
   .card p{margin:0;font-size:12.8px;color:var(--ink-2);line-height:1.55}
 
+  /* ---- calendar ---- */
+  .calcard{border:1px solid var(--line);border-radius:var(--r);background:var(--card);
+    box-shadow:var(--shadow-m);overflow:hidden}
+  .calgrid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line)}
+  @media(max-width:660px){.calgrid{grid-template-columns:1fr}}
+  .calm{background:var(--card);padding:16px 16px 18px}
+  .calmh{font-family:var(--serif);font-size:17px;font-weight:600;letter-spacing:-.012em;
+    margin:0 0 12px;text-align:center}
+  .caldays{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+  .caldow{font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--ink-3);text-align:center;padding:0 0 6px}
+  .calcell{position:relative;appearance:none;border:0;background:transparent;font:inherit;
+    aspect-ratio:1;border-radius:9px;display:flex;flex-direction:column;align-items:center;
+    justify-content:center;gap:3px;padding:0;color:var(--ink-3);cursor:default;transition:all .15s}
+  .calcell.empty{visibility:hidden}
+  .calcell .n{font-size:12.5px;font-weight:600;line-height:1}
+  .calcell.inband{color:var(--ink);background:color-mix(in srgb,var(--b) 9%,transparent)}
+  .calcell.has{cursor:pointer;color:var(--ink);font-weight:700}
+  .calcell.has:hover{background:color-mix(in srgb,var(--b,var(--sea)) 20%,transparent)}
+  .calcell.key .n{color:var(--gold)}
+  .calcell.sel{background:var(--ink);color:var(--card);box-shadow:var(--shadow-m)}
+  .calcell.sel .n{color:var(--card)}
+  .dots{display:flex;gap:2.5px;height:5px;align-items:center}
+  .dots i{width:4.5px;height:4.5px;border-radius:50%;display:block}
+  .calcell.sel .dots i{box-shadow:0 0 0 1px rgba(255,255,255,.5)}
+  .caldetail{display:none;padding:15px 18px;border-top:1px solid var(--line);background:var(--paper)}
+  .caldetail.on{display:block}
+  .cd-h{font-family:var(--serif);font-size:16px;font-weight:600;letter-spacing:-.012em;margin:0 0 9px}
+  .cd-r{display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.55;
+    color:var(--ink-2);margin:5px 0}
+  .cd-r i{font-style:normal;font-size:11px;line-height:1.5;flex:0 0 auto}
+  .cd-go{margin-top:11px;appearance:none;font:inherit;font-size:12px;font-weight:650;cursor:pointer;
+    color:var(--card);background:var(--sea);border:0;border-radius:9px;padding:8px 14px;transition:all .16s}
+  .cd-go:hover{filter:brightness(1.12);transform:translateY(-1px);box-shadow:var(--shadow-m)}
+  .callegend{border-top:1px solid var(--line)}
+  .acc.flash{box-shadow:0 0 0 2px var(--sea),var(--shadow-m)}
+
   /* ---- arrivals ---- */
   .arrivals{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);
     border-radius:var(--r);overflow:hidden}
@@ -373,7 +410,6 @@
 </header>
 <nav><div class="seg">
   <button class="active" data-view="home">Home</button>
-  <button data-view="itinerary">Itinerary</button>
   <button data-view="weddings">Weddings</button>
   <button data-view="bookings">Bookings</button>
   <button data-view="eatdo">Eat &amp; Do</button>
@@ -382,7 +418,6 @@
 
 <div id="content">
   <section id="view-home" class="view active"><div class="wrap" id="home"></div></section>
-  <section id="view-itinerary" class="view"><div class="wrap" id="itin"></div></section>
   <section id="view-weddings" class="view"><div class="wrap" id="weddings"></div></section>
   <section id="view-bookings" class="view"><div class="wrap" id="bookings"></div></section>
   <section id="view-eatdo" class="view"><div class="wrap" id="eatdo"></div></section>
@@ -416,6 +451,33 @@ const FAMILY = [
 const MOMENTS = [
   {kick:'Kythera', name:'Zani’s birthday', iso:'2026-08-22',
    date:'Saturday 22 August 2026', c:'var(--sun)'},
+];
+
+/* Calendar — every dated thing, keyed by ISO date */
+const CAL = {
+  '2026-08-13':[{t:'Fly Brisbane → Doha, 22:10',        c:'athens',  i:'✈'}],
+  '2026-08-14':[{t:'Land Athens 12:25',                  c:'athens',  i:'✈'},
+                {t:'Athens, night one',                  c:'athens',  i:'●'}],
+  '2026-08-15':[{t:'Dekapentavgoustos — nothing flies',  c:'sun',     i:'✦'},
+                {t:'Athens, night two',                  c:'athens',  i:'●'}],
+  '2026-08-16':[{t:'Fly Athens → Kythera, 08:00',        c:'kythera', i:'✈'}],
+  '2026-08-20':[{t:'Mum &amp; Dad arrive Kythera',       c:'kythera', i:'●'}],
+  '2026-08-22':[{t:'🎂 Zani’s birthday',                 c:'sun',     i:'✦'},
+                {t:'Fly Kythera → Athens, 22:40',        c:'athens',  i:'✈'}],
+  '2026-08-23':[{t:'💍 Diana &amp; Manolis, 7:00 pm',    c:'gold',    i:'♦', key:1}],
+  '2026-08-24':[{t:'Fly Athens → Kythera, 07:35',        c:'kythera', i:'✈'}],
+  '2026-09-07':[{t:'Peter &amp; Erin join us in the Mani', c:'mani',  i:'●'}],
+  '2026-09-08':[{t:'💍 Evangelo &amp; Christina',        c:'gold',    i:'♦', key:1}],
+  '2026-09-27':[{t:'Fly Athens → Doha, 13:55',           c:'athens',  i:'✈'}],
+  '2026-09-28':[{t:'Land Brisbane 17:30',                c:'athens',  i:'✈'}],
+};
+/* rough colouring of where we are, so the trip reads as a shape */
+const STAY_BANDS = [
+  {from:'2026-08-14', to:'2026-08-16', c:'athens'},
+  {from:'2026-08-16', to:'2026-08-22', c:'kythera'},
+  {from:'2026-08-22', to:'2026-08-24', c:'athens'},
+  {from:'2026-08-24', to:'2026-09-05', c:'kythera'},
+  {from:'2026-09-05', to:'2026-09-27', c:'mani'},
 ];
 
 /* Who else joins us, and where */
@@ -486,26 +548,26 @@ const WEDDINGS = [
 ];
 
 const ITIN = [
-  {d:'13–14', m:'Aug', place:'athens', title:'Fly Brisbane → Athens', done:true,
+  {id:'p1', from:'2026-08-13', to:'2026-08-14', d:'13–14', m:'Aug', place:'athens', title:'Fly Brisbane → Athens', done:true,
    sub:'Qatar business, all four of us · booked &amp; paid',
    legs:[['Thu 13 · 22:10','✈ <b>QR899</b> Brisbane → Doha, lands 05:40 Fri · 14h 30m · Boeing 777-300ER'],
          ['Doha','1h 50m connection at Hamad International'],
          ['Fri 14 · 07:30','✈ <b>QR203</b> Doha → Athens, lands <b>12:25</b> · 4h 55m · Airbus A350-900'],
          ['Baggage','40 kg checked per person — including both kids'],
          ['Reference','Airline booking <b>D24YCD</b> · Amex booking #31508115']]},
-  {d:'14–16', m:'Aug', place:'athens', title:'Two nights in Athens', alert:true,
+  {id:'p2', from:'2026-08-14', to:'2026-08-15', d:'14–16', m:'Aug', place:'athens', title:'Two nights in Athens', alert:true,
    sub:'Not by choice — there is no way onward to Kythera until Sunday',
    legs:[['Why','The single Kythera flight on the 14th departs 09:25, three hours <b>before</b> we land. The 15th is Dekapentavgoustos and nothing flies at all.'],
          ['Fri 14','Land 12:25, straight to a hotel. Everyone sleeps off 21 hours of flying.'],
          ['Sat 15','Dekapentavgoustos — the biggest summer holiday in Greece. Athens is empty and the churches are worth seeing. Acropolis early if anyone is up for it.'],
          ['To book','Two nights of Athens accommodation, and the Sunday morning flight.']]},
-  {d:'16', m:'Aug', place:'kythera', title:'Fly Athens → Kythera',
+  {id:'p3', from:'2026-08-16', to:'2026-08-19', d:'16', m:'Aug', place:'kythera', title:'Fly Athens → Kythera',
    sub:'Sunday morning · ~50 min · then the island stretch begins',
    legs:[['Sun 16 · 08:00','✈ Athens → Kythera, lands 08:50 · about A$626 for the four of us'],
          ['Alternative','08:30 → 09:30, about A$816 — the fallback if the earlier one sells out'],
          ['Car','Hire <b>on Kythera</b>, not on the mainland — Panayotis (+30 2736031600) and Drakakis (+30 2736031160) both deliver to the airport and include child seats'],
          ['Status','<span class="tbc">Not booked</span> — this is the one to lock in first']]},
-  {d:'22–24', m:'Aug', place:'athens', title:'Zani’s birthday, then the Athens hop',
+  {id:'p4', from:'2026-08-20', to:'2026-08-24', d:'20–24', m:'Aug', place:'athens', title:'Zani’s birthday, then the Athens hop',
    sub:'🎂 Zani’s birthday on Kythera · 💍 Diana &amp; Manolis the following evening',
    legs:[['Thu 20 · evening','👵🏻 <b>Mum and Dad land on Kythera</b> — two days ahead of us leaving, so the kids are covered while we’re in Athens.'],
          ['Sat 22 · all day','🎂 <b>Zani’s birthday</b>, on Kythera. The whole day is free — we don’t leave for the airport until about 21:30, so nothing cuts the celebration short.'],
@@ -516,16 +578,16 @@ const ITIN = [
          ['Mon 24 · 07:35','✈ Olympic Air <b>OA042</b> Athens → Kythera, lands 08:35 · ref EZOECT'],
          ['Watch out','⚠ The return leg has <b>no checked bag</b> — 8 kg carry-on only, so black tie has to travel light'],
          ['Watch out','⚠ A 7 pm start means a very late night, and the 07:35 flight needs a car at ~05:15. Ask about a later Monday service, or plan to sleep on the plane.']]},
-  {d:'24 Aug', m:'– 5 Sep', place:'kythera', title:'The middle stretch', tbc:true,
+  {id:'p5', from:'2026-08-25', to:'2026-09-06', d:'25 Aug', m:'– 6 Sep', place:'kythera', title:'The middle stretch', tbc:true,
    sub:'Roughly twelve open days between the two weddings',
    legs:[['To plan','Kythera, then the crossing to the Peloponnese. Natural route: ferry Diakofti → Neapoli (~1h15), then ~2.5 h drive to Areopoli.']]},
-  {d:'~5–9', m:'Sep', place:'mani', title:'The Mani — Evangelo &amp; Christina', tbc:true,
+  {id:'p6', from:'2026-09-07', to:'2026-09-09', d:'7–9', m:'Sep', place:'mani', title:'The Mani — Evangelo &amp; Christina', tbc:true,
    sub:'The big one, Tuesday 8 September',
    legs:[['Getting there','Athens → Mani is ~3.5–4 h by car via Kalamata or Sparta; Kalamata airport is ~1 h from Areopoli'],
          ['Mon 7 Sep','👋 <b>Peter and Erin meet us in the Mani</b>, the day before the wedding'],
          ['Tue 8 Sep','💍 <b>Evangelo &amp; Christina</b> — venue and times TBC'],
          ['After','A recovery day, then back north']]},
-  {d:'27–28', m:'Sep', place:'athens', title:'Fly Athens → Brisbane', done:true,
+  {id:'p7', from:'2026-09-27', to:'2026-09-28', d:'27–28', m:'Sep', place:'athens', title:'Fly Athens → Brisbane', done:true,
    sub:'Booked &amp; paid — home Monday evening',
    legs:[['Sun 27 · 13:55','✈ <b>QR204</b> Athens → Doha, lands 18:15 · 4h 20m · Airbus A350-900'],
          ['Doha','2h 10m connection'],
@@ -696,6 +758,19 @@ $('home').innerHTML =
  '<div class="grid">'+
    FAMILY.map(f=>`<div class="card"><h4>${f.who}${f.tbc?' <span class="tbc">TBC</span>':''}</h4><p>${f.note}</p></div>`).join('')+
  '</div>'+
+ '<div class="h3">The trip, day by day</div>'+
+ '<p class="lead" style="margin:-4px 0 14px">Tap any highlighted date to jump to that part of the trip, then open a stage below for the full detail.</p>'+
+ '<div class="calcard">'+
+   '<div class="calgrid" id="calgrid"></div>'+
+   '<div class="caldetail" id="caldetail"></div>'+
+   '<div class="chips callegend">'+
+     [['athens','Athens'],['kythera','Kythera'],['mani','The Mani'],
+      ['sun','Birthday'],['gold','Wedding']]
+     .map(l=>`<span class="chip" style="--c:var(--${l[0]});cursor:default"><i></i>${l[1]}</span>`).join('')+
+   '</div>'+
+ '</div>'+
+ '<div class="h3">The seven stages</div>'+
+ '<div class="tl" id="itin"></div>'+
  '<div class="h3">Who joins us, and when</div>'+
  '<div class="arrivals">'+
    ARRIVALS.map(a=>{
@@ -720,17 +795,83 @@ $('home').innerHTML =
  '</ul></div>'+
  '<footer>Kept up to date by Georgio · sensitive details stay off this page</footer>';
 
-/* ---------------- ITINERARY ---------------- */
-$('itin').innerHTML =
- '<h2>Itinerary</h2>'+
- '<p class="lead">The backbone of the trip, anchored on the two weddings. Anything marked TBC is still being sorted. Tap a block to open it.</p>'+
- '<div class="tl">'+
- ITIN.map((d,i)=>{
+/* ---------------- CALENDAR ---------------- */
+(function buildCal(){
+  const grid = $('calgrid'); if(!grid) return;
+  const DOW = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+  const iso = d => d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+
+                   '-'+String(d.getDate()).padStart(2,'0');
+  const bandFor = k => {
+    const b = STAY_BANDS.find(s => k >= s.from && k < s.to);
+    return b ? b.c : null;
+  };
+  let html = '';
+  [[2026,7],[2026,8]].forEach(([y,m])=>{
+    const first = new Date(y,m,1), last = new Date(y,m+1,0);
+    const lead = (first.getDay()+6)%7;                      /* Monday-start */
+    html += `<div class="calm"><div class="calmh">`+
+      first.toLocaleDateString('en-AU',{month:'long',year:'numeric'})+`</div><div class="caldays">`+
+      DOW.map(d=>`<div class="caldow">${d}</div>`).join('')+
+      Array.from({length:lead},()=>'<div class="calcell empty"></div>').join('');
+    for(let day=1; day<=last.getDate(); day++){
+      const k = iso(new Date(y,m,day));
+      const ev = CAL[k] || [];
+      const band = bandFor(k);
+      const isKey = ev.some(e=>e.key);
+      html += `<button class="calcell${band?' inband':''}${ev.length?' has':''}${isKey?' key':''}"`+
+        (band?` style="--b:var(--${band})"`:'')+
+        ` data-k="${k}"${ev.length?'':' disabled'}>`+
+        `<span class="n">${day}</span>`+
+        (ev.length?`<span class="dots">`+ev.map(e=>
+          `<i style="background:var(--${e.c})"></i>`).join('')+`</span>`:'')+
+      `</button>`;
+    }
+    html += `</div></div>`;
+  });
+  grid.innerHTML = html;
+
+  const detail = $('caldetail');
+  const phaseFor = k => ITIN.find(p => k >= p.from && k <= p.to);
+  const show = k => {
+    const ev = CAL[k]; if(!ev) return;
+    const d = new Date(k+'T00:00:00');
+    const p = phaseFor(k);
+    detail.innerHTML = `<div class="cd-h">`+
+      d.toLocaleDateString('en-AU',{weekday:'long',day:'numeric',month:'long'})+`</div>`+
+      ev.map(e=>`<div class="cd-r"><i style="color:var(--${e.c})">${e.i}</i>${e.t}</div>`).join('')+
+      (p?`<button class="cd-go" data-p="${p.id}">Open “${p.title}” →</button>`:'');
+    detail.classList.add('on');
+    const go = detail.querySelector('.cd-go');
+    if(go) go.onclick = () => openPhase(p.id);
+  };
+  window.openPhase = id => {
+    const el = document.getElementById(id); if(!el) return;
+    el.classList.add('open');
+    el.scrollIntoView({behavior:'smooth', block:'center'});
+    el.classList.add('flash');
+    setTimeout(()=>el.classList.remove('flash'), 1400);
+  };
+  grid.querySelectorAll('.calcell.has').forEach(c=>{
+    c.onclick = () => {
+      grid.querySelectorAll('.calcell.sel').forEach(x=>x.classList.remove('sel'));
+      c.classList.add('sel'); show(c.dataset.k);
+    };
+  });
+  /* open on the next thing coming up, so it never looks empty */
+  const today = new Date(); today.setHours(0,0,0,0);
+  const next = Object.keys(CAL).sort().find(k=>new Date(k+'T00:00:00') >= today)
+            || Object.keys(CAL).sort().pop();
+  const cell = grid.querySelector(`.calcell[data-k="${next}"]`);
+  if(cell){ cell.classList.add('sel'); show(next); }
+})();
+
+/* ---------------- STAGES (the itinerary, now on Home) ---------------- */
+$('itin').innerHTML = ITIN.map(d=>{
    const c = PLACES[d.place].color;
    const badge = d.done  ? ' <span class="tbc ok">Booked</span>'
                : d.alert ? ' <span class="tbc warn">Heads up</span>'
                : d.tbc   ? ' <span class="tbc">TBC</span>' : '';
-   return `<div class="acc${i===1?' open':''}"><div class="acc-hd">`+
+   return `<div class="acc" id="${d.id}"><div class="acc-hd">`+
      `<div class="ddate" style="--c:${c}">${d.d}<small>${d.m}</small></div>`+
      `<div><div class="acc-nm">${d.title}${badge}</div>`+
      `<div class="acc-sub">${d.sub}</div></div>`+
@@ -739,7 +880,7 @@ $('itin').innerHTML =
        (d.legs.length ? d.legs.map(l=>`<div class="leg"><div class="slot">${l[0]}</div><div class="txt">${l[1]}</div></div>`).join('')
                       : '<div class="leg"><div class="txt">Nothing locked in yet.</div></div>')+
      `</div></div>`;
- }).join('')+'</div>';
+ }).join('');
 
 /* ---------------- WEDDINGS ---------------- */
 const STAY_D = {
