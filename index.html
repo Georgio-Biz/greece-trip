@@ -502,10 +502,12 @@ const MOMENTS = [
 const CAL = {
   '2026-08-13':[{t:'Fly Brisbane → Doha, 22:10',        c:'athens',  i:'✈', l:'Fly out'}],
   '2026-08-14':[{t:'Land Athens 12:25',                  c:'athens',  i:'✈', l:'Land ATH'},
-                {t:'Athens, night one',                  c:'athens',  i:'●'}],
-  '2026-08-15':[{t:'Dekapentavgoustos — nothing flies',  c:'sun',     i:'✦', l:'Panagia'},
-                {t:'Athens, night two',                  c:'athens',  i:'●'}],
-  '2026-08-16':[{t:'Fly Athens → Kythera, 08:00',        c:'kythera', i:'✈', l:'To Kythera'}],
+                {t:'Drive to Monemvasia, ~4 h',          c:'mani',    i:'▸'},
+                {t:'The Flower of Monemvasia — 1 night', c:'mani',    i:'●'}],
+  '2026-08-15':[{t:'Check out before 11:00',             c:'mani',    i:'▸', l:'To Kythera'},
+                {t:'Drive Monemvasia → Neapoli, 37 km',  c:'mani',    i:'▸'},
+                {t:'Ferry Neapoli → Kythera, ~1h15',     c:'kythera', i:'⛴'},
+                {t:'Dekapentavgoustos — the busiest travel day in Greece', c:'sun', i:'✦'}],
   '2026-08-20':[{t:'Mum &amp; Dad arrive Kythera',       c:'kythera', i:'●', l:'Mum &amp; Dad'}],
   '2026-08-22':[{t:'🎂 Zani’s birthday',                 c:'sun',     i:'✦', l:'Zani’s day'},
                 {t:'Fly Kythera → Athens, 22:40',        c:'athens',  i:'✈'}],
@@ -518,12 +520,49 @@ const CAL = {
 };
 /* rough colouring of where we are, so the trip reads as a shape */
 const STAY_BANDS = [
-  {from:'2026-08-14', to:'2026-08-16', c:'athens',  l:'Athens'},
-  {from:'2026-08-16', to:'2026-08-22', c:'kythera', l:'Kythera'},
+  {from:'2026-08-14', to:'2026-08-15', c:'mani',    l:'Monemvasia'},
+  {from:'2026-08-15', to:'2026-08-22', c:'kythera', l:'Kythera'},
   {from:'2026-08-22', to:'2026-08-24', c:'athens',  l:'Athens'},
   {from:'2026-08-24', to:'2026-09-05', c:'kythera', l:'Kythera'},
   {from:'2026-09-05', to:'2026-09-27', c:'mani',    l:'Mani'},
 ];
+
+/* Travel insurance — AFA Corporate Travel via Fitaz Gym */
+const INSURANCE = {
+  policy:'6179506', insurer:'AFA Pty Ltd, on behalf of Zurich Australian Insurance',
+  insured:'Fitaz Gym Pty Ltd', broker:'Rivers Insurance Brokers',
+  period:'22 Jul 2026 → 15 Jul 2027', limits:'Worldwide',
+  who:'All directors, employees and contractors of the insured — <b>including accompanying spouse/partner and dependent children</b>. That covers Thessy, Zani and Dimitrios.',
+  emerg:[['24-hour assistance','+61 2 8907 5955','tel:+61289075955'],
+         ['SMS','+61 437 174 325','sms:+61437174325'],
+         ['Email','assist@worldtravelprotection.com','mailto:assist@worldtravelprotection.com']],
+  cover:[
+    ['Overseas medical','Unlimited · nil excess'],
+    ['Medical evacuation','Unlimited'],
+    ['Hospital confinement','$200 a day, up to 60 days'],
+    ['Rental vehicle excess','<b>$10,000</b> — so decline the hire company’s excess-reduction upsell'],
+    ['Baggage','$20,000 · electronics $10,000 ($250 excess) · cash &amp; documents $5,000'],
+    ['Missed connection','$10,000'],
+    ['Loss of deposits','$20,000'],
+    ['Miscarriage / premature birth','$5,000'],
+    ['Childcare benefit','$5,000'],
+    ['Personal liability','$10,000,000'],
+    ['Search &amp; rescue','$20,000'],
+    ['Disaster evacuation','$50,000'],
+  ],
+  flags:[
+    ['This is a business policy — the trip must be declared',
+     'Cover applies to a <i>journey on the business of the insured</i>. Private leisure travel is only covered where it has been <b>declared to AFA before departure</b>. The schedule does allow for it — eight overseas private trips for directors — but the declaration is what switches it on. <b>Ring Rivers and have this trip declared in writing.</b>'],
+    ['The 30-day limit is the real problem',
+     'Declared private leisure travel carries a <b>maximum trip duration of 30 days</b>. We are away <b>46 days</b>, 13 August to 28 September. That is a material gap and needs an endorsement or an extension from the broker — do not assume the 180-day wording in the scope section overrides the declared 30.'],
+    ['Pregnancy needs checking against the PDS',
+     'There is a $5,000 miscarriage and premature birth benefit, but travel policies almost always restrict pregnancy cover beyond a certain gestation and exclude routine childbirth. <b>Confirm where Thessy will be by late September against the PDS terms</b> before relying on this.'],
+    ['Private-travel limits are lower than the headline',
+     'On private travel the personal accident sum is capped at $500,000 for any one event, accidental death is calculated on $50,000 rather than a salary multiple, and travel disruption is <b>$20,000 per claim</b> rather than unlimited.'],
+    ['Confirm the premium was paid',
+     'Cover began 22 July 2026 and the premium was payable within 14 days to keep it in force. Worth a one-line confirmation from Rivers.'],
+  ],
+};
 
 /* Who else joins us, and where */
 const ARRIVALS = [
@@ -600,18 +639,24 @@ const ITIN = [
          ['Fri 14 · 07:30','✈ <b>QR203</b> Doha → Athens, lands <b>12:25</b> · 4h 55m · Airbus A350-900'],
          ['Baggage','40 kg checked per person — including both kids'],
          ['Reference','Airline booking <b>D24YCD</b> · Amex booking #31508115']]},
-  {id:'p2', from:'2026-08-14', to:'2026-08-15', d:'14–16', m:'Aug', place:'athens', title:'Two nights in Athens', alert:true,
-   sub:'Not by choice — there is no way onward to Kythera until Sunday',
-   legs:[['Why','The single Kythera flight on the 14th departs 09:25, three hours <b>before</b> we land. The 15th is Dekapentavgoustos and nothing flies at all.'],
-         ['Fri 14','Land 12:25, straight to a hotel. Everyone sleeps off 21 hours of flying.'],
-         ['Sat 15','Dekapentavgoustos — the biggest summer holiday in Greece. Athens is empty and the churches are worth seeing. Acropolis early if anyone is up for it.'],
-         ['To book','Two nights of Athens accommodation, and the Sunday morning flight.']]},
-  {id:'p3', from:'2026-08-16', to:'2026-08-19', d:'16', m:'Aug', place:'kythera', title:'Fly Athens → Kythera',
-   sub:'Sunday morning · ~50 min · then the island stretch begins',
-   legs:[['Sun 16 · 08:00','✈ Athens → Kythera, lands 08:50 · about A$626 for the four of us'],
-         ['Alternative','08:30 → 09:30, about A$816 — the fallback if the earlier one sells out'],
-         ['Car','Hire <b>on Kythera</b>, not on the mainland — Panayotis (+30 2736031600) and Drakakis (+30 2736031160) both deliver to the airport and include child seats'],
-         ['Status','<span class="tbc">Not booked</span> — this is the one to lock in first']]},
+  {id:'p2', from:'2026-08-14', to:'2026-08-14', d:'14', m:'Aug', place:'mani',
+   title:'Land, then drive to Monemvasia', alert:true,
+   sub:'Booked — one night at The Flower of Monemvasia',
+   legs:[['Fri 14 · 12:25','✈ Land Athens. Collect the hire car at the airport.'],
+         ['Drive','Athens → <b>Monemvasia</b>, roughly <b>4 hours</b> south through Corinth, Tripoli and Sparta.'],
+         ['Stay','<b>The Flower of Monemvasia</b>, Main Street, Monemvasia 230 70. Check in after 15:00. Reservation 73520394589255.'],
+         ['Why this works','It breaks the journey and puts us 37 km from Neapoli, the ferry port for Kythera — no need for the Athens flight at all.'],
+         ['Watch out','⚠ Four hours at the wheel straight off a 21-hour flight, with Thessy pregnant and two kids. Worth planning a proper stop, and deciding now who drives.'],
+         ['Watch out','⚠ The listing says <b>maximum overnight guests: 1</b> while the booking is for 2 adults and 2 children. Almost certainly a listing error, but worth confirming with the host before we arrive.']]},
+  {id:'p3', from:'2026-08-15', to:'2026-08-19', d:'15', m:'Aug', place:'kythera',
+   title:'Ferry across to Kythera', alert:true,
+   sub:'Monemvasia → Neapoli → Kythera, on Dekapentavgoustos',
+   legs:[['Sat 15 · by 11:00','Check out of Monemvasia.'],
+         ['Drive','Monemvasia → <b>Neapoli Voion</b>, 37 km, about 40 minutes on the coast road.'],
+         ['Ferry','⛴ Neapoli → Diakofti (Kythera), about <b>1h 15m</b>. Triton’s <i>Porfyrousa</i> runs it, typically 09:30 and 14:00 — the 14:00 fits a check-out.'],
+         ['Status','<span class="tbc">Ferry not booked</span> — <b>this is now the single most urgent thing.</b>'],
+         ['Watch out','⚠ The 15th is <b>Dekapentavgoustos</b>, the busiest travel day in the Greek calendar. This crossing will be in demand and vehicle space was already scarce. Book it today, and if the car cannot get on, go as foot passengers and hire on Kythera instead.'],
+         ['Car','If we take the hire car across, it needs to be a company that permits the ferry. Otherwise drop it at Neapoli and pick up a fresh one on the island — Panayotis +30 2736031600, Drakakis +30 2736031160.']]},
   {id:'p4', from:'2026-08-20', to:'2026-08-24', d:'20–24', m:'Aug', place:'athens', title:'Zani’s birthday, then the Athens hop',
    sub:'🎂 Zani’s birthday on Kythera · 💍 Diana &amp; Manolis the following evening',
    legs:[['Thu 20 · evening','👵🏻 <b>Mum and Dad land on Kythera</b> — two days ahead of us leaving, so the kids are covered while we’re in Athens.'],
@@ -682,14 +727,14 @@ const QR = [
    dur:'14h 05m', ac:'Boeing 777-300ER', note:'2h 10m connection · lands Mon 28 Sep'},
 ];
 
-/* Getting to Kythera after landing 14 Aug — the options, checked */
+/* How we get to Kythera — resolved by the Monemvasia booking */
 const KYTHERA = [
-  {when:'Fri 14 Aug', verdict:'no', head:'The only flight leaves before we land',
-   body:'One service that day, Athens 09:25 → Kythera 10:10. We touch down at 12:25 — three hours too late. A same-day ferry from Piraeus is theoretically possible but would mean clearing a peak-August airport and crossing the city inside 90 minutes with two kids after 21 hours of flying.'},
-  {when:'Sat 15 Aug', verdict:'no', head:'Dekapentavgoustos — nothing flies',
-   body:'The Assumption of the Virgin Mary is the biggest summer holiday in the Greek calendar and 10–17 August is the busiest travel week of the year. No Athens–Kythera flight operates at all, and this is exactly why every car space on the Neapoli and Gythio ferries is gone.'},
-  {when:'Sun 16 Aug', verdict:'yes', head:'Two morning flights, seats available',
-   body:'Athens 08:00 → Kythera 08:50, about <b>A$626</b> for the four of us. A second at 08:30 → 09:30 for about A$816 as backup. Roughly 50 minutes, no ferry, no car queue. This is the answer.'},
+  {when:'The old plan', verdict:'no', head:'Two nights in Athens, fly Sunday',
+   body:'The only Athens–Kythera flight on the 14th departs 09:25, three hours before we land, and nothing flies at all on the 15th. That left a Sunday-morning flight and two nights in Athens — workable, but it cost a day on the island.'},
+  {when:'Fri 14 Aug', verdict:'yes', head:'Drive south to Monemvasia instead',
+   body:'Land 12:25, collect the car and drive about four hours south. <b>One night booked and paid</b> at The Flower of Monemvasia. It breaks the journey and leaves us 37 km from the ferry port.'},
+  {when:'Sat 15 Aug', verdict:'yes', head:'Neapoli → Kythera by sea',
+   body:'A 40-minute drive to Neapoli Voion, then about <b>1h 15m</b> across to Diakofti. We reach Kythera on the Saturday — a full day earlier than the flight would have managed, and no airport involved.'},
 ];
 
 const BOOKINGS = {
@@ -698,21 +743,30 @@ const BOOKINGS = {
      d:'All four of us · Out Thu 13 Aug QR899/QR203, lands Athens 12:25 Fri 14th · Home Sun 27 Sep QR204/QR898, lands Brisbane 17:30 Mon 28th · airline ref <b>D24YCD</b> · Amex booking #31508115 · fare A$57,390 + A$5,832.32 taxes · 40 kg checked each, kids included'},
     {n:'Kythera ↔ Athens — wedding hop', aud:718.60, st:'paid',
      d:'Georgio &amp; Thessy · Out Sat 22 Aug: Sky Express GQ441, 22:40 → 23:30 · Back Mon 24 Aug: Olympic Air OA042, 07:35 → 08:35 · refs IH3MJ6 / EZOECT · Trip.com 1167732286563747 · ⚠ no checked bag on the return'},
-    {n:'Athens → Kythera — Sun 16 Aug', aud:626, st:'due',
-     d:'08:00 → 08:50, about A$626 for four. The 08:30 → 09:30 at ~A$816 is the backup. <b>Book this first</b> — it is the only way onto the island before Sunday.'},
+    {n:'Athens → Kythera flight — no longer needed', aud:null, st:'tbc',
+     d:'Superseded. We now drive south on the 14th and cross by ferry on the 15th, which gets us to Kythera a day earlier than the Sunday flight would have.'},
     {n:'Kythera → mainland, before the Mani', aud:null, st:'tbc',
      d:'Needed around 5 Sep. Either fly back to Athens and drive down, or ferry Diakofti → Neapoli (1h15) and drive ~2.5 h to Areopoli.'},
   ],
   hotels:[
-    {n:'Athens — 14 &amp; 15 Aug', aud:null, st:'tbc', d:'<b>Two nights, newly needed.</b> Peak Dekapentavgoustos weekend, so book immediately. Near the airport or in the centre; we only need to be at ATH by ~06:30 Sunday.'},
+    {n:'The Flower of Monemvasia — 14 Aug', aud:442.80, st:'paid',
+     d:'One night, 2 adults + 2 children · Main Street, Monemvasia 230 70 · reservation <b>73520394589255</b> · check in after 15:00, out before 11:00 · A$387.03 + A$52.50 taxes · ⚠ <b>non-refundable</b>, and the listing states max 1 overnight guest — worth querying with the host'},
     {n:'Kythera', aud:null, st:'tbc', d:'16 Aug through early Sep — the long stretch.'},
     {n:'Athens — wedding night', aud:null, st:'tbc', d:'22–24 Aug, near Ble Azure in Alimos. Shortlist in the Eat &amp; Do tab.'},
     {n:'The Mani', aud:null, st:'tbc', d:'Around Evangelo &amp; Christina’s wedding, ~5–9 Sep.'},
   ],
+  insurance:[
+    {n:'AFA Corporate Travel — policy 6179506', aud:null, st:'due',
+     d:'Through Fitaz Gym, via Rivers Insurance Brokers · 22 Jul 2026 → 15 Jul 2027, worldwide · covers Thessy and both kids as accompanying family · <b>⚠ this trip still needs declaring, and 46 days exceeds the declared 30-day maximum</b> — see the Info tab'},
+  ],
   transport:[
     {n:'Hire car — on Kythera', aud:null, st:'tbc', d:'Panayotis +30 2736031600 or Drakakis +30 2736031160. Both deliver to Kythera airport and Diakofti port, both include child seats. Hiring on the island avoids the full car ferries entirely.'},
     {n:'Hire car — mainland, for the Mani', aud:null, st:'tbc', d:'From early Sep. Athens vs Kalamata pickup still to compare.'},
-    {n:'Ferry — Diakofti → Neapoli', aud:null, st:'tbc', d:'1h 15m. Only needed if we drive to the Mani rather than fly via Athens.'},
+    {n:'Ferry — Neapoli → Kythera, Sat 15 Aug', aud:null, st:'due',
+     d:'<b>The most urgent booking on this page.</b> ~1h15 on Triton’s <i>Porfyrousa</i>, roughly €12.50 a foot passenger. Crossing on Dekapentavgoustos, so space — vehicle space especially — will go fast.'},
+    {n:'Hire car — Athens airport, 14 Aug', aud:null, st:'tbc',
+     d:'Needed on landing for the drive south. Confirm whether the company permits taking it on the Kythera ferry; if not, drop at Neapoli and hire again on the island.'},
+    {n:'Ferry — Kythera → Neapoli, early Sep', aud:null, st:'tbc', d:'The return crossing, before heading to the Mani.'},
   ],
 };
 
@@ -993,7 +1047,7 @@ const bkRows = rows => rows.map(r=>
   (r.aud!=null?`<div class="bp"><div class="a">${A(r.aud)}</div><div class="e">${E(r.aud)}</div></div>`:'')+
   `</div>`).join('');
 
-const all = [...BOOKINGS.flights,...BOOKINGS.hotels,...BOOKINGS.transport];
+const all = [...BOOKINGS.flights,...BOOKINGS.hotels,...BOOKINGS.transport,...BOOKINGS.insurance];
 const paid = all.filter(b=>b.aud!=null && b.st==='paid').reduce((a,b)=>a+b.aud,0);
 const committed = all.filter(b=>b.aud!=null).reduce((a,b)=>a+b.aud,0);
 
@@ -1012,8 +1066,8 @@ $('bookings').innerHTML =
      `<td>${f.dur}</td><td>${f.ac}${f.note?`<br><small style="color:var(--ink-3)">${f.note}</small>`:''}</td></tr>`).join('')+
  '</tbody></table></div>'+
  '<div class="good"><b>Baggage is generous:</b> 40 kg checked for every passenger, children included. That is unusually good and worth remembering when packing for two weddings.</div>'+
- '<div class="h3">Getting to Kythera after we land</div>'+
- '<p class="lead" style="margin:-4px 0 14px">We land in Athens at 12:25 on Friday 14 August. Here is what is actually possible from that moment.</p>'+
+ '<div class="h3">How we get to Kythera</div>'+
+ '<p class="lead" style="margin:-4px 0 14px">Solved by the Monemvasia booking — we go overland and cross by sea, rather than waiting for a Sunday flight.</p>'+
  '<div class="grid">'+
    KYTHERA.map(k=>`<div class="opt${k.verdict==='yes'?' best':''}">`+
      (k.verdict==='yes'?'<div class="tag">Do this</div>':'')+
@@ -1027,6 +1081,7 @@ $('bookings').innerHTML =
  '<div class="h3">Flights</div>'+ bkRows(BOOKINGS.flights)+
  '<div class="h3">Hotels</div>'+ bkRows(BOOKINGS.hotels)+
  '<div class="h3">Cars &amp; ferries</div>'+ bkRows(BOOKINGS.transport)+
+ '<div class="h3">Insurance</div>'+ bkRows(BOOKINGS.insurance)+
  '<div class="good">A shared Google Sheet for the running budget will link here once the big bookings land — that’s where costs get split and tracked.</div>';
 
 /* ---------------- EAT & DO ---------------- */
@@ -1047,6 +1102,22 @@ $('eatdo').innerHTML =
 $('info').innerHTML =
  '<h2>Info &amp; essentials</h2>'+
  '<p class="lead">The on-the-ground basics. Worth saving to your phone before you fly.</p>'+
+ '<div class="h3">Travel insurance</div>'+
+ '<div class="card" style="margin:0 0 12px">'+
+   `<h4>AFA Corporate Travel · policy ${INSURANCE.policy}</h4>`+
+   '<div class="facts" style="margin:10px 0 14px">'+
+     [['Policy',INSURANCE.policy],['Period',INSURANCE.period],
+      ['Territory',INSURANCE.limits],['Broker',INSURANCE.broker]]
+     .map(f=>`<div class="fact"><small>${f[0]}</small><b>${f[1]}</b></div>`).join('')+
+   '</div>'+
+   `<p style="margin:0 0 12px">${INSURANCE.who}</p>`+
+   '<div class="btns">'+INSURANCE.emerg.map(e=>
+     `<a class="btn" href="${e[2]}"><span>●</span>${e[0]}: ${e[1]}</a>`).join('')+'</div>'+
+   '<div class="sub-h">What it covers</div>'+
+   INSURANCE.cover.map(c=>`<div class="line"><small>${c[0]}</small><div>${c[1]}</div></div>`).join('')+
+ '</div>'+
+ INSURANCE.flags.map(f=>
+   `<div class="flag"><div class="ic">⚠</div><div><b>${f[0]}.</b> ${f[1]}</div></div>`).join('')+
  '<div class="h3">Emergency</div><div class="grid">'+
    '<div class="card"><h4>In Greece</h4><ul><li>Everything: <b>112</b> — EU-wide, English spoken</li><li>Police <b>100</b> · Ambulance <b>166</b> · Fire <b>199</b></li><li>Tourist police <b>1571</b></li></ul></div>'+
    '<div class="card"><h4>Medical — for Thessy</h4><ul><li>Kythera has a small general hospital at Potamos; anything serious transfers to Athens</li><li>In the Mani, the nearest hospitals are Sparta and Kalamata, roughly an hour from Areopoli</li><li>Pharmacies (φαρμακείο, green cross) are everywhere and excellent — pharmacists can prescribe for minor things</li><li>Carry the maternity record; care in Athens is good</li></ul></div>'+
