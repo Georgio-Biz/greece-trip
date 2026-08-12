@@ -643,7 +643,8 @@ const ITIN = [
    title:'The drive south — Athens to Monemvasia', alert:true,
    sub:'About 4½ hours of driving, broken by lunch and a swim at Loutraki',
    legs:[
-     ['12:25','✈ Land Athens. Bags, then the hire-car desk — allow a full hour in mid-August.'],
+     ['12:25','✈ Land Athens. Bags, then the Europcar desk — booking D014929765, pick-up slotted for 13:00.'],
+     ['⚠ 35 minutes','That is all there is between landing and the pick-up time. Flight <b>QR203 is linked to the booking</b>, so Europcar should track it and hold the car — but do not dawdle, and ring +30 211 190 3000 if immigration is slow.'],
      ['~13:45 · leave','Head west on the Attiki Odos, then the A8 toward Corinth.'],
      ['~14:50 · <b>Corinth Canal</b>','<b>Ten minutes, and worth every one.</b> Pull in at the Isthmus bridge: a 6.4 km slot cut clean through solid rock, 90 m deep and only 21 m wide. Nero began digging it in AD 67 with 6,000 Jewish slaves and a golden pickaxe; it was finally finished in 1893. Ships still squeeze through with metres to spare.'],
      ['~15:10 · <b>Loutraki</b>','Lunch and a swim. The long pebble beach shelves gently and the water is clear — an easy first swim for the kids. The seafront promenade is one continuous run of tavernas.'],
@@ -677,6 +678,7 @@ const ITIN = [
      ['13:15 · at the port','Be at Neapoli an hour before the sailing — on Dekapentavgoustos, make it a little more.'],
      ['<b>14:30 · ferry</b>','⛴ Neapoli → Diakofti, about <b>1h 15m</b>. On Kythera by roughly 15:45.'],
      ['⚠ Still to book','The crossing itself. <b>This is the most urgent item on the whole page.</b>'],
+     ['⚠ Europcar and ferries','Europcar is one of the majors that generally <b>does not permit its cars on ferries</b>. Taking it across without written consent can void the rental agreement and every layer of insurance with it. <b>Ring +30 211 190 3000 and settle this before the 14th</b> — it decides whether the car comes to Kythera at all.'],
    ]},
   {id:'p3b', from:'2026-08-15', to:'2026-08-15', d:'15', m:'Aug', place:'mani',
    title:'Elafonisos — read before you commit', alert:true,
@@ -795,8 +797,10 @@ const BOOKINGS = {
     {n:'Hire car — mainland, for the Mani', aud:null, st:'tbc', d:'From early Sep. Athens vs Kalamata pickup still to compare.'},
     {n:'Ferry — Neapoli → Kythera, Sat 15 Aug', aud:null, st:'due',
      d:'<b>The most urgent booking on this page.</b> ~1h15 on Triton’s <i>Porfyrousa</i>, roughly €12.50 a foot passenger. Crossing on Dekapentavgoustos, so space — vehicle space especially — will go fast.'},
-    {n:'Hire car — Athens airport, 14 Aug', aud:null, st:'tbc',
-     d:'<b>Athens Car Rental (ACR)</b> is the one to call — athens-carrental.com, 3 min from the terminal, and <b>they permit ferries at no extra charge</b>, which most companies flatly refuse. Ask for a 7-seat SUV (Kodiaq/Tiguan class) — four people with 40 kg each will not fit in a compact — plus two child seats. <b>AutoUnion</b> also allows ferries, for about €75. Hertz, Avis, Sixt and Europcar generally do not. ⚠ Even where permitted, <b>CDW is void while the car is on the ferry</b> — get the ferry cover confirmed in writing.'},
+    {n:'Hire car — Europcar, Athens airport', aud:5860.71, st:'dep',
+     d:'44 days · pick up <b>13:00 Fri 14 Aug</b>, drop <b>13:00 Sun 27 Sep</b>, both at ATH (Attiki Odos, Spata 19019) · booked through DiscoverCars <b>D014929765</b>, confirmation <b>1205911730</b> · Europcar +30 211 190 3000, desk open 05:01–22:29 · <b>BMW 1 Series or similar, manual, 5 seats</b> · fuel same-to-same · A$708.96 prepaid, <b>€3,151.45 (A$5,151.75) due at the desk</b>, A$385 deposit held · credit card in the main driver’s name only — no debit, cash or Apple/Google Pay · flight QR203 is linked to the booking'},
+    {n:'DiscoverCars Full Protection', aud:742.98, st:'paid',
+     d:'Excess cover bought alongside the car. Note the <b>AFA policy already carries a $10,000 rental vehicle excess waiver</b>, so this may be duplicate cover — worth a look before the trip. It also reimburses rather than pays directly: you settle with Europcar first, then claim back.'},
     {n:'Ferry — Kythera → Neapoli, early Sep', aud:null, st:'tbc', d:'The return crossing, before heading to the Mani.'},
   ],
 };
@@ -1108,7 +1112,11 @@ $('bookings').innerHTML =
      `<div style="font-size:12.6px;color:var(--ink-2);line-height:1.55">${k.body}</div></div>`).join('')+
  '</div>'+
  '<div class="flag"><div class="ic">🚂</div><div><b>The train idea does not work, unfortunately.</b> The Peloponnese railway south of Corinth has been closed since 2011 — there is no rail service to Sparta, Gythio or Kalamata, and the line is currently subject to tenders to convert it into a cycle path. A symbolic run to Kalamata took place in June 2026 but no scheduled service exists. The only rail from the airport is the suburban line west to Kiato, which is the wrong direction entirely.</div></div>'+
- '<div class="good"><b>The car problem solves itself.</b> The ferries are full of cars because 10–17 August is the busiest travel week in Greece. But we do not need to take a car across — hire one <b>on Kythera</b> instead. Panayotis and Drakakis both deliver to the airport and the port, both include child seats, and neither depends on a ferry space.</div>'+
+ '<div class="flag"><div class="ic">⚠</div><div><b>The car changes this.</b> We now have a Europcar hire for the full 44 days from Athens airport, so the car has to cross with us — and vehicle space on the 15th is exactly what is scarce, because 10–17 August is the busiest travel week in Greece. Two things have to line up: <b>Europcar’s written permission to take it on a ferry</b>, and <b>a vehicle space on the 14:30 sailing</b>. If either falls over, the fallback is to leave the car at Neapoli and hire on the island — Panayotis +30 2736031600 or Drakakis +30 2736031160, both deliver to Diakofti port and include child seats.</div></div>'+
+ '<div class="flag"><div class="ic">⚠</div><div><b>Three things to settle on the hire car before the 14th.</b> '+
+   '<b>1 — Will Europcar allow it on the ferry?</b> They generally do not, and taking it across without written consent voids the agreement and the insurance. This decides the whole Kythera plan. '+
+   '<b>2 — A BMW 1 Series will not hold the luggage.</b> Four people at 40 kg each is roughly four large cases plus carry-ons, against a boot of about 380 litres. Ask Europcar to move us up to an estate or a mid-size SUV; expect to pay the difference at the desk. '+
+   '<b>3 — It is a manual.</b> Fine if that suits, worth swapping if not. DiscoverCars have locked modifications, so all three are conversations with Europcar directly.</div></div>'+
  '<div class="h3">Flights</div>'+ bkRows(BOOKINGS.flights)+
  '<div class="h3">Hotels</div>'+ bkRows(BOOKINGS.hotels)+
  '<div class="h3">Cars &amp; ferries</div>'+ bkRows(BOOKINGS.transport)+
