@@ -488,13 +488,13 @@ const PLACES = {
 const FAMILY = [
   {who:'Georgio',    note:'Trip lead — flights, cars and the two weddings'},
   {who:'Thessy',     note:'Pregnant — the whole trip is paced around her: no long ferry crossings if avoidable, unhurried days, and medical info noted for every stop'},
-  {who:'Zani',       note:'🎂 <b>Birthday on Saturday 22 August</b>, spent on Kythera. 40 kg checked baggage on the child fare, same as the adults.'},
-  {who:'Dimitrios',  note:'Travelling on a child fare — 40 kg checked baggage included, same as the adults'},
+  {who:'Zani',       note:'🎂 <b>Turns 8 on Saturday 22 August</b>, on Kythera. 40 kg checked baggage on the child fare, same as the adults.'},
+  {who:'Dimitrios',  note:'Five years old — still travels free on the Greek ferries. 40 kg checked baggage on the flights, same as everyone else.'},
 ];
 
 /* Dates that matter, beyond the two weddings */
 const MOMENTS = [
-  {kick:'Kythera', name:'Zani’s birthday', iso:'2026-08-22',
+  {kick:'Kythera', name:'Zani turns 8', iso:'2026-08-22',
    date:'Saturday 22 August 2026', c:'var(--sun)'},
 ];
 
@@ -506,7 +506,7 @@ const CAL = {
                 {t:'The Flower of Monemvasia — 1 night', c:'mani',    i:'●'}],
   '2026-08-15':[{t:'Check out before 11:00',             c:'mani',    i:'▸', l:'To Kythera'},
                 {t:'Drive Monemvasia → Neapoli, 37 km',  c:'mani',    i:'▸'},
-                {t:'Ferry Neapoli → Kythera, 14:30 · ~1h15', c:'kythera', i:'⛴'},
+                {t:'Ferry Neapoli → Kythira 14:30 — booked, car included (res 9553079485)', c:'kythera', i:'⛴'},
                 {t:'Dekapentavgoustos — the busiest travel day in Greece', c:'sun', i:'✦'}],
   '2026-08-20':[{t:'Mum &amp; Dad arrive Kythera',       c:'kythera', i:'●', l:'Mum &amp; Dad'}],
   '2026-08-22':[{t:'🎂 Zani’s birthday',                 c:'sun',     i:'✦', l:'Zani’s day'},
@@ -675,9 +675,10 @@ const ITIN = [
      ['08:30 · the upper town','This is the hour to climb to <b>Agia Sofia</b>, before the heat and before the day-trippers. Twenty minutes up the zigzag, and the view down the coast is the best you will get all week.'],
      ['~11:00 · check out','Out by 11:00 at the latest.'],
      ['Drive','Monemvasia → <b>Neapoli Voion</b>, 37 km, about 40 minutes on the coast road.'],
-     ['13:15 · at the port','Be at Neapoli an hour before the sailing — on Dekapentavgoustos, make it a little more.'],
-     ['<b>14:30 · ferry</b>','⛴ Neapoli → Diakofti, about <b>1h 15m</b>. On Kythera by roughly 15:45.'],
-     ['⚠ Still to book','The crossing itself. <b>This is the most urgent item on the whole page.</b>'],
+     ['<b>13:30 · at the port</b>','The ticket terms are explicit: <b>vehicles must be in the embarkation area a full hour before departure.</b> Miss that and the space can be given away. Monemvasia to Neapoli is 40 minutes, so leaving by 12:30 gives an hour of slack.'],
+     ['<b>14:30 · ferry</b>','⛴ Triton Ferries <i>F/B Porfyrousa</i>, Neapoli → Kythira, about <b>1h 15m</b>. On the island by roughly 15:45. Reservation <b>9553079485</b>.'],
+     ['Tickets','T-896373 Georgio · T-896374 Thessy · T-896375 Zani · T-896376 Dimitrios · T-896377 the car. Print them or have the PDF offline — Neapoli is not the place to discover you have no signal.'],
+     ['⚠ Still to do','<b>Pay Kithira Travel €78.80</b> by transfer, and <b>give them the car’s registration</b> — the vehicle ticket currently reads “RENTACAR” as a placeholder. Ring Europcar for the plate when you collect it.'],
      ['⚠ Europcar and ferries','Europcar is one of the majors that generally <b>does not permit its cars on ferries</b>. Taking it across without written consent can void the rental agreement and every layer of insurance with it. <b>Ring +30 211 190 3000 and settle this before the 14th</b> — it decides whether the car comes to Kythera at all.'],
    ]},
   {id:'p3b', from:'2026-08-15', to:'2026-08-15', d:'15', m:'Aug', place:'mani',
@@ -693,7 +694,7 @@ const ITIN = [
   {id:'p4', from:'2026-08-20', to:'2026-08-24', d:'20–24', m:'Aug', place:'athens', title:'Zani’s birthday, then the Athens hop',
    sub:'🎂 Zani’s birthday on Kythera · 💍 Diana &amp; Manolis the following evening',
    legs:[['Thu 20 · evening','👵🏻 <b>Mum and Dad land on Kythera</b> — two days ahead of us leaving, so the kids are covered while we’re in Athens.'],
-         ['Sat 22 · all day','🎂 <b>Zani’s birthday</b>, on Kythera. The whole day is free — we don’t leave for the airport until about 21:30, so nothing cuts the celebration short.'],
+         ['Sat 22 · all day','🎂 <b>Zani turns 8</b>, on Kythera. The whole day is free — we don’t leave for the airport until about 21:30, so nothing cuts the celebration short.'],
          ['Sat 22 · 22:40','✈ Sky Express <b>GQ441</b> Kythera → Athens, lands 23:30 · ref IH3MJ6'],
          ['Sun 23 · daytime','Free. Recover, swim, or head into the centre — nothing is on until the evening.'],
          ['Sun 23 · 19:00','💍 <b>Diana &amp; Manolis</b> at Ble Azure, Alimos. Outdoors on the peninsula, then dinner, music and dancing.'],
@@ -795,8 +796,8 @@ const BOOKINGS = {
   transport:[
     {n:'Hire car — on Kythera', aud:null, st:'tbc', d:'Panayotis +30 2736031600 or Drakakis +30 2736031160. Both deliver to Kythera airport and Diakofti port, both include child seats. Hiring on the island avoids the full car ferries entirely.'},
     {n:'Hire car — mainland, for the Mani', aud:null, st:'tbc', d:'From early Sep. Athens vs Kalamata pickup still to compare.'},
-    {n:'Ferry — Neapoli → Kythera, Sat 15 Aug', aud:null, st:'due',
-     d:'<b>The most urgent booking on this page.</b> ~1h15 on Triton’s <i>Porfyrousa</i>, roughly €12.50 a foot passenger. Crossing on Dekapentavgoustos, so space — vehicle space especially — will go fast.'},
+    {n:'Ferry — Neapoli → Kythera, Sat 15 Aug', aud:131, st:'due',
+     d:'<b>Booked — and the car has a space.</b> Triton Ferries <i>F/B Porfyrousa</i>, <b>Neapoli 14:30 → Kythira</b> · reservation <b>9553079485</b> via Kithira Travel · tickets T-896373/4/5/6 for the four of us plus T-896377 for the vehicle · Georgio €13.50, Thessy €13.50, Zani €6.80 (child rate), Dimitrios free (under 5s travel free), <b>car €45.00</b> · <b>total €78.80</b> · ⚠ payable by bank transfer to Kithira Travel — not yet sent'},
     {n:'Hire car — Europcar, Athens airport', aud:5860.71, st:'dep',
      d:'44 days · pick up <b>13:00 Fri 14 Aug</b>, drop <b>13:00 Sun 27 Sep</b>, both at ATH (Attiki Odos, Spata 19019) · booked through DiscoverCars <b>D014929765</b>, confirmation <b>1205911730</b> · Europcar +30 211 190 3000, desk open 05:01–22:29 · <b>BMW 1 Series or similar, manual, 5 seats</b> · fuel same-to-same · A$708.96 prepaid, <b>€3,151.45 (A$5,151.75) due at the desk</b>, A$385 deposit held · credit card in the main driver’s name only — no debit, cash or Apple/Google Pay · flight QR203 is linked to the booking'},
     {n:'DiscoverCars Full Protection', aud:742.98, st:'paid',
@@ -1112,7 +1113,8 @@ $('bookings').innerHTML =
      `<div style="font-size:12.6px;color:var(--ink-2);line-height:1.55">${k.body}</div></div>`).join('')+
  '</div>'+
  '<div class="flag"><div class="ic">🚂</div><div><b>The train idea does not work, unfortunately.</b> The Peloponnese railway south of Corinth has been closed since 2011 — there is no rail service to Sparta, Gythio or Kalamata, and the line is currently subject to tenders to convert it into a cycle path. A symbolic run to Kalamata took place in June 2026 but no scheduled service exists. The only rail from the airport is the suburban line west to Kiato, which is the wrong direction entirely.</div></div>'+
- '<div class="flag"><div class="ic">⚠</div><div><b>The car changes this.</b> We now have a Europcar hire for the full 44 days from Athens airport, so the car has to cross with us — and vehicle space on the 15th is exactly what is scarce, because 10–17 August is the busiest travel week in Greece. Two things have to line up: <b>Europcar’s written permission to take it on a ferry</b>, and <b>a vehicle space on the 14:30 sailing</b>. If either falls over, the fallback is to leave the car at Neapoli and hire on the island — Panayotis +30 2736031600 or Drakakis +30 2736031160, both deliver to Diakofti port and include child seats.</div></div>'+
+ '<div class="good"><b>The vehicle space is secured.</b> Ticket T-896377 on the 14:30 Porfyrousa, €45 — booked through Kithira Travel on 11 August, which was the tight one to get on Dekapentavgoustos. The car crosses with us.</div>'+
+ '<div class="flag"><div class="ic">⚠</div><div><b>One thing left on the car, and it is the important one.</b> The ferry will carry it — but <b>Europcar still has to permit it</b>. They are one of the majors that generally does not allow their vehicles on ferries, and crossing without written consent can void the rental agreement and every layer of insurance behind it. <b>Ring +30 211 190 3000 before the 14th and get it in writing.</b> If they refuse, leave the car at Neapoli and hire on the island — Panayotis +30 2736031600, Drakakis +30 2736031160, both deliver to Diakofti.</div></div>'+
  '<div class="flag"><div class="ic">⚠</div><div><b>Three things to settle on the hire car before the 14th.</b> '+
    '<b>1 — Will Europcar allow it on the ferry?</b> They generally do not, and taking it across without written consent voids the agreement and the insurance. This decides the whole Kythera plan. '+
    '<b>2 — A BMW 1 Series will not hold the luggage.</b> Four people at 40 kg each is roughly four large cases plus carry-ons, against a boot of about 380 litres. Ask Europcar to move us up to an estate or a mid-size SUV; expect to pay the difference at the desk. '+
