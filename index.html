@@ -653,11 +653,14 @@ const ITIN = [
      ['⚠ 35 minutes','That is all there is between landing and the pick-up time. Flight <b>QR203 is linked to the booking</b>, so Europcar should track it and hold the car — but do not dawdle, and ring +30 211 190 3000 if immigration is slow.'],
      ['~13:45 · leave','Head west on the Attiki Odos, then the A8 toward Corinth.'],
      ['~14:50 · <b>Corinth Canal</b>','<b>Ten minutes, and worth every one.</b> Pull in at the Isthmus bridge: a 6.4 km slot cut clean through solid rock, 90 m deep and only 21 m wide. Nero began digging it in AD 67 with 6,000 Jewish slaves and a golden pickaxe; it was finally finished in 1893. Ships still squeeze through with metres to spare.'],
-     ['~15:10 · <b>Loutraki</b>','Lunch and a swim. The long pebble beach shelves gently and the water is clear — an easy first swim for the kids. The seafront promenade is one continuous run of tavernas.'],
-     ['Where to eat','On the promenade: <b>Ouzeri Limanaki</b> for seafood (4.1), <b>Taverna Edem</b> for straightforward Greek (4.0, the busiest), <b>La Bonta</b> for pasta. <b>Panorama</b> is lovely but sits up the Perachora road, so it pairs with the Lake Vouliagmeni detour rather than the town beach — full comparison in Eat &amp; Do.'],
+     ['~15:10 · <b>Loutraki</b>','Swim at <b><a href="https://maps.app.goo.gl/imTWxuLLqU2U3VKS9" target="_blank" rel="noopener">Kokoon Loutraki Coast</a></b>, Ποσειδώνος 2 — beach club with sunbeds and shade. In the water first, before anyone sits down.'],
+     ['Lunch','<b><a href="https://maps.app.goo.gl/vB3a3PjX9DNq21Aw6" target="_blank" rel="noopener">Ουζερί ο Γιάννης</a></b>, Γεωρ. Λέκκα 3 — small plates and seafood, a few minutes from the beach.'],
      ['~16:45 · leave','South on the A7 through the mountains to Tripoli, then down to Sparta.'],
-     ['~18:35 · <b>Sparta</b>','A short stop — 30 minutes is enough after the day we have had. Park by the <b>statue of Leonidas</b> at the north end of town, below the ancient acropolis, with its inscription <i>Molon labe</i> — “come and take them.”'],
-     ['~19:05 · leave','East then south through the Laconian hills.'],
+     ['~18:35 · <b>Sparta</b>','Park at the north end of <b>Konstantinou Palaiologou</b>, the palm-lined main street. Everything worth seeing is on it, all of it free and none of it closes.'],
+     ['Leonidas','The <b>statue of Leonidas</b> stands in front of the stadium, inscribed <i>Molon labe</i> — “come and take them,” his answer when Xerxes demanded the Spartans surrender their weapons.'],
+     ['The acropolis','Walk <b>straight behind the stadium</b> and you are in the acropolis of ancient Sparta. No ticket, no gate. The <b>ancient theatre</b> is the thing — stand on the top rows and look down. Twenty-five minutes does it.'],
+     ['Ice cream','<b>Viral Spartis</b>, Παλαιολόγου 67, back down the same street. Coffee for the adults, gelato for the kids, then go.'],
+     ['~19:30 · leave','East then south through the Laconian hills.'],
      ['~20:35 · <b>Monemvasia</b>','Check in, then dinner in the old town. Nothing in Greece eats before nine, so the timing works.'],
      ['⚠ Be honest about the day','That is roughly <b>4½ hours behind the wheel on top of a 21-hour flight</b>, with Thessy pregnant. Decide now who drives, and treat Loutraki as a real stop rather than a quick one — an hour and a half there makes the whole day work.'],
      ['⚠ Save Mystras','The Byzantine city at Mystras, 6 km from Sparta, is the finest thing in Laconia — and needs two to three hours. <b>Do it in September instead</b>, on the drive to the Mani. We pass right by Sparta again, and we will be rested.'],
@@ -1161,30 +1164,47 @@ $('bookings').innerHTML =
 $('eatdo').innerHTML =
  '<h2>Eat &amp; do</h2>'+
  '<p class="lead">A starting list for each stop, plus where to sleep on the Athens wedding night. Send your must-dos and they get added.</p>'+
+ '<div class="h3">The Loutraki stop · Fri 14 Aug, ~15:10</div>'+
+ '<p class="lead" style="margin:-4px 0 14px">Lunch and the first swim, about 1h 15m south of the airport. Both spots are in the town centre, a short hop apart.</p>'+
+ '<div class="grid">'+
+   '<div class="opt best"><div class="tag">The swim</div>'+
+     '<div class="on">Kokoon Loutraki Coast</div>'+
+     '<div style="font-weight:650;font-size:14px;margin:7px 0 6px">Ποσειδώνος 2, Loutraki 203 00</div>'+
+     '<div style="font-size:12.6px;color:var(--ink-2);line-height:1.6">Beach club on the Loutraki seafront — sunbeds, shade and service, which beats a towel on the pebbles when you have been in the air for twenty-one hours. Get everyone in the water first; it is what will actually reset them.</div>'+
+     '<div class="btns" style="margin-top:12px"><a class="btn" href="https://maps.app.goo.gl/imTWxuLLqU2U3VKS9" target="_blank" rel="noopener"><span>◉</span>Open in Maps</a></div></div>'+
+   '<div class="opt"><div class="on">Ουζερί ο Γιάννης</div>'+
+     '<div style="font-weight:650;font-size:14px;margin:7px 0 6px">Γεωρ. Λέκκα 3, Loutraki 203 00</div>'+
+     '<div style="font-size:12.6px;color:var(--ink-2);line-height:1.6">Yiannis’ ouzeri, just back from the front on Lekka. Ouzeri means small plates and seafood rather than a long sit-down menu — which is the right shape of meal when there are still three hours of driving to Monemvasia.</div>'+
+     '<div class="btns" style="margin-top:12px"><a class="btn" href="https://maps.app.goo.gl/vB3a3PjX9DNq21Aw6" target="_blank" rel="noopener"><span>◉</span>Open in Maps</a></div></div>'+
+ '</div>'+
+ '<div class="flag"><div class="ic">◷</div><div><b>Swim, then eat, then go.</b> Ninety minutes here keeps Monemvasia at about half eight. Let it stretch to two and a half and you are checking in at ten with two exhausted kids.</div></div>'+
+
+ '<div class="h3">The Sparta stop · Fri 14 Aug, ~18:35</div>'+
+ '<p class="lead" style="margin:-4px 0 14px">Everything is on one street — Konstantinou Palaiologou. Nothing charges admission and nothing shuts, which is exactly what you want arriving at half six in the evening.</p>'+
+ '<div class="grid">'+
+   '<div class="opt best"><div class="tag">Do this</div>'+
+     '<div class="on">Statue of Leonidas → the acropolis</div>'+
+     '<div style="font-size:12.6px;color:var(--ink-2);line-height:1.6;margin-top:8px">The statue stands at the north end of Palaiologou in front of the stadium. Walk <b>directly behind the stadium</b> and you are in the acropolis of ancient Sparta — an open site, no ticket, no gate. The <b>ancient theatre</b> is the payoff: stand on the top rows and look down into it.</div>'+
+     '<ul><li>Twenty-five to thirty minutes is plenty</li><li>Free, and open whenever</li></ul></div>'+
+   '<div class="opt"><div class="on">Viral Spartis</div>'+
+     '<div style="font-weight:650;font-size:14px;margin:7px 0 6px">Κων/νου Παλαιολόγου 67</div>'+
+     '<div style="font-size:12.6px;color:var(--ink-2);line-height:1.6">Ice cream shop back down the same street, among the palm trees and pavement cafés. Gelato for Zani and Dimitrios, coffee for you two, fifteen minutes and back in the car.</div></div>'+
+ '</div>'+
+ '<div class="note"><ul>'+
+   '<li><b>For the kids, standing at the statue.</b> Leonidas held the pass at Thermopylae with 300 Spartans against a Persian army of tens of thousands. When Xerxes told him to hand over his weapons, he wrote back two words — <i>molon labe</i>, “come and take them.” They are on the plinth.</li>'+
+   '<li><b>Sparta never built city walls.</b> When asked why, a king replied that a city is walled by its men, not its bricks. You can see for yourself from the acropolis: no ramparts, just the plain and the mountains.</li>'+
+   '<li><b>Boys left home at seven</b> for the <i>agoge</i>, the state upbringing — barefoot, one cloak a year, and encouraged to steal food without being caught. Punishment was for being caught, not for stealing.</li>'+
+   '<li><b>Helen of Troy was Queen of Sparta.</b> She lived here, and the Trojan War began when she left with Paris. Her palace, the <b>Menelaion</b>, is on the hill across the valley — visible from the acropolis, about 5 km by road if anyone wants the detour.</li>'+
+ '</ul></div>'+
+ '<div class="flag"><div class="ic">◷</div><div>A proper Sparta stop is about <b>50 minutes</b> with the ice cream, which puts Monemvasia at around <b>21:00</b> rather than half eight. Fine for a Greek dinner — Matoula will still be serving — but worth knowing before you set off.</div></div>'+
+
+
  '<div class="h3">Staying near Ble Azure · 22–24 Aug</div>'+
  '<div class="grid">'+
    STAYS.map((s,i)=>`<div class="card"><h4><span class="num">${i+1}</span>${s[0]}</h4><p>${s[1]}</p></div>`).join('')+
  '</div>'+
  '<div class="flag"><div class="ic">◷</div><div>Landing at 23:30 on the Saturday means a hotel that handles late check-in, and the Monday 07:35 flight means leaving around 05:15. Pre-book that car — Athens taxis at five in the morning are a gamble.</div></div>'+
 
- '<div class="h3">The Loutraki stop · Fri 14 Aug, ~15:10</div>'+
- '<p class="lead" style="margin:-4px 0 14px">Lunch and the first swim, about 1h 15m south of the airport. Two ways to play it — the second is lovelier and costs about forty minutes.</p>'+
- '<div class="grid">'+
-   '<div class="opt best"><div class="tag">Recommended</div>'+
-     '<div class="on">The efficient one</div>'+
-     '<div style="font-weight:650;font-size:14px;margin:7px 0 6px">Town beach, then a taverna on the promenade</div>'+
-     '<div style="font-size:12.6px;color:var(--ink-2);line-height:1.6">Come off the A8 straight into town. The <b>main beach</b> is a long pebble strand running the length of the promenade — clear, calm, shallow water and parking within 100 m of the sand. Swim first while everyone is still upright, then eat fifty metres away. Back on the road inside ninety minutes.</div>'+
-     '<ul><li><b>Ouzeri Limanaki</b> — seaside taverna, fresh fish and generous plates, 4.1 from 103 reviews. The pick if anyone wants seafood.</li>'+
-     '<li><b>Taverna Edem</b> — straightforward Greek done properly, 4.0 from 259 reviews and the busiest of the three.</li>'+
-     '<li><b>La Bonta</b> — pasta and pizza, for when the kids have had enough of being adventurous.</li></ul></div>'+
-   '<div class="opt">'+
-     '<div class="on">The scenic one</div>'+
-     '<div style="font-weight:650;font-size:14px;margin:7px 0 6px">Lake Vouliagmeni, lunch at Panorama</div>'+
-     '<div style="font-size:12.6px;color:var(--ink-2);line-height:1.6">Fifteen minutes further along the Perachora road is <b>Lake Vouliagmeni</b> — a lagoon joined to the sea by a narrow channel, so the water is sandy underfoot, warm and glass-calm. It is genuinely better for small children than the open beach. <b>Panorama</b> sits on the same road, has been going since 1973, and looks out over the gulf.</div>'+
-     '<ul><li>Costs roughly <b>40 minutes</b> round trip against the town option</li>'+
-     '<li>Worth it if everyone is holding up; skip it if the flight has flattened them</li></ul></div>'+
- '</div>'+
- '<div class="flag"><div class="ic">◷</div><div><b>Swim before you eat.</b> With Sparta and another three hours of driving still ahead, the water is what will actually reset everyone — and a long lunch at 3 pm is how you end up arriving in Monemvasia at ten.</div></div>'+
  Object.entries(EATDO).map(([k,items])=>
    `<div class="h3" style="color:${PLACES[k].color}">${PLACES[k].name}</div><div class="grid">`+
    items.map((i,n)=>`<div class="card"><h4><span class="num">${n+1}</span>${i[0]}</h4><p>${i[1]}</p></div>`).join('')+
