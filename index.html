@@ -654,7 +654,7 @@ const ITIN = [
      ['~13:45 · leave','Head west on the Attiki Odos, then the A8 toward Corinth.'],
      ['~14:50 · <b>Corinth Canal</b>','<b>Ten minutes, and worth every one.</b> Pull in at the Isthmus bridge: a 6.4 km slot cut clean through solid rock, 90 m deep and only 21 m wide. Nero began digging it in AD 67 with 6,000 Jewish slaves and a golden pickaxe; it was finally finished in 1893. Ships still squeeze through with metres to spare.'],
      ['~15:10 · <b>Loutraki</b>','Lunch and a swim. The long pebble beach shelves gently and the water is clear — an easy first swim for the kids. The seafront promenade is one continuous run of tavernas.'],
-     ['Where to eat','<b>Ouzeri Limanaki</b> for proper seafood, cooked by Mrs Barbara herself. <b>Taverna EDEM</b> for straightforward Greek done well and good value. <b>Panorama</b> if you want the view over the Corinthian Gulf. <b>La Bonta</b> if the kids revolt and want pasta.'],
+     ['Where to eat','On the promenade: <b>Ouzeri Limanaki</b> for seafood (4.1), <b>Taverna Edem</b> for straightforward Greek (4.0, the busiest), <b>La Bonta</b> for pasta. <b>Panorama</b> is lovely but sits up the Perachora road, so it pairs with the Lake Vouliagmeni detour rather than the town beach — full comparison in Eat &amp; Do.'],
      ['~16:45 · leave','South on the A7 through the mountains to Tripoli, then down to Sparta.'],
      ['~18:35 · <b>Sparta</b>','A short stop — 30 minutes is enough after the day we have had. Park by the <b>statue of Leonidas</b> at the north end of town, below the ancient acropolis, with its inscription <i>Molon labe</i> — “come and take them.”'],
      ['~19:05 · leave','East then south through the Laconian hills.'],
@@ -1166,6 +1166,25 @@ $('eatdo').innerHTML =
    STAYS.map((s,i)=>`<div class="card"><h4><span class="num">${i+1}</span>${s[0]}</h4><p>${s[1]}</p></div>`).join('')+
  '</div>'+
  '<div class="flag"><div class="ic">◷</div><div>Landing at 23:30 on the Saturday means a hotel that handles late check-in, and the Monday 07:35 flight means leaving around 05:15. Pre-book that car — Athens taxis at five in the morning are a gamble.</div></div>'+
+
+ '<div class="h3">The Loutraki stop · Fri 14 Aug, ~15:10</div>'+
+ '<p class="lead" style="margin:-4px 0 14px">Lunch and the first swim, about 1h 15m south of the airport. Two ways to play it — the second is lovelier and costs about forty minutes.</p>'+
+ '<div class="grid">'+
+   '<div class="opt best"><div class="tag">Recommended</div>'+
+     '<div class="on">The efficient one</div>'+
+     '<div style="font-weight:650;font-size:14px;margin:7px 0 6px">Town beach, then a taverna on the promenade</div>'+
+     '<div style="font-size:12.6px;color:var(--ink-2);line-height:1.6">Come off the A8 straight into town. The <b>main beach</b> is a long pebble strand running the length of the promenade — clear, calm, shallow water and parking within 100 m of the sand. Swim first while everyone is still upright, then eat fifty metres away. Back on the road inside ninety minutes.</div>'+
+     '<ul><li><b>Ouzeri Limanaki</b> — seaside taverna, fresh fish and generous plates, 4.1 from 103 reviews. The pick if anyone wants seafood.</li>'+
+     '<li><b>Taverna Edem</b> — straightforward Greek done properly, 4.0 from 259 reviews and the busiest of the three.</li>'+
+     '<li><b>La Bonta</b> — pasta and pizza, for when the kids have had enough of being adventurous.</li></ul></div>'+
+   '<div class="opt">'+
+     '<div class="on">The scenic one</div>'+
+     '<div style="font-weight:650;font-size:14px;margin:7px 0 6px">Lake Vouliagmeni, lunch at Panorama</div>'+
+     '<div style="font-size:12.6px;color:var(--ink-2);line-height:1.6">Fifteen minutes further along the Perachora road is <b>Lake Vouliagmeni</b> — a lagoon joined to the sea by a narrow channel, so the water is sandy underfoot, warm and glass-calm. It is genuinely better for small children than the open beach. <b>Panorama</b> sits on the same road, has been going since 1973, and looks out over the gulf.</div>'+
+     '<ul><li>Costs roughly <b>40 minutes</b> round trip against the town option</li>'+
+     '<li>Worth it if everyone is holding up; skip it if the flight has flattened them</li></ul></div>'+
+ '</div>'+
+ '<div class="flag"><div class="ic">◷</div><div><b>Swim before you eat.</b> With Sparta and another three hours of driving still ahead, the water is what will actually reset everyone — and a long lunch at 3 pm is how you end up arriving in Monemvasia at ten.</div></div>'+
  Object.entries(EATDO).map(([k,items])=>
    `<div class="h3" style="color:${PLACES[k].color}">${PLACES[k].name}</div><div class="grid">`+
    items.map((i,n)=>`<div class="card"><h4><span class="num">${n+1}</span>${i[0]}</h4><p>${i[1]}</p></div>`).join('')+
