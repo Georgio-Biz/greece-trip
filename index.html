@@ -414,6 +414,7 @@
   .st.dep{color:var(--gold);background:rgba(168,132,47,.13)}
   .st.due{color:var(--rose);background:rgba(176,74,70,.11)}
   .st.tbc{color:var(--ink-3);background:var(--paper-2)}
+  .st.pts{color:var(--clay);background:rgba(119,93,80,.12)}
   .opt{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:15px 17px;
     box-shadow:var(--shadow-s);position:relative;overflow:hidden}
   .opt.best{border-color:var(--sea);box-shadow:0 0 0 1px var(--sea),var(--shadow-m)}
@@ -782,18 +783,16 @@ const QR = [
 
 /* How we get to Kythera — resolved by the Monemvasia booking */
 const KYTHERA = [
-  {when:'The old plan', verdict:'no', head:'Two nights in Athens, fly Sunday',
-   body:'The only Athens–Kythera flight on the 14th departs 09:25, three hours before we land, and nothing flies at all on the 15th. That left a Sunday-morning flight and two nights in Athens — workable, but it cost a day on the island.'},
-  {when:'Fri 14 Aug', verdict:'yes', head:'Drive south to Monemvasia instead',
-   body:'Land 12:25, collect the car and drive about four hours south. <b>One night booked and paid</b> at The Flower of Monemvasia. It breaks the journey and leaves us 37 km from the ferry port.'},
+  {when:'Fri 14 Aug', verdict:'yes', head:'Land, then drive south to Monemvasia',
+   body:'Land 12:25, collect the car and drive about four hours south, with lunch and a swim at Loutraki and a stop in Sparta. <b>One night booked and paid</b> at The Flower of Monemvasia. It breaks the journey and leaves us 37 km from the ferry port.'},
   {when:'Sat 15 Aug', verdict:'yes', head:'Neapoli → Kythera by sea',
-   body:'A 40-minute drive to Neapoli Voion, then about <b>1h 15m</b> across to Diakofti. We reach Kythera on the Saturday — a full day earlier than the flight would have managed, and no airport involved.'},
+   body:'A 40-minute drive to Neapoli Voion, then about <b>1h 15m</b> across to Diakofti on the 14:30 <i>Porfyrousa</i>. Booked, car included. On the island by roughly 15:45.'},
 ];
 
 const BOOKINGS = {
   flights:[
-    {n:'Brisbane ↔ Athens — Qatar business', aud:63222.32, st:'paid',
-     d:'All four of us · Out Thu 13 Aug QR899/QR203, lands Athens 12:25 Fri 14th · Home Sun 27 Sep QR204/QR898, lands Brisbane 17:30 Mon 28th · airline ref <b>D24YCD</b> · Amex booking #31508115 · fare A$57,390 + A$5,832.32 taxes · 40 kg checked each, kids included'},
+    {n:'Brisbane ↔ Athens — Qatar business', pts:'≈12,644,000', st:'points',
+     d:'All four of us · Out Thu 13 Aug QR899/QR203, lands Athens 12:25 Fri 14th · Home Sun 27 Sep QR204/QR898, lands Brisbane 17:30 Mon 28th · airline ref <b>D24YCD</b> · Amex booking #31508115 · <b>redeemed with Membership Rewards points</b>, not cash · 40 kg checked each, kids included'},
     {n:'Kythera ↔ Athens — wedding hop', aud:718.60, st:'paid',
      d:'Georgio &amp; Thessy · Out Sat 22 Aug: Sky Express GQ441, 22:40 → 23:30 · Back Mon 24 Aug: Olympic Air OA042, 07:35 → 08:35 · refs IH3MJ6 / EZOECT · Trip.com 1167732286563747 · ⚠ no checked bag on the return'},
   ],
@@ -816,8 +815,8 @@ const BOOKINGS = {
      d:'Not needed if the Europcar crosses with us. Keep in reserve in case Europcar refuse the ferry: Panayotis +30 2736031600, Drakakis +30 2736031160, both deliver to Diakofti and include child seats.'},
     {n:'Ferry — Neapoli → Kythera, Sat 15 Aug', aud:131, st:'due',
      d:'<b>Booked — and the car has a space.</b> Triton Ferries <i>F/B Porfyrousa</i>, <b>Neapoli 14:30 → Kythira</b> · reservation <b>9553079485</b> via Kithira Travel · tickets T-896373/4/5/6 for the four of us plus T-896377 for the vehicle · Georgio €13.50, Thessy €13.50, Zani €6.80 (child rate), Dimitrios free (under 5s travel free), <b>car €45.00</b> · <b>total €78.80</b> · ⚠ payable by bank transfer to Kithira Travel — <b>not yet sent</b>, and the vehicle ticket still shows “RENTACAR” instead of the plate'},
-    {n:'Hire car — Europcar, Athens airport', aud:5860.71, st:'dep',
-     d:'44 days · pick up <b>13:00 Fri 14 Aug</b>, drop <b>13:00 Sun 27 Sep</b>, both at ATH (Attiki Odos, Spata 19019) · booked through DiscoverCars <b>D014929765</b>, confirmation <b>1205911730</b> · Europcar +30 211 190 3000, desk open 05:01–22:29 · <b>BMW 1 Series or similar, manual, 5 seats</b> · fuel same-to-same · A$708.96 prepaid, <b>€3,151.45 (A$5,151.75) due at the desk</b>, A$385 deposit held · credit card in the main driver’s name only — no debit, cash or Apple/Google Pay · flight QR203 is linked to the booking'},
+    {n:'Hire car — Europcar, Athens airport', aud:708.96, due:5151.75, st:'paid',
+     d:'44 days · pick up <b>13:00 Fri 14 Aug</b>, drop <b>13:00 Sun 27 Sep</b>, both at ATH (Attiki Odos, Spata 19019) · booked through DiscoverCars <b>D014929765</b>, confirmation <b>1205911730</b> · Europcar +30 211 190 3000, desk open 05:01–22:29 · <b>BMW 1 Series or similar, manual, 5 seats</b> · fuel same-to-same · A$708.96 prepaid, balance <b>€3,151.45</b> due at the desk, A$385 deposit held against the card · credit card in the main driver’s name only — no debit, cash or Apple/Google Pay · flight QR203 is linked to the booking'},
     {n:'DiscoverCars Full Protection', aud:742.98, st:'paid',
      d:'Excess cover bought alongside the car. Note the <b>AFA policy already carries a $10,000 rental vehicle excess waiver</b>, so this may be duplicate cover — worth a look before the trip. It also reimburses rather than pays directly: you settle with Europcar first, then claim back.'},
     {n:'Ferry — Kythira ↔ Gytheio, 6 &amp; 9 Sep', aud:303, st:'paid',
@@ -1096,23 +1095,33 @@ $('weddings').innerHTML =
 
 /* ---------------- BOOKINGS ---------------- */
 const stBadge = s => ({paid:'<span class="st paid">Paid</span>',dep:'<span class="st dep">Deposit</span>',
-  due:'<span class="st due">To pay</span>',tbc:'<span class="st tbc">Not booked</span>'})[s];
+  due:'<span class="st due">To pay</span>',tbc:'<span class="st tbc">Not booked</span>',
+  points:'<span class="st pts">Paid with points</span>'})[s];
 const bkRows = rows => rows.map(r=>
   `<div class="bk"><div class="bi"><div class="bn">${r.n}</div><div class="bd">${r.d}</div>${stBadge(r.st)}</div>`+
-  (r.aud!=null?`<div class="bp"><div class="a">${A(r.aud)}</div><div class="e">${E(r.aud)}</div></div>`:'')+
+  (r.st==='points'
+    ? `<div class="bp"><div class="a">${r.pts}</div><div class="e">Membership Rewards</div></div>`
+    : r.aud!=null
+      ? `<div class="bp"><div class="a">${A(r.aud)}</div><div class="e">${E(r.aud)}</div>`+
+        (r.due?`<div class="e" style="color:var(--rose);font-weight:650;margin-top:3px">+ ${A(r.due)} at the desk</div>`:'')+
+        `</div>`
+      : '')+
   `</div>`).join('');
 
 const all = [...BOOKINGS.flights,...BOOKINGS.hotels,...BOOKINGS.transport,...BOOKINGS.insurance];
-const paid = all.filter(b=>b.aud!=null && b.st==='paid').reduce((a,b)=>a+b.aud,0);
-const committed = all.filter(b=>b.aud!=null).reduce((a,b)=>a+b.aud,0);
+const paid      = all.filter(b=>b.aud!=null && b.st==='paid').reduce((a,b)=>a+b.aud,0);
+const stillDue  = all.reduce((a,b)=>a + (b.due||0) + (b.st==='due'&&b.aud!=null?b.aud:0), 0);
+const committed = paid + stillDue;
+const ptsRows   = all.filter(b=>b.st==='points');
 
 $('bookings').innerHTML =
  '<h2>Bookings &amp; budget</h2>'+
  '<p class="lead">Every confirmed booking with its cost and status. Passport numbers, card digits and booking PINs are deliberately kept off this page — ask Georgio for those.</p>'+
  '<div class="stats">'+
-   `<div class="stat"><div class="l">Paid so far</div><div class="v">${A(paid)} <small>${E(paid)}</small></div></div>`+
-   `<div class="stat"><div class="l">Committed</div><div class="v">${A(committed)} <small>${E(committed)}</small></div></div>`+
-   `<div class="stat"><div class="l">Exchange guide</div><div class="v">€${RATE.toFixed(2)} <small>per A$1</small></div></div>`+
+   `<div class="stat"><div class="l">Cash paid</div><div class="v">${A(paid)} <small>${E(paid)}</small></div></div>`+
+   `<div class="stat"><div class="l">Still to pay</div><div class="v">${A(stillDue)} <small>${E(stillDue)}</small></div></div>`+
+   `<div class="stat"><div class="l">Cash total</div><div class="v">${A(committed)} <small>${E(committed)}</small></div></div>`+
+   `<div class="stat"><div class="l">Points used</div><div class="v">${ptsRows[0]?ptsRows[0].pts:'—'} <small>flights</small></div></div>`+
  '</div>'+
  '<div class="h3">Confirmed — Brisbane ↔ Athens</div>'+
  '<p class="lead" style="margin:-4px 0 14px">Qatar Airways business for all four of us. Airline booking reference <b>D24YCD</b> — that is what you need for online check-in and seat selection. Amex booking #31508115.</p>'+
