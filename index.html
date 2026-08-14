@@ -513,8 +513,12 @@ const CAL = {
                 {t:'Fly Kythera → Athens, 22:40',        c:'athens',  i:'✈'}],
   '2026-08-23':[{t:'💍 Diana &amp; Manolis, 7:00 pm',    c:'gold',    i:'♦', l:'Wedding', key:1}],
   '2026-08-24':[{t:'Fly Athens → Kythera, 07:35',        c:'kythera', i:'✈', l:'Back to KIT'}],
-  '2026-09-07':[{t:'Peter &amp; Erin join us in the Mani', c:'mani',  i:'●', l:'Peter &amp; Erin'}],
+  '2026-09-06':[{t:'⛴ Kythira 10:40 → Gytheio 13:00 · Aqua Jewel', c:'mani', i:'⛴', l:'To the Mani'},
+                {t:'Porto Vitilo, Karavostasi — 1 night, paid',      c:'mani', i:'●'}],
+  '2026-09-07':[{t:'Peter &amp; Erin join us in the Mani', c:'mani',  i:'●', l:'Peter &amp; Erin'},
+                {t:'Move to the wedding party’s accommodation',       c:'mani', i:'▸'}],
   '2026-09-08':[{t:'💍 Evangelo &amp; Christina',        c:'gold',    i:'♦', l:'Wedding', key:1}],
+  '2026-09-09':[{t:'⛴ Gytheio 16:15 → Kythira 18:45',    c:'kythera', i:'⛴', l:'Back to KIT'}],
   '2026-09-27':[{t:'Fly Athens → Doha, 13:55',           c:'athens',  i:'✈', l:'Fly home'}],
   '2026-09-28':[{t:'Land Brisbane 17:30',                c:'athens',  i:'✈', l:'Brisbane'}],
 };
@@ -523,8 +527,9 @@ const STAY_BANDS = [
   {from:'2026-08-14', to:'2026-08-15', c:'mani',    l:'Monemvasia'},
   {from:'2026-08-15', to:'2026-08-22', c:'kythera', l:'Kythera'},
   {from:'2026-08-22', to:'2026-08-24', c:'athens',  l:'Athens'},
-  {from:'2026-08-24', to:'2026-09-05', c:'kythera', l:'Kythera'},
-  {from:'2026-09-05', to:'2026-09-27', c:'mani',    l:'Mani'},
+  {from:'2026-08-24', to:'2026-09-06', c:'kythera', l:'Kythera'},
+  {from:'2026-09-06', to:'2026-09-09', c:'mani',    l:'Mani'},
+  {from:'2026-09-09', to:'2026-09-27', c:'kythera', l:'Kythera'},
 ];
 
 /* Travel insurance — AFA Corporate Travel via Fitaz Gym */
@@ -705,12 +710,21 @@ const ITIN = [
   {id:'p5', from:'2026-08-25', to:'2026-09-06', d:'25 Aug', m:'– 6 Sep', place:'kythera', title:'The middle stretch', tbc:true,
    sub:'Roughly twelve open days between the two weddings',
    legs:[['To plan','Kythera, then the crossing to the Peloponnese. Natural route: ferry Diakofti → Neapoli (~1h15), then ~2.5 h drive to Areopoli.']]},
-  {id:'p6', from:'2026-09-07', to:'2026-09-09', d:'7–9', m:'Sep', place:'mani', title:'The Mani — Evangelo &amp; Christina', tbc:true,
-   sub:'The big one, Tuesday 8 September',
-   legs:[['Getting there','Athens → Mani is ~3.5–4 h by car via Kalamata or Sparta; Kalamata airport is ~1 h from Areopoli'],
-         ['Mon 7 Sep','👋 <b>Peter and Erin meet us in the Mani</b>, the day before the wedding'],
-         ['Tue 8 Sep','💍 <b>Evangelo &amp; Christina</b> — venue and times TBC'],
-         ['After','A recovery day, then back north']]},
+  {id:'p6', from:'2026-09-06', to:'2026-09-09', d:'6–9', m:'Sep', place:'mani',
+   title:'The Mani — Evangelo &amp; Christina', alert:true,
+   sub:'Across by sea, three nights, the wedding on the Tuesday',
+   legs:[
+     ['Sun 6 · 09:10','⚠ At Diakofti port. With the car aboard, Seajets want you there <b>an hour and a half</b> before sailing, not one.'],
+     ['Sun 6 · 10:40','⛴ <b>Kythira → Gytheio</b> on the <i>Aqua Jewel</i>, 2h 20m, in at 13:00. Seajets ref 8600TLODD.'],
+     ['Sun 6 · afternoon','Gytheio → <b>Karavostasi</b>, about 40 km and 45 minutes down the coast. Check in at <b>Porto Vitilo</b> from 15:00 — junior suite, sea view, breakfast included, already paid.'],
+     ['Mon 7','Out of Porto Vitilo by 11:00 and across to wherever Evangelo and Christina have everyone staying. <b>Peter and Erin arrive today.</b>'],
+     ['Tue 8','💍 <b>Evangelo &amp; Christina</b> — venue and times still to come.'],
+     ['Wed 9 · 14:45','⚠ Back at Gytheio port, again an hour and a half ahead with the car.'],
+     ['Wed 9 · 16:15','⛴ <b>Gytheio → Kythira</b>, 2h 30m, back on the island at 18:45.'],
+     ['⚠ Two nights unbooked','Porto Vitilo covers <b>only the night of the 6th</b>. The 7th and 8th are with the wedding party and are not confirmed anywhere — worth pinning down with Evangelo.'],
+     ['⚠ One child on the booking','Porto Vitilo is reserved for <b>2 adults and 1 child aged 5</b>. Zani is 8 by then and is not on it. Ring +30 2733 059210 and add her — a junior suite may also need a rollaway.'],
+     ['⚠ Free cancellation ends','Cancel free until <b>15 August 23:59</b> Greek time. After that it is the full AUD 434.15. If the plan with the bride and groom shifts, decide before then.'],
+   ]},
   {id:'p7', from:'2026-09-27', to:'2026-09-28', d:'27–28', m:'Sep', place:'athens', title:'Fly Athens → Brisbane', done:true,
    sub:'Booked &amp; paid — home Monday evening',
    legs:[['Sun 27 · 13:55','✈ <b>QR204</b> Athens → Doha, lands 18:15 · 4h 20m · Airbus A350-900'],
@@ -738,6 +752,11 @@ const STOPS = [
    kind:'Turquoise fishing village', rows:[['Note','Waterfront tavernas — the likely dinner spot']]},
   {city:'Gythio', region:'mani', ll:[36.7580,22.5657],
    kind:'Gateway to the Mani', rows:[['Note','Seafront town on the way in — good lunch stop']]},
+  {city:'Monemvasia', region:'mani', ll:[36.6870,23.0530], n:'✦', big:true,
+   kind:'Night one · 14 Aug',
+   rows:[['Stay','The Flower of Monemvasia, Main Street'],['Onward','37 km to Neapoli for the ferry']]},
+  {city:'Karavostasi', region:'mani', ll:[36.7040,22.3830],
+   kind:'Porto Vitilo · night of 6 Sep', rows:[['Drive','~45 min from Gytheio port']]},
   {city:'Neapoli', region:'mani', ll:[36.5117,23.0556],
    kind:'Mainland ferry port for Kythera', rows:[['Note','~2.5 h drive on to Areopoli']]},
 ];
@@ -777,32 +796,32 @@ const BOOKINGS = {
      d:'All four of us · Out Thu 13 Aug QR899/QR203, lands Athens 12:25 Fri 14th · Home Sun 27 Sep QR204/QR898, lands Brisbane 17:30 Mon 28th · airline ref <b>D24YCD</b> · Amex booking #31508115 · fare A$57,390 + A$5,832.32 taxes · 40 kg checked each, kids included'},
     {n:'Kythera ↔ Athens — wedding hop', aud:718.60, st:'paid',
      d:'Georgio &amp; Thessy · Out Sat 22 Aug: Sky Express GQ441, 22:40 → 23:30 · Back Mon 24 Aug: Olympic Air OA042, 07:35 → 08:35 · refs IH3MJ6 / EZOECT · Trip.com 1167732286563747 · ⚠ no checked bag on the return'},
-    {n:'Athens → Kythera flight — no longer needed', aud:null, st:'tbc',
-     d:'Superseded. We now drive south on the 14th and cross by ferry on the 15th, which gets us to Kythera a day earlier than the Sunday flight would have.'},
-    {n:'Kythera → mainland, before the Mani', aud:null, st:'tbc',
-     d:'Needed around 5 Sep. Either fly back to Athens and drive down, or ferry Diakofti → Neapoli (1h15) and drive ~2.5 h to Areopoli.'},
   ],
   hotels:[
     {n:'The Flower of Monemvasia — 14 Aug', aud:442.80, st:'paid',
      d:'One night, 2 adults + 2 children · Main Street, Monemvasia 230 70 · reservation <b>73520394589255</b> · check in after 15:00, out before 11:00 · A$387.03 + A$52.50 taxes · ⚠ <b>non-refundable</b>, and the listing states max 1 overnight guest — worth querying with the host'},
-    {n:'Kythera', aud:null, st:'tbc', d:'16 Aug through early Sep — the long stretch.'},
+    {n:'Kythera — 15 Aug to 6 Sep', aud:null, st:'tbc', d:'The long stretch, three weeks. Nothing booked. Mum and Dad arrive on the 20th, so worth knowing where they are staying too.'},
     {n:'Athens — wedding night', aud:null, st:'tbc', d:'22–24 Aug, near Ble Azure in Alimos. Shortlist in the Eat &amp; Do tab.'},
-    {n:'The Mani', aud:null, st:'tbc', d:'Around Evangelo &amp; Christina’s wedding, ~5–9 Sep.'},
+    {n:'Porto Vitilo Boutique Hotel — 6 Sep', aud:441.78, st:'paid',
+     d:'<b>Booked and paid</b> through Booking.com · confirmation <b>6318115719</b> · Junior Suite with side sea view, <b>breakfast included</b> · in Sun 6 Sep from 15:00, out Mon 7 Sep by 11:00 — <b>one night only</b> · Karavostasi, Karavostasion 23062 · +30 2733 059210 · ⚠ booked for <b>2 adults and 1 child</b>, and there are two children'},
+    {n:'Manifest Boutique — 7 &amp; 8 Sep', aud:null, st:'due',
+     d:'Where Evangelo and Christina have everyone for the wedding nights. They have sent a <b>credit card authorisation form</b> to guarantee it — see the note below before you fill it in. Dates and rate still to be confirmed on the planner.'},
   ],
   insurance:[
     {n:'AFA Corporate Travel — policy 6179506', aud:null, st:'due',
      d:'Through Fitaz Gym, via Rivers Insurance Brokers · 22 Jul 2026 → 15 Jul 2027, worldwide · covers Thessy and both kids as accompanying family · <b>⚠ this trip still needs declaring, and 46 days exceeds the declared 30-day maximum</b> — see the Info tab'},
   ],
   transport:[
-    {n:'Hire car — on Kythera', aud:null, st:'tbc', d:'Panayotis +30 2736031600 or Drakakis +30 2736031160. Both deliver to Kythera airport and Diakofti port, both include child seats. Hiring on the island avoids the full car ferries entirely.'},
-    {n:'Hire car — mainland, for the Mani', aud:null, st:'tbc', d:'From early Sep. Athens vs Kalamata pickup still to compare.'},
+    {n:'Hire car on Kythera — fallback only', aud:null, st:'tbc',
+     d:'Not needed if the Europcar crosses with us. Keep in reserve in case Europcar refuse the ferry: Panayotis +30 2736031600, Drakakis +30 2736031160, both deliver to Diakofti and include child seats.'},
     {n:'Ferry — Neapoli → Kythera, Sat 15 Aug', aud:131, st:'due',
-     d:'<b>Booked — and the car has a space.</b> Triton Ferries <i>F/B Porfyrousa</i>, <b>Neapoli 14:30 → Kythira</b> · reservation <b>9553079485</b> via Kithira Travel · tickets T-896373/4/5/6 for the four of us plus T-896377 for the vehicle · Georgio €13.50, Thessy €13.50, Zani €6.80 (child rate), Dimitrios free (under 5s travel free), <b>car €45.00</b> · <b>total €78.80</b> · ⚠ payable by bank transfer to Kithira Travel — not yet sent'},
+     d:'<b>Booked — and the car has a space.</b> Triton Ferries <i>F/B Porfyrousa</i>, <b>Neapoli 14:30 → Kythira</b> · reservation <b>9553079485</b> via Kithira Travel · tickets T-896373/4/5/6 for the four of us plus T-896377 for the vehicle · Georgio €13.50, Thessy €13.50, Zani €6.80 (child rate), Dimitrios free (under 5s travel free), <b>car €45.00</b> · <b>total €78.80</b> · ⚠ payable by bank transfer to Kithira Travel — <b>not yet sent</b>, and the vehicle ticket still shows “RENTACAR” instead of the plate'},
     {n:'Hire car — Europcar, Athens airport', aud:5860.71, st:'dep',
      d:'44 days · pick up <b>13:00 Fri 14 Aug</b>, drop <b>13:00 Sun 27 Sep</b>, both at ATH (Attiki Odos, Spata 19019) · booked through DiscoverCars <b>D014929765</b>, confirmation <b>1205911730</b> · Europcar +30 211 190 3000, desk open 05:01–22:29 · <b>BMW 1 Series or similar, manual, 5 seats</b> · fuel same-to-same · A$708.96 prepaid, <b>€3,151.45 (A$5,151.75) due at the desk</b>, A$385 deposit held · credit card in the main driver’s name only — no debit, cash or Apple/Google Pay · flight QR203 is linked to the booking'},
     {n:'DiscoverCars Full Protection', aud:742.98, st:'paid',
      d:'Excess cover bought alongside the car. Note the <b>AFA policy already carries a $10,000 rental vehicle excess waiver</b>, so this may be duplicate cover — worth a look before the trip. It also reimburses rather than pays directly: you settle with Europcar first, then claim back.'},
-    {n:'Ferry — Kythera → Neapoli, early Sep', aud:null, st:'tbc', d:'The return crossing, before heading to the Mani.'},
+    {n:'Ferry — Kythira ↔ Gytheio, 6 &amp; 9 Sep', aud:303, st:'paid',
+     d:'<b>Booked.</b> Seajets <i>Aqua Jewel</i> via Ferryscanner · booking <b>B149717096</b>, Seajets ref <b>8600TLODD</b> · out <b>Sun 6 Sep, Kythira 10:40 → Gytheio 13:00</b> (2h 20m) · back <b>Wed 9 Sep, Gytheio 16:15 → Kythira 18:45</b> (2h 30m) · all four of us plus the car (BMW 1 Series, 4.33 m — rated a large vehicle) · 50 kg baggage each · Premium package, so tickets come by email · ⚠ <b>with a vehicle you must be at the port 1h 30m before departure</b> — 09:10 at Diakofti, 14:45 at Gytheio'},
   ],
 };
 
@@ -921,8 +940,8 @@ $('home').innerHTML =
  '<div class="h3">The shape of it</div>'+
  '<div class="note"><ul>'+
    '<li><b>Wedding one — Diana &amp; Manolis, Athens, Sunday 23 August, 7:00 pm.</b> Georgio’s cousin, at Ble Azure on the Athenian Riviera — outdoors on a private peninsula. Summer Formal / Black Tie. We fly over from Kythera on the Saturday night and are back on the island by 08:35 Monday; the kids stay put.</li>'+
-   '<li><b>Wedding two — Evangelo &amp; Christina, the Mani, Tuesday 8 September.</b> Georgio’s brother, and the reason the trip is shaped the way it is. Roughly four hours by car from Athens.</li>'+
-   '<li><b>In between:</b> about twelve open days. The natural line is Kythera, ferry across to Neapoli, then the drive down into the Mani.</li>'+
+   '<li><b>Wedding two — Evangelo &amp; Christina, the Mani, Tuesday 8 September.</b> Georgio’s brother, and the reason the trip is shaped the way it is. We cross by sea — Kythira to Gytheio on the 6th, back on the 9th.</li>'+
+   '<li><b>In between:</b> three weeks based on Kythera, 15 August to 6 September — the longest and least-planned stretch of the trip.</li>'+
    '<li><b>Getting there:</b> booked and paid — Qatar business, out Thu 13 Aug on QR899, landing Athens 12:25 on the Friday. Home Sun 27 Sep, back in Brisbane 17:30 Monday the 28th. Ref D24YCD.</li>'+
    '<li><b>Getting to the island:</b> we go overland. Land Friday, drive south with lunch and a swim at Loutraki and a stop in Sparta, and sleep at <b>Monemvasia</b> (booked). Saturday morning it is 37 km to Neapoli and the <b>14:30 ferry</b> to Kythera — on the island a day earlier than flying would have managed.</li>'+
    '<li><b>🎂 Zani’s birthday falls on Saturday 22 August</b>, on Kythera — the same day we fly over for the wedding. The flight isn’t until 22:40, so the day itself stays entirely his.</li>'+
@@ -1122,6 +1141,10 @@ $('bookings').innerHTML =
  '<div class="h3">Flights</div>'+ bkRows(BOOKINGS.flights)+
  '<div class="h3">Hotels</div>'+ bkRows(BOOKINGS.hotels)+
  '<div class="h3">Cars &amp; ferries</div>'+ bkRows(BOOKINGS.transport)+
+ '<div class="flag"><div class="ic">🔒</div><div><b>The Manifest Boutique card form — do not email it back completed.</b> '+
+   'It asks for the full card number, the CVV and a passport number in one document. Merchants are not permitted to retain a CVV after charging, and an emailed form sits in two mailboxes indefinitely. '+
+   'Ring them on the number in their email and ask for a <b>secure payment link</b> — Viva Wallet and Stripe are both standard in Greek hotels now — or offer to pay by bank transfer. '+
+   'If they insist on the form, give the card number in writing but the <b>CVV and expiry by phone</b>, send the passport details separately, and ask them to confirm the form is destroyed once charged.</div></div>'+
  '<div class="h3">Insurance</div>'+ bkRows(BOOKINGS.insurance)+
  '<div class="good">A shared Google Sheet for the running budget will link here once the big bookings land — that’s where costs get split and tracked.</div>';
 
