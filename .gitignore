@@ -1,0 +1,3 @@
+# Financial data — never publish to GitHub Pages
+*.csv
+CSVData*

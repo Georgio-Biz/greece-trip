@@ -459,6 +459,7 @@
   <button data-view="weddings">Weddings</button>
   <button data-view="bookings">Bookings</button>
   <button data-view="eatdo">Eat &amp; Do</button>
+  <button data-view="spend">Spend</button>
   <button data-view="info">Info</button>
 </div></nav>
 
@@ -467,6 +468,7 @@
   <section id="view-weddings" class="view"><div class="wrap" id="weddings"></div></section>
   <section id="view-bookings" class="view"><div class="wrap" id="bookings"></div></section>
   <section id="view-eatdo" class="view"><div class="wrap" id="eatdo"></div></section>
+  <section id="view-spend" class="view"><div class="wrap" id="spend"></div></section>
   <section id="view-info" class="view"><div class="wrap" id="info"></div></section>
 </div>
 
@@ -1118,6 +1120,147 @@ $('bookings').innerHTML =
  '<div class="h3">Hotels</div>'+ bkRows(BOOKINGS.hotels)+
  '<div class="h3">Cars &amp; ferries</div>'+ bkRows(BOOKINGS.transport)+
  '<div class="h3">Insurance</div>'+ bkRows(BOOKINGS.insurance);
+
+/* ---------------- SPEND ---------------- */
+const SPEND = {
+  rate: 1.6432,
+  days: 45,
+  prepaidAud: 2746.14,
+  ongroundAud: 25622.06,
+  totalAud: 28368.20,
+  dailyAud: 227.02,
+  points: "\u224812,644,000",
+  prepaid: [
+    {n:"Qatar Airways \u00d7 4, Brisbane \u2194 Athens", d:"Business, paid with Membership Rewards", aud:0.00, pts:"\u224812,644,000 pts"},
+    {n:"Kythera \u2194 Athens wedding hop", d:"Trip.com, incl. A$321 change fee (on card)", aud:718.60, pts:null},
+    {n:"The Flower of Monemvasia, 14 Aug", d:"Stayz, non-refundable", aud:442.80, pts:null},
+    {n:"Porto Vitilo Boutique, 6 Sep", d:"Karavostasi", aud:441.78, pts:null},
+    {n:"Europcar \u2014 prepaid portion", d:"DiscoverCars deposit; the \u20ac3,213 desk payment sits in on-ground", aud:708.96, pts:null},
+    {n:"Seajets \u2014 Kythira \u2194 Gytheio", d:"6 &amp; 9 Sep, car included", aud:303.00, pts:null},
+    {n:"Ferry \u2014 Neapoli \u2192 Kythera", d:"Kithira Travel, bank transfer", aud:131.00, pts:null},
+    {n:"AFA Corporate Travel insurance", d:"Through Fitaz Gym \u2014 no trip premium", aud:0.00, pts:null},
+  ],
+  groups: [
+    {n:"Living", tx:203, aud:13232.70, ic:"\u25cd", note:"The daily burn \u2014 food, groceries, rooms"},
+    {n:"Getting around", tx:24, aud:7892.30, ic:"\u26c1", note:"Car, fuel, tolls, ferries and the island flights"},
+    {n:"One-offs", tx:26, aud:3214.53, ic:"\u25c8", note:"Medical, gifts and the things you pay once"},
+    {n:"Cash", tx:3, aud:1221.40, ic:"\u20ac", note:"Drawn at ATMs and spent untracked"},
+    {n:"Cost of money", tx:5, aud:61.13, ic:"\u2301", note:"What it cost to move the money"},
+  ],
+  cats: [
+    {n:"Food, caf\u00e9s & bars", g:"Living", tx:163, aud:9071.42, ic:"\u25cd", note:""},
+    {n:"Car & fuel", g:"Getting around", tx:11, aud:7069.66, ic:"\u26c1", note:"Europcar \u20ac3,213 at the desk + \u20ac827 on return, plus fuel and tolls"},
+    {n:"Accommodation", g:"Living", tx:9, aud:3016.94, ic:"\u2302", note:"Extras beyond the pre-paid rooms"},
+    {n:"Medical", g:"One-offs", tx:4, aud:1858.30, ic:"\u271a", note:"Hospital and pharmacy"},
+    {n:"Retail & gifts", g:"One-offs", tx:18, aud:1265.02, ic:"\u25c8", note:""},
+    {n:"Cash withdrawn (ATM)", g:"Cash", tx:3, aud:1221.40, ic:"\u20ac", note:"Three ATM withdrawals \u2014 spent, not itemised"},
+    {n:"Groceries", g:"Living", tx:29, aud:1047.90, ic:"\u25a4", note:""},
+    {n:"Flights", g:"Getting around", tx:2, aud:367.22, ic:"\u2708", note:""},
+    {n:"Ferries", g:"Getting around", tx:7, aud:356.51, ic:"\u26f4", note:""},
+    {n:"Transport (local)", g:"Getting around", tx:4, aud:98.91, ic:"\u25c9", note:""},
+    {n:"Greece card spend", g:"Living", tx:2, aud:96.44, ic:"\u25a4", note:"Two charges that ran through CommBank, not Airwallex"},
+    {n:"Attractions & activities", g:"One-offs", tx:4, aud:91.21, ic:"\u25ce", note:""},
+    {n:"Bank fees", g:"Cost of money", tx:5, aud:61.13, ic:"\u2301", note:"ATM + international transaction fees"},
+  ],
+  cash: [
+    {d:"20 Sep", w:"Potamos, Kythira", eur:271.90, aud:446.78, dcc:true},
+    {d:"22 Sep", w:"Dimos Kithiron, Kythira", eur:302.00, aud:487.82, dcc:false},
+    {d:"23 Sep", w:"Kardamili, Messinia", eur:174.54, aud:286.80, dcc:true},
+  ],
+  fees: [
+    {d:"20 Sep", w:"International ATM Withdrawal Fee", aud:20.64},
+    {d:"22 Sep", w:"International ATM Withdrawal Fee", aud:22.07},
+    {d:"23 Sep", w:"International ATM Withdrawal Fee", aud:15.04},
+    {d:"25 Sep", w:"International Transaction Fee", aud:2.83},
+    {d:"26 Sep", w:"International Transaction Fee", aud:0.55},
+  ],
+  excluded: [
+    {n:"Subscriptions &amp; home bills", src:"Airwallex", tx:10, aud:630.71},
+    {n:"Subscriptions &amp; home bills", src:"CommBank", tx:22, aud:513.23},
+  ],
+  checks: [
+    "AULA CAFE, 7 Sep \u2014 \u20ac90.00 recorded three times. Wedding weekend, so it may well be right; worth an eye in the app.",
+    "&ldquo;Restricted merchant category&rdquo; \u20ac252.00, 14 Sep \u2014 Airwallex has masked the merchant. Parked under food until confirmed.",
+    "The CommBank export starts 26 August. Any ATM cash drawn 14&ndash;25 August is not yet counted.",
+    "Kythera 15 Aug &ndash; 6 Sep, the Athens wedding stay and Manifest Boutique are still marked TBC on Bookings \u2014 if they were paid another way they are not in these figures.",
+  ],
+};
+
+const EUR = n => '€' + (n/SPEND.rate).toLocaleString('en-AU',{maximumFractionDigits:0});
+const AUD = n => 'A$' + n.toLocaleString('en-AU',{maximumFractionDigits:0});
+const EUR2= n => '€' + (n/SPEND.rate).toLocaleString('en-AU',{minimumFractionDigits:2,maximumFractionDigits:2});
+const gMax = Math.max(...SPEND.groups.map(g=>g.aud));
+
+const bigStat = (label,aud,sub) =>
+  '<div class="stat"><div class="l">'+label+'</div>'+
+  '<div class="v">'+EUR(aud)+'</div>'+
+  '<div style="font-size:12.4px;color:var(--ink-3);font-weight:600;margin-top:2px">'+AUD(aud)+'</div>'+
+  (sub?'<div style="font-size:11.6px;color:var(--ink-3);margin-top:4px">'+sub+'</div>':'')+'</div>';
+
+const costRow = (o,max,pct) =>
+  '<div class="bk"><div class="bi">'+
+    '<div class="bn"><span style="display:inline-block;width:20px;color:var(--terracotta)">'+o.ic+'</span>'+o.n+'</div>'+
+    '<div class="bd">'+o.tx+' transaction'+(o.tx===1?'':'s')+(o.note?' · '+o.note:'')+'</div>'+
+    '<div style="margin-top:9px;height:5px;border-radius:3px;background:var(--stone);overflow:hidden">'+
+      '<div style="height:100%;width:'+(o.aud/max*100).toFixed(1)+'%;background:var(--terracotta);border-radius:3px"></div></div>'+
+  '</div>'+
+  '<div class="bp"><div class="a">'+EUR(o.aud)+'</div>'+
+    '<div class="e">'+AUD(o.aud)+'</div>'+
+    '<div class="e" style="margin-top:3px">'+pct+'%</div></div></div>';
+
+$('spend').innerHTML =
+ '<h2>What the trip cost</h2>'+
+ '<p class="lead">Every cost in one place — what was locked in before we left, and what actually went out on the ground between 14 August and 27 September. Euros lead; Australian dollars sit underneath. Converted at <b>€1 = A$'+SPEND.rate.toFixed(4)+'</b>, the rate Airwallex applied.</p>'+
+
+ '<div class="stats">'+
+   bigStat('Total trip cost',SPEND.totalAud,'plus '+SPEND.points+' points')+
+   bigStat('Spent on the ground',SPEND.ongroundAud,SPEND.days+' days')+
+   bigStat('Booked before we left',SPEND.prepaidAud,'flights, rooms, car, ferries')+
+   bigStat('Daily burn',SPEND.dailyAud,'food, groceries, rooms · per day')+
+ '</div>'+
+
+ '<div class="h3">The four buckets</div>'+
+ '<p class="lead" style="margin:-4px 0 14px">On-ground spend sorted by what kind of money it is, rather than by merchant. This is the view that tells you something.</p>'+
+ SPEND.groups.map(g=>costRow(g,gMax,(g.aud/SPEND.ongroundAud*100).toFixed(1))).join('')+
+
+ '<div class="h3">Booked before we left</div>'+
+ SPEND.prepaid.map(b=>
+   '<div class="bk"><div class="bi"><div class="bn">'+b.n+'</div><div class="bd">'+b.d+'</div></div>'+
+   '<div class="bp">'+(b.pts
+     ? '<div class="a" style="font-size:15px">'+b.pts+'</div><div class="e">Membership Rewards</div>'
+     : '<div class="a">'+EUR(b.aud)+'</div><div class="e">'+AUD(b.aud)+'</div>')+
+   '</div></div>').join('')+
+
+ '<div class="h3">On the ground, line by line</div>'+
+ SPEND.cats.map(c=>costRow(c,SPEND.cats[0].aud,(c.aud/SPEND.ongroundAud*100).toFixed(1))).join('')+
+
+ '<div class="h3">Cash · the ATM trail</div>'+
+ '<p class="lead" style="margin:-4px 0 14px">Where the untracked money went. Two of the three were billed in Australian dollars at the machine — that is the ATM picking the rate, and it is never the better one.</p>'+
+ '<div class="scroller"><table class="tbl"><thead><tr><th>Date</th><th>Machine</th><th>Billed</th><th style="text-align:right">Euro</th><th style="text-align:right">AUD</th></tr></thead><tbody>'+
+   SPEND.cash.map(c=>'<tr><td>'+c.d+'</td><td>'+c.w+'</td>'+
+     '<td>'+(c.dcc?'<span style="color:var(--terracotta);white-space:nowrap">AUD ⚠</span>':'EUR')+'</td>'+
+     '<td style="text-align:right"><b>€'+c.eur.toLocaleString('en-AU',{minimumFractionDigits:2,maximumFractionDigits:2})+'</b></td>'+
+     '<td style="text-align:right;color:var(--ink-3)">A$'+c.aud.toFixed(2)+'</td></tr>').join('')+
+ '</tbody></table></div>'+
+
+ '<div class="h3">Bank fees</div>'+
+ '<div class="scroller"><table class="tbl"><thead><tr><th>Date</th><th>Fee</th><th style="text-align:right">Euro</th><th style="text-align:right">AUD</th></tr></thead><tbody>'+
+   SPEND.fees.map(f=>'<tr><td>'+f.d+'</td><td>'+f.w+'</td>'+
+     '<td style="text-align:right"><b>'+EUR2(f.aud)+'</b></td>'+
+     '<td style="text-align:right;color:var(--ink-3)">A$'+f.aud.toFixed(2)+'</td></tr>').join('')+
+ '</tbody></table></div>'+
+ '<div class="flag"><div class="ic">⚠</div><div><b>The ATM fees are the expensive bit.</b> A$57.75 of withdrawal fees on A$1,221 of cash is <b>4.7%</b>. Airwallex charged no separate FX fee — its rate is already inside the converted amount, and it beat the ATMs every time.</div></div>'+
+
+ '<div class="h3">Not the trip</div>'+
+ '<p class="lead" style="margin:-4px 0 14px">Debits that landed in the same window but belong to home. Held separate so they never touch the trip total.</p>'+
+ SPEND.excluded.map(x=>
+   '<div class="bk"><div class="bi"><div class="bn">'+x.n+'</div>'+
+     '<div class="bd">'+x.src+' · '+x.tx+' transaction'+(x.tx===1?'':'s')+'</div></div>'+
+   '<div class="bp"><div class="a" style="color:var(--ink-3)">'+AUD(x.aud)+'</div></div></div>').join('')+
+ '<div class="note" style="margin-top:14px"><ul><li><b>Transfers between Georgio’s own accounts are excluded entirely.</b> Money moving from one account to another is not spend — counting it would wreck the total.</li></ul></div>'+
+
+ '<div class="h3">Still to confirm</div>'+
+ '<div class="note"><ul>'+ SPEND.checks.map(c=>'<li>'+c+'</li>').join('') +'</ul></div>';
 
 /* ---------------- EAT & DO ---------------- */
 $('eatdo').innerHTML =
